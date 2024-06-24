@@ -8,5 +8,5 @@ nav:
 asciidoc:
   attributes:
     toc: ""
-    toclevels: 2
+    toclevels: 1
     source-highlighter: highlight.js
