@@ -1,0 +1,5 @@
+name: docs-ko
+version: 3.1
+title: Antora 한국어 문서
+nav:
+  - modules/ROOT/nav.adoc
