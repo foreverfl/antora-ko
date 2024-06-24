@@ -1,4 +1,3 @@
-.Get-Antora
 * Antora 받기
 ** xref:linux-requirements.adoc[리눅스 요구 사항]
 ** xref:macos-requirements.adoc[macOS 요구 사항]

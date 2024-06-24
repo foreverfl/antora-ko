@@ -1,6 +1,6 @@
 name: docs-ko
 version: 3.1
-title: Antora 한국어 문서
+title: Antora
 nav:
   - modules/ROOT/nav.adoc
   - modules/get-antora/nav.adoc
@@ -8,5 +8,5 @@ nav:
 asciidoc:
   attributes:
     toc: ""
-    toclevels: 1
+    toclevels: 2
     source-highlighter: highlight.js
