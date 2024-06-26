@@ -18,22 +18,22 @@ asciidoc:
     version-npm: "8.19.4"
 
 nav:
-  - modules/ROOT/nav.adoc
-  - modules/get-antora/nav.adoc
-  - modules/set-up-content-sources/nav.adoc
-  - modules/configure-component-versions/nav.adoc
-  - modules/resources-and-resource-ids/nav.adoc
-  - modules/pages/nav.adoc
-  - modules/images/nav.adoc
-  - modules/partials/nav.adoc
-  - modules/examples/nav.adoc
-  - modules/attachments/nav.adoc
-  - modules/asciidoc-primer/nav.adoc
-  - modules/navigation/nav.adoc
-  - modules/configure-your-site/nav.adoc
-  - modules/generate-your-site/nav.adoc
-  - modules/publish-your-site/nav.adoc
-  - modules/extend-antora/nav.adoc
-  - modules/get-help/nav.adoc
-  - modules/security-bulletins/nav.adoc
-  - modules/project-governance/nav.adoc
+- modules/ROOT/nav.adoc
+- modules/get-antora/nav.adoc
+- modules/set-up-content-sources/nav.adoc
+- modules/configure-component-versions/nav.adoc
+- modules/resources-and-resource-ids/nav.adoc
+- modules/pages/nav.adoc
+- modules/images/nav.adoc
+- modules/partials/nav.adoc
+- modules/examples/nav.adoc
+- modules/attachments/nav.adoc
+- modules/asciidoc-primer/nav.adoc
+- modules/navigation/nav.adoc
+- modules/configure-your-site/nav.adoc
+- modules/generate-your-site/nav.adoc
+- modules/publish-your-site/nav.adoc
+- modules/extend-antora/nav.adoc
+- modules/get-help/nav.adoc
+- modules/security-bulletins/nav.adoc
+- modules/project-governance/nav.adoc
