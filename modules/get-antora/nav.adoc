@@ -1,8 +1,8 @@
-* Antora 받기
-** xref:linux-requirements.adoc[리눅스 요구 사항]
-** xref:macos-requirements.adoc[macOS 요구 사항]
-** xref:windows-requirements.adoc[윈도우 요구 사항]
-** xref:install-antora.adoc[안토라 설치]
-** xref:upgrade-antora.adoc[안토라 업그레이드]
-** xref:supported-platforms.adoc[지원되는 플랫폼]
+.Antora 받기
+* xref:linux-requirements.adoc[리눅스 요구 사항]
+* xref:macos-requirements.adoc[macOS 요구 사항]
+* xref:windows-requirements.adoc[윈도우 요구 사항]
+* xref:install-antora.adoc[안토라 설치]
+* xref:upgrade-antora.adoc[안토라 업그레이드]
+* xref:supported-platforms.adoc[지원되는 플랫폼]
 

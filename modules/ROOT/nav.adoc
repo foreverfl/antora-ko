@@ -1,4 +1,4 @@
-* xref:index.adoc[Antora]
+.xref:index.adoc[Antora]
 * xref:whats-new-in-antora.adoc[Antora 3.1의 새로운 기능]
 ** xref:asciidoctor-upgrade-notes.adoc[Asciidoctor 업그레이드 참고 사항]
 * xref:how-antora-can-help.adoc[Antora가 어떻게 도움이 되나요?]
