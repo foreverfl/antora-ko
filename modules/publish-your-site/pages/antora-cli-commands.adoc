@@ -1,0 +1,199 @@
+= Generate Your Site - Antora CLI Commands
+
+이 페이지에서는 Antora CLI를 소개하고 CLI를 사용하여 Antora를 구성하고 실행하는 방법을 설명합니다.
+
+== Antora CLI란 무엇인가요?
+
+Antora 명령줄 인터페이스(Antora CLI)는 터미널 애플리케이션의 명령 프롬프트에서 Antora와 등록된 확장 구성 요소 및 확장을 실행하고 선택적으로 구성할 수 있는 간단한 도구(antora라는 이름)입니다.
+
+Antora의 CLI는 Antora의 주요 사용자 대상 진입점입니다. 따라서 설명서에서 Antora와 상호 작용하는 권장 방법으로 자주 참조되는 것을 볼 수 있습니다.
+
+TIP: 명령줄에 익숙하지 않은 경우 CLI 시작하기에서 명령 구조, 작업 디렉터리 탐색 및 터미널 애플리케이션 개념에 대한 기본 개요를 제공합니다.
+
+기본적으로 Antora는 제공된 플레이북에서 구성 설정을 찾습니다. Antora CLI를 사용할 때 필요에 따라 CLI 옵션이나 환경 변수를 사용하여 선택적 구성 재정의를 지정할 수 있습니다.
+
+== 사용법
+
+CLI와 상호 작용할 때는 터미널 애플리케이션의 프롬프트에 명령을 입력한 다음 Enter 키를 눌러 실행합니다. 명령은 프로그램 이름(또는 프로그램 경로) 다음에 0개 이상의 옵션과 인수로 구성됩니다. 다음 몇 섹션에서는 Antora CLI에 대한 이러한 부분을 분석합니다.
+
+Antora와 같은 특정 프로그램의 경우 명령은 프로그램의 기본 인수를 나타낼 수도 있습니다. 명령이라는 용어가 두 가지 별개의 개념을 나타내는 데 사용되는 것을 볼 수 있기 때문에 혼란스러울 수 있습니다. 하나는 프롬프트에 입력하는 전체 명령이고 다른 하나는 프로그램의 기본 인수입니다.
+
+모든 명령은 기본 호출(즉, 프로그램 이름 또는 경로)로 시작합니다.
+
+.antora 기본 호출
+[source]
+----
+$ antora
+----
+
+Antora CLI의 경우 기본 호출은 antora입니다. 이는 Antora CLI를 PATH에서 사용할 수 있다고 가정합니다(예: 전역으로 설치됨). 그렇지 않으면 기본 호출은 antora 바이너리 스크립트의 경로여야 합니다(예: npx antora). 기본 호출은 명령(프로그램용), 옵션 또는 인수와 하나 이상의 공백으로 구분되어야 합니다.
+
+antora 기본 호출에 표시된 것처럼 명령, 옵션 또는 인수를 지정하지 않고 기본 호출을 실행하면 사용 설명(즉, 도움말 텍스트)이 표시됩니다.
+
+.사용 설명
+[source]
+----
+$ antora
+Usage: antora [options] [[command] [args]]
+
+A modular, single or multi-repository documentation site generator for AsciiDoc.
+
+Options:
+  -v, --version                  Output the version of the CLI and default site generator.
+  -r, --require <library>        Require library (aka node module) or script before executing command.
+  --stacktrace                   Print the stacktrace to the console if the application fails.
+  -h, --help                     Output usage information.
+
+Commands:
+  generate [options] <playbook>  Generate a documentation site specified in <playbook>.
+
+Run 'antora <command> --help' to see options and examples for a command (e.g., antora generate --help).
+----
+
+.Windows 문제 해결
+[TIP]
+--
+PowerShell에서 antora 명령을 실행할 때 "스크립트 실행이 비활성화되었습니다"라는 메시지가 표시될 수 있습니다. 이 경우 관리자 권한으로 PowerShell에서 다음 명령을 실행하여 이 문제를 해결할 수 있습니다:
+
+[source]
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
+
+다른 해결 방법은 Windows 명령 프롬프트를 사용하여 Antora를 실행하는 것입니다.
+--
+
+사용 설명은 다음을 포함하는 antora 프로그램에 대한 개요를 제공합니다:
+
+- 명령 구문,
+- 설명,
+- 전역 옵션 목록,
+- 명령 목록,
+- 추가 도움말을 요청하는 방법에 대한 제안.
+
+사용 설명은 다음 힌트로 시작합니다:
+
+[source]
+----
+Usage: antora [options] [[command] [args]]
+----
+
+이것은 인식하는 옵션, 명령 및 인수에 대해 자세히 알아보라는 신호입니다.
+
+=== 명령어
+Antora CLI에서 지원하는 명령어는 다음 표에 요약되어 있습니다. 이 컨텍스트에서 **명령어**라는 용어는 antora 기본 호출에서 허용하는 기본 인수를 나타냅니다(명령 전체와 대조적임).
+
+[cols="1,2",width=80%]
+|===
+|명령 |목적
+
+|generate
+|지정된 플레이북 파일을 사용하여 사이트를 생성합니다. Antora는 다른 명령이 지정되지 않는 한 기본 Antora 파이프라인으로 generate를 자동으로 실행합니다. 이 명령에는 작업 디렉터리를 기준으로 플레이북 파일의 경로를 명령의 유일한 인수로 지정해야 합니다.
+
+|help
+|Antora CLI의 사용 설명을 출력합니다. 이 명령은 사용 설명에 표시되지 않습니다.
+
+|version
+|Antora CLI의 버전 번호를 출력합니다. 이 명령은 사용 설명에 표시되지 않습니다.
+|===
+
+help와 version은 Antora CLI 자체에 대한 정보를 보여주는 메타 명령입니다. Antora CLI는 현재 generate라는 하나의 기능 명령만 지원합니다. generate는 Antora CLI의 기본 기능이므로 명시적으로 지정할 필요가 없습니다. 명령이 지정되지 않은 경우(기본 호출을 단독으로 실행하지 않는 한) generate 명령이 항상 암시됩니다.
+
+=== generate 명령
+
+Antora CLI를 사용하여 Antora를 실행하는 가장 간단한 방법은 antora 기본 호출 및 플레이북 인수에 표시된 것처럼 필수 기본 호출(antora)을 지정한 다음 플레이북 파일의 경로를 지정하는 것입니다.
+
+.antora 기본 호출 및 플레이북 인수
+[source]
+----
+$ antora antora-playbook.yml
+----
+
+생성 명령이 없으면 암시된다는 것을 배웠습니다. 따라서 antora 기본 호출 및 플레이북 인수는 antora 기본 호출 및 명시적 명령 및 플레이북 인수에 표시된 명령과 동일합니다.
+
+.antora 기본 호출 및 명시적 명령 및 플레이북 인수
+[source]
+----
+$ antora generate antora-playbook.yml
+----
+
+이 명령을 분석해 보겠습니다:
+
+. 이 명령은 Antora CLI를 PATH에서 사용할 수 있다고 가정합니다(예: 전역으로 설치됨). 그렇지 않으면 antora를 antora 바이너리 스크립트의 경로로 바꿔야 합니다(예: npx antora).
+. 기본 호출 antora는 Antora CLI에 실행하도록 지시하며, 나머지 명령과 인수를 읽습니다.
+. 지정된(암시적 또는 명시적) 명령은 generate입니다. antora 기본 호출 및 플레이북 인수에서 명령이 보이지 않는 이유는 선택 사항이기 때문이며, Antora는 명령이 없으면 명령이 있다고 가정합니다. 명령 다음에 오는 옵션과 인수는 명령에 적용되므로 이 시점에서 제어가 명령으로 전환됩니다.
+. generate 명령에는 현재 작업 디렉터리를 기준으로 플레이북 파일의 파일 시스템 경로를 지정하는 명시적 인수가 필요합니다. antora 기본 호출 및 플레이북 인수에서 플레이북 파일의 상대 파일 시스템 경로는 __antora-playbook.yml__입니다. 즉, 플레이북 파일이 있는 디렉터리에서 명령이 실행되고 있습니다.
+
+== 플레이북 지정
+
+암시적이든 명시적으로 입력되든 generate 명령에는 현재 작업 디렉터리를 기준으로 플레이북 파일의 파일 시스템 경로를 지정하는 인수가 필요합니다.
+
+다음 예제에서는 __home/my-projects/a-project/docs-site__에 있는 __antora-playbook.yml__이라는 플레이북 파일을 사용하겠습니다. 작업 디렉터리에 있는 플레이북 지정에 명령 프롬프트($) 바로 앞에 표시된 것처럼 작업 디렉터리는 __docs-site__입니다. 즉, antora 및 generate 명령과 플레이북 인수와 관련된 프로세스는 _docs-site_를 기준으로 해석됩니다. 플레이북 파일 __antora-playbook.yml__이 작업 디렉터리에 있으므로 플레이북의 파일 이름만 지정하면 됩니다.
+
+.작업 디렉터리에 있는 플레이북 지정
+[source]
+----
+docs-site $ antora antora-playbook.yml
+----
+
+플레이북이 작업 디렉터리에 저장되어 있지 않으면 플레이북 인수에 작업 디렉터리를 기준으로 한 경로 또는 파일 시스템의 루트 디렉터리에서 플레이북 파일로의 전체 경로를 포함해야 합니다.
+
+플레이북의 파일 시스템 경로 지정에서 작업 디렉터리는 my-projects입니다. 플레이북 파일은 __home/my-projects/a-project/docs-site__에 저장되어 있습니다.
+
+.플레이북의 파일 시스템 경로 지정
+[source]
+----
+my-projects $ antora a-project/docs-site/antora-playbook.yml
+----
+
+플레이북의 파일 시스템 경로 지정에서 플레이북의 파일 시스템 경로는 작업 디렉터리를 기준으로 명령의 유일한 인수로 입력됩니다.
+
+=== 플레이북 파일 확장자
+
+플레이북의 파일 확장자를 지정할 필요가 없습니다. Antora는 플레이북 인수에 파일의 스템(예: antora-playbook)이 포함되어 있으면 파일 확장자를 자동으로 감지합니다.
+
+플레이북 파일 확장자의 자동 감지에서 플레이북 인수에 파일 확장자가 없으므로 Antora는 작업 디렉터리를 기준으로 플레이북의 파일 스템과 일치하는 파일을 찾습니다.
+
+.플레이북 파일 확장자의 자동 감지
+[source]
+----
+docs-site $ antora antora-playbook
+----
+
+Antora의 플레이북 파일 형식 검색 순서는 YAML, JSON, TOML 순입니다.
+
+NOTE: Run Antora에서 antora 및 generate 명령의 더 많은 예제를 볼 수 있습니다.
+
+== Antora CLI 도움말 표시
+
+이 페이지 전체를 읽었다면 Antora CLI의 기본 도움말 텍스트를 표시하는 방법을 이미 알고 있을 것입니다. antora를 단독으로 입력하고 Enter 키를 누르기만 하면 됩니다. 하지만 이를 수행하는 보다 관용적인 방법이 있습니다.
+
+Antora CLI는 옵션을 허용합니다. 이러한 옵션 중 하나는 도움말 옵션인 -h 또는 --help입니다. 이 옵션은 프로그램의 실행을 단락시키고 대신 사용 설명을 표시합니다. 사용 설명에는 프로그램과 해당 명령, 옵션 및 인수에 대한 정보가 포함되어 있습니다.
+
+.antora 기본 호출에 대한 도움말 표시
+[source]
+----
+$ antora -h
+----
+
+도움말을 표시하는 다른 방법은 암시적 help 명령을 사용하는 것입니다:
+
+[source]
+----
+$ antora help
+----
+
+사용 설명 끝에 제안된 대로 기본 호출에 명령 이름을 포함하고 -h 옵션을 그 뒤로 이동하여 generate 명령에 대한 도움말을 표시할 수도 있습니다.
+
+.generate 명령에 대한 도움말 표시
+[source]
+----
+$ antora generate -h
+----
+
+암시적 help 명령을 사용하여 이 명령을 작성할 수도 있습니다:
+
+[source]
+----
+$ antora help generate
+----
+
+Antora CLI에서 지원하는 옵션은 훨씬 더 많으며, 이는 CLI Options에서 다룹니다.

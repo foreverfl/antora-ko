@@ -1,0 +1,184 @@
+= 사이트를 생성하기 위해서 Antora 실행하기
+
+가정:
+
+* [x] Antora CLI와 사이트 생성기 파이프라인을 설치했습니다.
+* [x] 자신의 플레이북이 있거나 데모 플레이북을 사용하고 있습니다.
+* [x] 플레이북은 콘텐츠 소스 파일 또는 Antora의 데모 콘텐츠 저장소가 포함된 자신의 저장소 중 하나 이상에 액세스하도록 구성되어 있습니다.
+* [x] 플레이북은 사용자 정의 UI 번들 또는 Antora의 기본 UI 번들을 사용하도록 구성되어 있습니다.
+
+이 페이지에서는 다음을 배웁니다:
+
+* [x] Antora를 실행하고 사이트를 생성하는 방법.
+
+== Antora 데모 플레이북 및 콘텐츠 저장소
+
+Antora를 평가하기 위해 플레이북 파일, 구성 요소 버전 또는 UI를 설정할 필요가 없습니다. 대신 Antora 데모 플레이북과 콘텐츠 저장소를 사용할 수 있습니다.
+
+데모는 플레이북 파일이 포함된 플레이북 저장소와 해당 플레이북이 참조하는 콘텐츠 저장소(component-a 및 component-b)로 구성됩니다. 또한 기본 UI 프로젝트에서 생성된 UI 번들을 사용합니다.
+
+Antora를 설치하면 데모 자료를 사용하여 Antora를 실행하여 기능을 탐색할 수 있습니다. 이 페이지의 지침과 예제는 프로세스를 안내합니다.
+
+== 플레이북 선택
+
+문서 사이트를 생성하려면 Antora에 플레이북이 필요합니다. 그러나 먼저 플레이북을 저장하고 생성된 사이트 파일이 저장될 디렉터리를 만들거나 선택해야 합니다(기본 출력 구성을 사용한다고 가정).
+
+이 페이지의 예제에서는 데모 플레이북과 콘텐츠 저장소를 사용합니다.
+
+. 터미널을 열고 demo-site라는 새 디렉터리를 만듭니다.
++
+[source]
+----
+~ $ mkdir demo-site
+----
+
+. 방금 만든 디렉터리로 전환(cd)합니다.
++
+[source]
+----
+ ~ $ cd demo-site
+----
+
+. 선호하는 텍스트 편집기나 IDE를 사용하여 antora-playbook.yml이라는 새 플레이북 파일을 만들고 다음 예제의 내용으로 채웁니다. 또는 데모 프로젝트 저장소에서 플레이북 파일을 다운로드할 수 있습니다.
++
+.antora-playbook.yml
+[source,yaml]
+----
+site:
+  title: Antora Demo Site
+  url: https://my-antora-demo-site.org <.>
+  start_page: component-b::index.adoc <.>
+content:
+  sources:
+  - url: https://gitlab.com/antora/demo/demo-component-a.git
+    branches: HEAD
+  - url: https://gitlab.com/antora/demo/demo-component-b.git
+    branches: [v2.0, v1.0]
+    start_path: docs
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+----
+<.> site url 키가 설정된 경우에만 404 페이지와 사이트맵 파일이 생성됩니다. site url 키의 값이 절대 URL인 경우에만 사이트맵 파일이 생성됩니다.
+<.> site start_page 키는 xref에 사용되는 것과 동일한 리소스 ID 구문을 허용합니다.
+
+. 1단계에서 만든 demo-site 디렉터리에 플레이북을 __antora-playbook.yml__로 저장합니다.
+
+== Antora 실행
+
+. 기본 Antora 사이트 생성기로 사이트를 생성하려면 antora 명령을 플레이북 파일로 지정하십시오. 터미널에 다음을 입력합니다:
++
+[source,console]
+----
+demo-site $ antora antora-playbook.yml
+----
++
+Antora가 로컬로 설치된 경우 Antora 명령 앞에 npx를 접두사로 붙여야 합니다:
++
+[source]
+----
+demo-site $ npx antora antora-playbook.yml
+----
++
+Antora는 콘텐츠 저장소를 복제합니다. 각 저장소의 복제 진행 상황이 터미널에 표시됩니다.
++
+.저장소 복제 진행률
+[source]
+----
+[clone] https://gitlab.com/antora/demo/demo-component-a.git [################]
+[clone] https://gitlab.com/antora/demo/demo-component-b.git [################]
+----
++
+복제가 완료되면 Antora는 AsciiDoc 페이지를 임베딩 가능한 HTML로 변환하고 HTML을 UI 페이지 템플릿으로 래핑한 다음 기본적으로 build/site 아래의 사이트로 페이지를 조립합니다.
+
+. 명령 프롬프트($)가 터미널에 다시 나타나면 Antora 생성이 완료된 것입니다. 터미널이 대화형(TTY)이면 Antora는 사이트 생성이 완료되었다는 메시지도 출력합니다. 메시지에는 사이트를 로컬로 볼 수 있는 URL이 포함됩니다. (IS_TTY 환경 변수를 true 또는 false로 설정하여 Antora의 TTY 감지를 재정의할 수 있습니다.)
++
+TIP: 생성 중에 문제가 발생하면 터미널에 오류 메시지가 표시됩니다.
++
+[source]
+----
+error: a message that summarizes what went wrong
+----
++
+이 메시지가 문제를 해결하기에 충분한 정보를 제공하지 않는 경우 Antora에 더 많은 컨텍스트를 요청할 수 있습니다. Antora에게 오류로 이어지는 호출(즉, 스택트레이스)을 공개하도록 지시하려면 이번에는 --stacktrace 옵션과 함께 antora 명령을 다시 실행하십시오:
++
+[source]
+----
+demo-site $ antora --stacktrace antora-playbook.yml
+----
++
+도움을 요청할 때 이 스택트레이스를 공유하십시오.
+
+. 사이트 폴더로 전환(cd)하고 내용을 나열(ls)합니다.
++
+[source]
+----
+demo-site $ cd build/site/
+----
++
+build/site 폴더 내에서 다음을 실행합니다:
++
+[source]
+----
+site $ ls -1
+----
++
+다음과 같은 파일 및 디렉터리 목록이 표시되어야 합니다:
++
+[source]
+----
+_
+404.html
+component-a
+component-b
+index.html
+sitemap-component-a.xml
+sitemap-component-b.xml
+sitemap.xml
+----
+
+NOTE: 플레이북에 site.url 속성이 정의되어 있지 않으면 404 페이지와 사이트맵 파일이 누락됩니다. 기본 사이트맵 파일은 실제로 사이트맵 인덱스입니다. 해당 파일은 각 구성 요소의 사이트맵에 연결되며, 여기에서 개별 페이지의 URL을 찾을 수 있습니다.
+이 목록에는 문서 사이트의 진입점인 __index.html__이 포함됩니다.
+
+. 일부 운영 체제에서는 명령줄에서 open을 입력한 다음 HTML 파일의 이름을 입력하여 사이트를 직접 열 수 있습니다.
++
+[source]
+----
+site $ open index.html
+----
++
+또는 브라우저에서 대상 폴더 내의 HTML 페이지로 이동할 수 있습니다. 데모 자료를 사용하여 따라했다면 demo-site 디렉터리를 찾은 후 __build/site/index.html__ 파일로 이동하십시오.
+
+== 비공개 Git 저장소
+
+Antora는 HTTPS를 통한 HTTP 기본 인증을 사용하여 비공개 저장소로 인증할 수 있습니다. 자세한 내용은 Private repository authentication을 참조하십시오.
+
+== 큰 팩 파일이 있는 저장소
+
+저장소에 매우 큰 팩 파일(2g 이상)이 포함된 경우 Antora가 Git 저장소를 읽지 못할 수 있습니다. 이 상황이 발생하면 다음과 같은 오류가 발생합니다:
+
+[source]
+----
+FATAL (antora) : Cannot read properties of null (reading 'slice')
+----
+
+이 실패는 Antora가 사용하는 Git 클라이언트(isomorphic-git)의 알려진 제한으로 인해 발생합니다. 이 제한은 Node.js 런타임의 메모리 설정에 하드 제한이 있기 때문입니다. 다음은 기본 오류 메시지입니다:
+
+[source]
+----
+RangeError [ERR_FS_FILE_TOO_LARGE]: File size is greater than 2 GiB
+----
+
+2g는 Node.js의 최대 버퍼 크기입니다. 즉, Node.js에는 메모리로 읽을 수 있는 파일 크기에 상한선이 있습니다. 팩 파일이 이 크기를 초과하면 Node.js와 isomoprhic-git이 실패합니다. 더 큰 파일을 읽으려면 isomorphic-git이 전체 파일을 버퍼에 넣는 대신 스트림으로 전환해야 합니다(가능한 경우).
+
+로컬 Git 저장소의 경우 해결 방법은 Git이 로컬에서 생성하는 팩 파일의 크기를 제한하도록 Git을 구성하는 것입니다. 이는 pack.packSizeLimit 구성 설정을 사용하여 수행됩니다.
+
+[source]
+----
+git config pack.packSizeLimit 1g && git gc
+----
+
+이 설정에 대한 정보는 Git 문서의 git-pack-objects 도움말 페이지에서 찾을 수 있습니다.
+
+이 해결 방법은 로컬 저장소(이미 복제되고 구성된 저장소)에만 도움이 된다는 점에 유의하십시오. 로컬 저장소의 팩 크기를 변경해도 원격 저장소의 스토리지 설정은 변경되지 않습니다. Git이 너무 큰 팩 파일을 전송하지 않도록 Git 서버에서도 pack.packSizeLimit을 조정해야 합니다.

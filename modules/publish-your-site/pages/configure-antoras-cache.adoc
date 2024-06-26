@@ -1,0 +1,23 @@
+== Generate Your Site - Configure Antora's Cache
+
+=== Antora의 캐시에 대해
+Antora가 처음 실행될 때 네트워크에서 가져온 리소스를 로컬 캐시에 저장합니다. Antora는 두 가지 유형의 리소스를 캐시합니다:
+
+복제된 Git 저장소
+다운로드된 UI 번들
+
+Antora는 이러한 리소스를 캐시 디렉터리에 저장하며, 이는 각각 content 및 ui 폴더 아래에 추가로 구성됩니다. 기본 캐시 디렉터리는 운영 체제에 따라 다릅니다.
+
+=== 기본 캐시 위치 재정의
+
+우선순위 순서대로 여기에 나열된 기본 캐시 위치를 다음을 사용하여 재정의할 수 있습니다:
+
+CLI의 --cache-dir 옵션,
+ANTORA_CACHE_DIR 환경 변수,
+플레이북의 cache_dir 키.
+
+=== 캐시 업데이트
+Antora가 후속 실행에서 캐시를 업데이트하도록 하려면 Antora CLI에 --fetch 옵션을 전달하거나 플레이북에서 fetch 키를 true로 설정하십시오. 이 스위치는 Antora가 이전에 복제한 각 저장소에서 fetch 작업을 실행하도록 강제합니다. 또한 URL이 원격이고 snapshot 키가 true인 경우 Antora가 새로운 UI 번들 사본을 다운로드하도록 강제합니다.
+
+=== 캐시 지우기
+캐시를 완전히 지우려면 시스템에서 Antora 캐시 디렉터리를 찾아 삭제하십시오.
