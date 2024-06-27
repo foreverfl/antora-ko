@@ -1,13 +1,16 @@
-== Generate Your Site - Antora CLI Commands - CLI Options
+= CLI 옵션
 
 명령줄 옵션을 사용하여 터미널에서 직접 Antora CLI의 동작과 다양한 플레이북 키를 구성할 수 있습니다. 이 페이지에서는 이러한 옵션, 지정 방법 및 사용 방법을 나열합니다.
 
-=== 우선 순위
+== 우선 순위
+
 CLI 옵션은 플레이북 파일 및 환경 변수에 정의된 해당 키의 값을 재정의합니다.
 
-=== 전역 옵션
+== 전역 옵션
+
 아래 표의 옵션은 antora 기본 호출에 적용되며 Antora CLI의 전체 동작에 영향을 미칩니다.
 
+[cols="2,2,2,4"]
 |===
 |옵션 |기본값 |값 |참고
 
@@ -32,7 +35,9 @@ CLI 옵션은 플레이북 파일 및 환경 변수에 정의된 해당 키의 �
 |CLI 및 기본 사이트 생성기의 버전을 표시합니다.
 |===
 
-=== generate 명령 옵션
+[cols="2,2,2,4"]
+== generate 명령 옵션
+
 아래 표의 옵션은 generate 명령에만 적용됩니다.
 
 |===
@@ -174,40 +179,68 @@ CLI 옵션은 플레이북 파일 및 환경 변수에 정의된 해당 키의 �
 |Site URL 및 URL 변수 참조.
 |===
 
-=== CLI에 옵션 전달
+== CLI에 옵션 전달
+
 명령에 여러 옵션을 지정할 수 있습니다. 명령은 antora 기본 호출로 시작하여 플레이북 파일 인수로 끝나야 합니다. generate 명령은 명시적으로 지정하지 않아도 암시되므로 명시적으로 지정할 필요가 없습니다. 입력하는 명령은 현재 작업 디렉터리를 기준으로 실행된다는 점을 기억하세요.
 
-.CLI에 여러 옵션 전달 [source]
-antora --ui-bundle-url ./../ui-bundle.zip --redirect-facility nginx --clean antora-playbook
+.CLI에 여러 옵션 전달
+[source]
+----
+$ antora --ui-bundle-url ./../ui-bundle.zip --redirect-facility nginx --clean antora-playbook
+----
+
 CLI에 여러 옵션 전달에서 --ui-bundle-url 옵션에는 작업 디렉터리를 기준으로 로컬 파일 시스템 경로를 지정하는 값이 할당됩니다. --redirect-facility에는 내장 값 nginx가 할당됩니다. 값 없이 이름을 입력하여 부울 옵션 --clean이 활성화됩니다.
 
 일부 옵션은 여러 번 지정할 수 있습니다. 이는 값 맵에 해당하는 키입니다. 예로는 --key 및 --attribute가 있습니다. 각 값 앞에는 옵션의 플래그가 와야 합니다.
 
-.옵션을 여러 번 지정 [source]
-antora --key support=587tyr999 --key tracer=ID-${spawn} antora-playbook
+.옵션을 여러 번 지정
+[source]
+----
+$ antora --key support=587tyr999 --key tracer=ID-${spawn} antora-playbook
+----
+
 옵션을 여러 번 지정에서 --key 옵션에 name=value 형식의 두 값이 할당되었습니다.
 
-=== 값 유형
+== 값 유형
+
 옵션에 값을 할당하는 방법에는 두 가지가 있습니다. 옵션 플래그와 해당 값은 사이에 공백을 두고 작성할 수 있습니다: --option value. 또는 옵션 플래그와 값 사이에 등호(=)를 사용하여 작성할 수 있습니다: --option=value. 어떤 형식을 선택하는지는 개인 취향입니다.
 
-빈 값을 할당하려면 --option '' 또는 --option= 형식을 사용해야 합니다. --option 형식만으로는 사용할 수 없습니다. 이는 부울 옵션으로 해석되기 때문입니다.
+TIP: 빈 값을 할당하려면 --option '' 또는 --option= 형식을 사용해야 합니다. --option 형식만으로는 사용할 수 없습니다. 이는 부울 옵션으로 해석되기 때문입니다.
 
-.옵션에 값 할당 [source]
-antora --to-dir prod antora-playbook
+.옵션에 값 할당
+[source]
+----
+$ antora --to-dir prod antora-playbook
+----
+
 옵션에 값 할당에서 --to-dir 옵션에 값 prod가 할당됩니다. Antora를 실행하면 prod라는 폴더가 작업 디렉터리를 기준으로 생성되고 사이트 파일이 그 안에 작성됩니다.
 
 공백이 포함된 값은 따옴표로 묶어야 합니다: --option 'Value with Spaces' 또는 --option='Value with Spaces'. 공백이 포함된 값을 옵션에 할당에서 title 옵션에 값 My Docs가 할당됩니다. 생성된 사이트의 제목은 My Docs가 됩니다.
 
-.공백이 포함된 값을 옵션에 할당 [source]
-antora --title 'My Docs' antora-playbook
+.공백이 포함된 값을 옵션에 할당
+[source]
+----
+$ antora --title 'My Docs' antora-playbook
+----
+
 === name=value 값
+
 --attribute 및 --key 옵션은 name=value 형식의 값을 허용합니다. 여기서 name은 각각 AsciiDoc 속성 또는 API 키의 이름을 나타냅니다. name=value 값을 옵션에 할당에서 page-team 속성에 값 Coco B가 할당됩니다. 값 끝에 있는 @는 속성이 소프트 설정되었음을 나타냅니다.
 
-.name=value 값을 옵션에 할당 [source]
-antora --attribute page-team='Coco B@' antora-playbook
-=== 부울 값
-부울 옵션은 동작을 켜거나 끕니다. 부울 옵션을 활성화하려면 명령줄에 입력하십시오.
+.name=value 값을 옵션에 할당
+[source]
+----
+$ antora --attribute page-team='Coco B@' antora-playbook
+----
 
-.부울 옵션 활성화 [source]
-antora --stacktrace antora-playbook
+=== Boolean 값
+
+Boolean 옵션은 동작을 켜거나 끕니다. Boolean 옵션을 활성화하려면 명령줄에 입력하십시오.
+
+.Boolean 옵션 활성화
+[source]
+----
+$ antora --stacktrace antora-playbook
+----
+
 플레이북 파일에서 부울 옵션이 활성화되면 명령줄에서 비활성화할 수 없습니다.

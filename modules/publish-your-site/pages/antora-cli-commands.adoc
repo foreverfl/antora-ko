@@ -1,4 +1,4 @@
-= Generate Your Site - Antora CLI Commands
+= CLI 명령어(Commands)
 
 이 페이지에서는 Antora CLI를 소개하고 CLI를 사용하여 Antora를 구성하고 실행하는 방법을 설명합니다.
 
