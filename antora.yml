@@ -3,9 +3,6 @@ version: 3.1
 title: Antora
 asciidoc:
   attributes:
-    toc: ""
-    toclevels: 2
-    toc-title: "컨텐츠"
     release-date: 2024-06-26
     release-tag: latest
     release-version: "3.1.8"
