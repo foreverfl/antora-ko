@@ -1,0 +1,2 @@
+= assign-navigation-files-to-a-component-version.adoc
+

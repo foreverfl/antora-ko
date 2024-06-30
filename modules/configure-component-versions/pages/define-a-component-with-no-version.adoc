@@ -1,0 +1,2 @@
+= define-a-component-with-no-version.adoc
+
