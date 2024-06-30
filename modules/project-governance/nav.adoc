@@ -1,2 +1,5 @@
-
+* xref:project-governance.adoc[프로젝트 거버넌스]
+** xref:release-schedule.adoc[릴리스 일정]
+** xref:copyright-and-license.adoc[저작권 및 라이선스]
+** xref:land-acknowledgement.adoc[토지 고유권 인정]
 

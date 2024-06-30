@@ -1,0 +1,2 @@
+= redirect-facility-key.adoc
+

@@ -1,2 +1,16 @@
-
-
+* xref:configure-component-versions.adoc[컴포넌트 버전 구성]
+** xref:whats-a-component-version.adoc[컴포넌트 버전이란?]
+** xref:whats-antora-yml.adoc[antora.yml이란?]
+** xref:define-a-component-version.adoc[컴포넌트 버전 정의]
+** xref:name-key.adoc[이름 키]
+** xref:version-key.adoc[버전 키]
+** xref:customize-the-title.adoc[제목 커스터마이징]
+** xref:customize-the-display-version.adoc[표시 버전 커스터마이징]
+** xref:identify-a-prerelease-version.adoc[사전 릴리스 버전 식별]
+** xref:define-a-component-with-no-version.adoc[버전 없는 컴포넌트 정의]
+** xref:assign-attributes-to-a-component-version.adoc[컴포넌트 버전에 속성 할당]
+** xref:choose-a-start-page.adoc[시작 페이지 선택]
+** xref:assign-navigation-files-to-a-component-version.adoc[컴포넌트 버전에 탐색 파일 할당]
+** xref:version-facets.adoc[버전 패싯]
+** xref:how-component-versions-are-sorted.adoc[컴포넌트 버전 정렬 방법]
+** xref:distributed-component-versions.adoc[분산된 컴포넌트 버전]

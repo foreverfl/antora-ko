@@ -1,0 +1,2 @@
+= sidebars.adoc
+

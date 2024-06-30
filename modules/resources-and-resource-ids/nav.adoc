@@ -1,0 +1,2 @@
+* xref:resources-and-resource-ids.adoc[리소스 및 리소스 ID]
+** xref:resource-id-coordinates.adoc[리소스 ID 좌표]

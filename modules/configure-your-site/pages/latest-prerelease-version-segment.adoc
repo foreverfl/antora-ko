@@ -1,0 +1,2 @@
+= latest-prerelease-version-segment.adoc
+
