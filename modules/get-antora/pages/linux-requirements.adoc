@@ -1,0 +1,44 @@
+= 리눅스 요구 사항
+
+이 페이지에서는 다음을 배울 수 있습니다:
+
+Node.js를 설치하는 방법.
+
+Antora는 Node.js를 기반으로 구축되었으므로 Antora를 설치하고 실행하려면 시스템에 Node.js(명령: node, npm 및 npx)를 설치해야 합니다.
+
+== Node.js
+Antora에는 Node.js의 모든 활성 LTS 또는 유지보수 LTS 버전을 사용할 수 있지만, 최신 성능 및 보안 향상의 혜택을 누리려면 가장 최근의 활성 LTS 버전을 사용하는 것이 좋습니다. Node.js 릴리스 일정에는 활성 Node.js LTS 버전이 표시됩니다.
+Node.js가 설치되어 있는지, 어떤 버전인지 확인하려면 터미널을 열고 다음을 입력하세요:
+[source,console]
+$ node --version
+다음과 같은 버전 문자열이 표시되어야 합니다:
+[source,console]
+v16.20.2
+명령이 오류와 함께 실패하면 Node.js가 설치되어 있지 않다는 의미입니다. Node.js를 설치하는 가장 좋은 방법은 nvm(Node Version Manager)을 사용하는 것입니다. nvm 및 Node.js 설치로 건너뛰어 지침을 확인하세요.
+패키지 관리자가 Node.js 및 npm 패키지를 제공하고 시스템 전체에 설치된 도구 사용에 익숙한 경우 해당 경로를 선택할 수 있습니다. 그러나 nvm을 선택하는 것이 더 성공적일 것이라고 생각합니다.
+명령이 활성 LTS 버전이 아닌 버전을 반환하는 경우 nvm(또는 패키지 관리자)을 사용하여 최신 Node.js LTS 버전으로 업그레이드하세요.
+명령이 활성 Node.js LTS 버전을 반환하는 경우 터미널에서 다음 명령을 입력하여 해당 버전이 기본 버전으로 설정되어 있는지 확인하세요:
+[source,console]
+$ nvm alias default 16
+이제 Antora를 설치할 준비가 되었습니다.
+
+== nvm 및 Node.js 설치
+
+이는 필수 사항은 아니지만 Node Version Manager(nvm)를 사용하여 Node.js 설치를 관리하는 것이 좋습니다. nvm 설치 가이드에 따라 시스템에 nvm을 설정하세요. nvm을 성공적으로 설치한 후 현재 터미널을 닫고 새 터미널을 열고 여기로 돌아오세요.
+설치 스크립트를 실행한 후 nvm: command not found가 표시되면 설치가 성공적으로 완료되지 않은 것입니다. 설치 스크립트에서 발행한 모든 프롬프트를 따르세요. 문제가 발생하면 설치 가이드의 문제 해결 섹션을 참조하세요.
+많은 CI 환경에서는 빌드 작업에 사용되는 Node.js 버전을 관리하기 위해 nvm을 사용합니다. nvm을 사용하면 프로덕션 사이트 생성 및 게시에 사용되는 환경과 설정을 일치시킬 수 있습니다.
+nvm을 설치한 후 새 터미널을 열고 활성 Node.js LTS 릴리스를 설치하세요.
+[source,console]
+$ nvm install --lts
+위 명령은 Node.js의 활성 LTS 릴리스를 설치하고 자동으로 기본 별칭으로 설정합니다.
+이제 Node.js가 설정되었으므로 Antora를 설치할 수 있습니다.
+
+== nvm을 사용하여 Node.js 업그레이드
+
+nvm이 설치되어 있지만 최신 LTS 버전이 설치되어 있지 않은 경우 터미널에 다음 명령을 입력하세요:
+[source,console]
+$ nvm install --lts
+새 터미널에 대해 Node.js의 최신 버전을 기본값으로 설정하려면 다음을 입력하세요:
+[source,console]
+$ nvm alias default 16
+이제 Node.js의 최신 LTS 버전을 사용하고 있으므로 Antora를 설치할 수 있습니다.

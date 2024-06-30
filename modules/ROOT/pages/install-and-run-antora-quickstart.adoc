@@ -1,0 +1,168 @@
+= Install and Run Antora Quickstart
+
+이 빠른 시작 가이드는 Antora를 설치하고 첫 번째 문서 사이트를 생성하는 데 필요한 초기 단계를 안내합니다.
+
+이 페이지에서 배울 내용:
+
+- Node.js를 설치하는 방법.
+- Antora를 설치하는 방법.
+- 첫 번째 Antora 플레이북을 만드는 방법.
+- 플레이북을 기반으로 사이트를 생성하기 위해 Antora를 실행하는 방법.
+
+== Node.js 설치
+
+Antora에는 Node.js의 활성 장기 지원(LTS) 릴리스가 필요합니다. Node.js가 설치되어 있는지 확인하고 버전을 확인하려면 터미널을 열고 다음을 입력하세요:
+
+[source]
+----
+node -v
+----
+
+이 명령은 활성 Node.js LTS 버전 번호를 반환해야 합니다. 예를 들면 다음과 같습니다:
+
+[source]
+----
+node --version
+v16.20.2
+----
+
+기기에 활성 Node.js LTS 버전이 있으면 Antora를 설치할 준비가 된 것입니다.
+
+*터미널에 버전 번호가 표시되지 않으면* Node.js를 설치해야 합니다. Node.js를 설치하려면 nvm을 사용하는 것이 좋습니다. 물론 다른 경로를 선택할 수도 있습니다. 다음 가이드 중 하나를 따라 플랫폼에 nvm과 Node.js를 설치하는 방법을 알아보세요.
+
+- Linux에 nvm과 Node.js 설치
+- macOS에 nvm과 Node.js 설치
+- Windows에 nvm과 Node.js 설치
+
+*Node.js가 설치되어 있지만 활성 LTS 버전이 아닌 경우* Node.js를 업그레이드해야 합니다. 최신 Node.js LTS 버전으로 업그레이드하고 이를 기본 버전으로 설정하려면 터미널에 다음 명령을 입력하세요:
+
+.Linux 및 macOS
+[source]
+----
+nvm install --lts
+nvm alias default 16
+----
+
+.Windows
+[source]
+----
+nvm install 16.20.2
+nvm alias default 16.20.2
+----
+
+Node.js를 설치했으면 이제 Antora를 설치할 차례입니다.
+
+== Antora 설치
+
+Antora로 문서 사이트를 생성하려면 Antora 명령줄 인터페이스(CLI)와 Antora 사이트 생성기가 필요합니다. Antora를 설치하려면 먼저 _docs-site_라는 사이트용 새 디렉터리를 만들고 해당 디렉터리로 전환하세요.
+
+[source]
+----
+mkdir docs-site && cd docs-site
+----
+
+다음으로 플레이북 프로젝트 내에서 package.json 파일을 초기화하고 필요한 패키지를 설치하여 npx를 사용하여 antora 명령을 실행할 수 있도록 합니다.
+
+[source]
+----
+node -e "fs.writeFileSync('package.json', '{}')"
+npm i -D -E antora
+----
+
+[NOTE]
+====
+보고된 보안 취약점을 해결하려면 보안 게시판을 참조하세요.
+====
+
+antora 명령을 실행하여 사용 가능한지 확인하세요:
+
+[source]
+----
+npx antora -v
+----
+
+설치가 성공하면 명령은 지정한 Antora CLI 및 사이트 생성기 패키지의 버전을 보고합니다.
+
+[source]
+----
+npx antora -v
+@antora/cli: 3.1.7
+@antora/site-generator: 3.1.7
+----
+
+이러한 버전은 package.json에서도 찾을 수 있습니다(antora 패키지에 의해 전이적으로 가져옴). 이를 사용하여 Antora를 업그레이드할 수 있습니다.
+
+antora 명령을 PATH에서 사용할 수 있도록 Antora를 전역으로 설치하는 옵션이 있습니다. 그렇게 하려면 npm i에 -g 옵션을 전달하세요.
+
+[source]
+----
+npm i -g antora
+----
+
+경로에서 antora 명령을 사용할 수 있는지 확인하려면 다음을 실행하세요:
+
+[source]
+----
+antora -v
+----
+
+플레이북 프로젝트 내에서 Antora를 설치하는 것이 좋습니다. 이 전략을 사용하면 Antora 버전을 쉽게 관리할 수 있습니다. 또한 Antora 버전이 플레이북이 만들어진 버전과 일치하는지 확인합니다.
+
+이제 첫 번째 플레이북을 만들 준비가 되었습니다.
+
+[TIP]
+====
+자세한 정보와 추가 설치 방법은 Antora 설치를 참조하세요.
+====
+
+== 플레이북 만들기
+
+문서 사이트를 만들려면 Antora에 플레이북이 필요합니다. 선호하는 텍스트 편집기 또는 IDE를 사용하여 새 파일을 만들고 아래 나열된 구성 정보로 채우세요. 이 파일을 이전 단계에서 만든 _docs-site_ 디렉터리에 _antora-playbook.yml_로 저장하세요. 이 플레이북 파일은 Antora 데모 리포지토리를 사용하여 사이트를 만듭니다.
+
+.antora-playbook.yml
+[source,yaml]
+----
+site:
+  title: Antora Docs
+  start_page: component-b::index.adoc [1]
+content:
+  sources: [2]
+  - url: https://gitlab.com/antora/demo/demo-component-a.git
+    branches: HEAD
+  - url: https://gitlab.com/antora/demo/demo-component-b.git
+    branches: [v2.0, v1.0]
+    start_path: docs
+ui: [3]
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+----
+
+[1] 사이트의 홈 페이지로 사용할 구성 요소 버전의 페이지입니다. +
+[2] sources 범주에는 Antora가 사이트 콘텐츠를 집계할 때 사용하는 git 리포지토리 위치, 브랜치 이름 패턴 및 기타 리포지토리 속성 목록이 포함되어 있습니다. +
+[3] ui 범주에는 UI 번들의 위치와 처리 방법을 지정하는 키가 포함되어 있습니다.
+플레이북 파일에 대한 자세한 내용은 Antora 플레이북을 참조하세요.
+
+== Antora 실행
+
+사이트를 생성하려면 antora 명령을 플레이북 파일로 지정하세요. 터미널에서 docs-site 디렉터리에 있는지 확인한 다음 다음을 입력하세요:
+
+[source]
+----
+npx antora --fetch antora-playbook.yml
+----
+
+Antora는 콘텐츠 및 UI 리포지토리를 복제하고 기본 출력 디렉터리에 문서 사이트를 생성합니다.
+
+[IMPORTANT]
+====
+기본적으로 Antora는 리포지토리를 복제한 후에는 리포지토리를 동기화하지 않습니다. 대신 이전에 복제한 캐시의 리포지토리를 사용하여 오프라인으로 작업하려고 합니다. 이 기본값은 시작할 때 약간의 혼란을 줄 수 있습니다. 따라서 Antora에 더 익숙해질 때까지 명령에 --fetch 옵션을 포함하는 것이 좋습니다. 또한 플레이북에서 fetch 키를 설정하여 이 설정을 영구적으로 활성화할 수 있습니다.
+====
+
+_docs-site/build/site_ 디렉터리로 이동하여 브라우저에서 index.html 파일을 열어 결과를 확인하세요. 축하합니다! Antora를 사용하여 첫 번째 사이트를 성공적으로 구축했습니다.
+
+Antora 실행 및 문제 해결 도움말에 대한 자세한 내용은 Antora를 실행하여 사이트 생성을 참조하세요.
+
+== 더 알아보기
+
+- Antora용 콘텐츠 파일을 구성하는 방법을 알아보세요.

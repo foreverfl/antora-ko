@@ -1,4 +1,4 @@
-* xref:set-up-content-sources.adoc[콘텐츠 소스 설정]
+* 콘텐츠 소스 설정
 ** xref:how-to-organize-your-content-files.adoc[콘텐츠 파일 구성 방법]
 ** xref:repositories-and-content-source-roots.adoc[저장소 및 콘텐츠 소스 루트]
 ** xref:content-source-versioning-methods.adoc[콘텐츠 소스 버전 관리 방법]
