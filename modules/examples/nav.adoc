@@ -1,2 +1,2 @@
-* xref:examples.adoc[예제]
-** xref:include-an-example.adoc[예제 포함하기]
+* xref:examples.adoc[Examples]
+** xref:include-an-example.adoc[Example 포함하기]

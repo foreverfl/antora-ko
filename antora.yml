@@ -18,7 +18,7 @@ asciidoc:
 nav:
   - modules/ROOT/nav.adoc
   - modules/get-antora/nav.adoc
-  - modules/set-up-content-sources/nav.adoc
+  - modules/set-up-contents-sources/nav.adoc
   - modules/configure-component-versions/nav.adoc
   - modules/resources-and-resource-ids/nav.adoc
   - modules/pages/nav.adoc

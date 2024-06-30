@@ -1,3 +1,3 @@
-* xref:partials.adoc[파셜]
-** xref:include-a-partial.adoc[파셜 포함하기]
+* xref:partials.adoc[Partials]
+** xref:include-a-partial.adoc[Partials 포함하기]
 
