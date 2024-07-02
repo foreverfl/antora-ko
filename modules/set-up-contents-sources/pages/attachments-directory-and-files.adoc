@@ -1,0 +1,65 @@
+= 첨부 파일(Attachment) 디렉터리 및 파일
+
+== Attachments 패밀리 디렉터리
+
+모듈 디렉터리에는 attachments라는 이름의 패밀리 디렉터리가 포함될 수 있습니다.
+
+[source]
+----
+📂 modules
+  📂 ROOT <1>
+    📂 attachments <2>
+      📄 attachment-source-file.ext <3>
+    📁 images
+    📁 pages
+    📄 nav.adoc
+----
+<1> __ROOT__ 모듈 디렉터리.
+<2> __attachments__ 패밀리 디렉터리. Antora는 __attachments__ 디렉터리에 저장된 소스 파일을 __attachments__로 분류합니다.
+<3> attachment 소스 파일.
+
+__attachments__ 디렉터리는 선택 사항입니다. Antora는 사이트를 생성할 때 __attachments__ 디렉터리에 저장된 파일에 사전 설정된 동작을 적용합니다.
+
+== Attachment 파일
+
+attachment는 일반적으로 사이트 방문자가 브라우저를 사용하여 보거나 다운로드하는 파일로, PDF 또는 샘플 프로젝트의 ZIP 아카이브 등이 있습니다.
+
+런타임에 Antora는 자동으로 다음을 수행합니다:
+
+- 숨김으로 표시되거나 파일 확장자가 누락된 파일을 제외하고 __attachments__ 디렉터리의 각 파일을 Antora 콘텐츠 카탈로그에 로드합니다.
+- 로드된 각 attachment 파일을 attachment 패밀리에 할당합니다.
+- 로드된 각 attachment에 소스 간 참조를 위한 고유한 리소스 ID를 할당합니다.
+- 게시되지 않은 것으로 표시된 파일을 제외하고 로드된 각 attachment 파일을 사이트의 개별 페이지로 게시합니다.
+
+attachment의 리소스 ID를 사용하여 사이트의 다른 페이지, 리소스 또는 내비게이션 파일에서 attachment를 상호 참조할 수 있습니다. Antora는 attachment의 URL을 빌드할 때 패밀리 디렉터리, attachments 상대 디렉터리 경로(있는 경우), 파일 이름 및 파일 확장자를 사용합니다.
+
+=== 바이너리 및 기타 대용량 파일
+
+콘텐츠에 샘플 프로젝트 바이너리, 라이브러리 또는 PDF와 같은 대용량 attachment 파일이 포함된 경우 일반 git 저장소에 저장하는 것은 권장되지 않습니다. 대신 S3와 같은 바이너리 저장소에서 호스팅하거나 git LFS(Large File Storage)를 사용하세요.
+
+.Assets
+[sidebar]
+--
+모듈 디렉터리에는 __assets__라는 이름의 디렉터리도 포함될 수 있습니다. 이것은 Antora에서 인식하는 대체 위치로, __attachments__ 및 __images__ 패밀리 디렉터리를 배치할 수 있습니다.
+
+[source]
+----
+📒 repository
+  📄 antora.yml
+  📂 modules
+    📂 ROOT
+      📂 assets
+        📂 attachments
+          📄 attachment-source-file.ext
+        📂 images
+          📄 image-source-file.ext
+      📁 pages
+      📄 nav.adoc
+----
+
+페이지의 헤더에 이러한 사전 정의된 디렉터리의 경로를 설정할 필요가 없습니다. 이것은 Antora에 의해 자동으로 관리됩니다.
+--
+
+== 더 알아보기
+
+- Attachments

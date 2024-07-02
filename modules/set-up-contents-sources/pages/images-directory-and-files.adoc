@@ -1,0 +1,62 @@
+= 이미지(Images) 디렉터리 및 파일
+
+== Images 패밀리 디렉터리
+
+모듈 디렉터리에는 images라는 이름의 선택적 패밀리 디렉터리가 포함될 수 있습니다.
+
+[source]
+----
+📂 modules
+  📂 ROOT <1>
+    📂 images <2>
+      📄 image-source-file.ext <3>
+    📁 pages
+    📄 nav.adoc
+  📂 named-module <4>
+    📁 examples
+    📂 images <5>
+      📄 image-source-file.ext
+      📂 subdirectory-of-images <6>
+        📄 image-source-file.ext
+    📁 pages
+----
+
+<1> __ROOT__ 모듈 디렉터리.
+<2> __images__ 패밀리 디렉터리. Antora는 __images__ 디렉터리에 저장된 소스 파일을 images로 분류합니다.
+<3> 이미지 소스 파일.
+<4> 이름이 지정된 모듈 디렉터리.
+<5> __images__ 패밀리 디렉터리.
+<6> __images__의 하위 디렉터리. __images__ 디렉터리의 하위 디렉터리에 저장된 소스 파일은 images로 분류됩니다.
+
+Antora는 사이트를 생성할 때 __images__ 디렉터리에 저장된 소스 파일에 사전 설정된 동작을 적용합니다.
+
+== 이미지 파일
+
+이미지는 사진, 다이어그램 및 스크린샷과 같은 리소스입니다. 이미지의 소스 파일은 __images__ 패밀리 디렉터리에 저장됩니다. Antora는 PNG, JPG, SVG 및 GIF(정적 및 애니메이션) 이미지 파일 형식을 지원합니다.
+
+이미지가 속한 컴포넌트 버전에 관계없이 이미지의 리소스 ID와 AsciiDoc 블록 이미지 매크로 또는 인라인 이미지 매크로를 사용하여 페이지나 부분에 이미지를 삽입할 수 있습니다.
+
+Antora는 이미지 파일이 숨김으로 표시되거나 파일 확장자가 누락된 경우를 제외하고 각 이미지 파일을 자동으로 게시합니다. Antora는 이미지의 URL을 빌드할 때 이미지 파일의 패밀리 세그먼트와 상대 경로 세그먼트를 사용합니다.
+
+.Assets
+[sidebar]
+--
+모듈 디렉터리에는 __assets__라는 이름의 디렉터리도 포함될 수 있습니다. 이것은 Antora에서 인식하는 대체 위치로, __attachments__ 및 __images__ 패밀리 디렉터리를 배치할 수 있습니다.
+
+[source]
+----
+📒 repository
+  📄 antora.yml
+  📂 modules
+    📂 ROOT
+      📂 assets
+        📂 attachments
+          📄 attachment-source-file.ext
+        📂 images
+          📄 image-source-file.ext
+      📁 pages
+      📄 nav.adoc
+----
+
+페이지의 헤더에 이러한 사전 정의된 디렉터리의 경로를 설정할 필요가 없습니다. 이것은 Antora에 의해 자동으로 관리됩니다.
+--

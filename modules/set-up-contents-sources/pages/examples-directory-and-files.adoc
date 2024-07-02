@@ -1,0 +1,54 @@
+= 예제(Example) 디렉터리 및 파일
+
+== Examples 패밀리 디렉터리
+
+모듈 디렉터리에는 examples라는 이름의 패밀리 디렉터리가 포함될 수 있습니다.
+
+[source]
+----
+📂 modules
+  📂 ROOT <1>
+    📂 examples <2>
+      📄 example-source-file.ext <3>
+    📁 pages
+    📄 nav.adoc
+  📂 named-module <4>
+    📂 examples <5>
+      📄 example-source-file <6>
+      📂 subdirectory-of-examples <7>
+        📄 example-source-file.ext
+    📁 images
+----
+
+<1> __ROOT__ 모듈 디렉터리.
+<2> __examples__ 패밀리 디렉터리. Antora는 __examples__ 디렉터리에 저장된 소스 파일을 examples로 분류합니다.
+<3> example 소스 파일.
+<4> 이름이 지정된 모듈 디렉터리.
+<5> __examples__ 패밀리 디렉터리.
+<6> 파일 확장자가 없는 example 소스 파일. Antora는 확장자가 없는 example 소스 파일을 콘텐츠 카탈로그에 로드합니다.
+<7> __examples__의 하위 디렉터리. __examples__ 디렉터리의 하위 디렉터리에 저장된 소스 파일은 examples로 분류됩니다.
+
+__examples__ 디렉터리는 선택 사항입니다. Antora는 사이트를 생성할 때 __examples__ 디렉터리에 저장된 소스 파일에 사전 설정된 동작을 적용합니다.
+
+== Example 파일
+
+Antora는 __examples__ 디렉터리에 저장된 소스 파일을 examples로 분류합니다. example 파일에는 일반적으로 소스 코드 샘플, 터미널 출력, 데이터 세트 등과 같은 콘텐츠가 포함됩니다.
+
+새 example 파일을 저장할 때는 다음 파일 이름 요구 사항과 권장 사항을 염두에 두세요:
+
+- AsciiDoc include 지시문은 **공백이 포함된 값**을 허용하지 않으므로 example의 파일 이름에는 공백이 포함될 수 없습니다.
+- **파일 이름에는 대문자가 권장되지 않습니다**. 일부 파일 시스템은 대소문자를 구분하지 않습니다. 따라서 작성자가 사용하는 파일 시스템에 따라 파일 충돌이 발생할 수 있습니다.
+- Dockerfile과 같이 특정 파일 유형에 확장자가 없는 것이 일반적인 관행인 경우를 제외하고 유효한 파일 확장자로 example 파일을 저장하세요. example 파일을 저장할 때 올바른 파일 확장자를 사용하지 않으면 일부 Antora 확장을 적용하거나 향후 기능으로 업그레이드하는 기능이 제한될 수 있습니다.
+
+example 파일에는 파일 확장자가 필요하지 않습니다. 파일 확장자가 없는 경우 숨김 파일로 처리되는 게시 가능한 리소스와 달리 Antora는 파일 확장자가 없는 example을 콘텐츠 카탈로그에 로드하고 참조를 위해 example에 리소스 ID를 할당합니다.
+
+Antora는 example 파일을 개별 사이트 페이지로 게시하지 않습니다. example의 콘텐츠를 게시하려면 페이지 또는 결국 페이지에 포함되는 리소스의 include 지시문에서 example을 참조해야 합니다.
+
+IMPORTANT: Dockerfile과 같이 파일 유형에 파일 확장자가 없는 것이 일반적인 경우를 제외하고는 example 소스 파일을 유효한 파일 확장자로 저장하는 것이 좋습니다. 그렇지 않으면 example 파일에 추가 동작을 적용하는 일부 Antora 또는 Asciidoctor 확장을 사용하지 못할 수 있습니다.
+
+TIP: examples는 AsciiDoc example 블록과 혼동해서는 안 되지만, include 지시문을 사용하여 example 파일을 example 블록에 삽입할 수 있습니다.
+
+== 더 알아보기
+
+- Examples
+- Include an Example

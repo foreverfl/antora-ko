@@ -1,4 +1,4 @@
-* xref:configure-component-versions.adoc[컴포넌트 버전 구성]
+* 컴포넌트 버전 구성
 ** xref:whats-a-component-version.adoc[컴포넌트 버전이란?]
 ** xref:whats-antora-yml.adoc[antora.yml이란?]
 ** xref:define-a-component-version.adoc[컴포넌트 버전 정의]
