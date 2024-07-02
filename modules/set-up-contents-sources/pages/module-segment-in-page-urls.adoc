@@ -1,0 +1,41 @@
+= 페이지 URL의 모듈 세그먼트
+
+== ROOT 모듈 페이지의 URL
+
+ROOT 모듈의 페이지가 사이트에 게시되면 할당된 컴포넌트 버전의 최상위 페이지가 됩니다. 즉, 모듈 이름 ROOT는 페이지의 URL에 나타나지 않습니다.
+
+이 개념을 설명하기 위해 ROOT 모듈에 할당된 페이지와 이름이 지정된 모듈에 할당된 페이지, 두 페이지의 URL을 비교해 보겠습니다. 예제 1에 설명된 표준 디렉터리 세트에는 __Hyper Lemur__ 라는 프로젝트의 콘텐츠 소스 파일이 포함되어 있습니다.
+
+.예제 1. Hyper Lemur 프로젝트의 일부인 콘텐츠를 포함하는 두 개의 모듈 디렉터리
+[source]
+----
+📒 repository
+  📄 antora.yml
+  📂 modules
+    📂 admin
+      📂 pages
+        📄 user-management.adoc
+      📄 nav.adoc
+    📂 ROOT
+      📁 images
+      📂 pages
+        📄 deploy.adoc
+        📄 index.adoc
+      📄 nav.adoc
+----
+
+__ROOT__ 모듈 폴더 내의 __pages__ 폴더에 있는 __deploy.adoc__라는 파일을 주목하세요. Antora가 Hyper Lemur 사이트를 생성할 때 __deploy.adoc__ 소스 파일에서 생성된 페이지의 URL은 다음과 같습니다.
+
+image::root-page-url.svg[]
+
+기본 URL인 __https://my-company.com__ 은 Antora가 사이트를 생성하는 데 사용한 플레이북에 설정되어 있습니다. 컴포넌트 이름 세그먼트 hyperlemur와 버전 세그먼트 1.0은 컴포넌트 버전 디스크립터(__antora.yml__)에 설정되어 있습니다. 페이지 세그먼트 deploy는 AsciiDoc 소스 파일 __deploy.adoc__의 패밀리 상대 경로입니다. 모듈 이름 ROOT는 URL에 사용되지 않습니다.
+
+이제 __admin__이라는 이름이 지정된 모듈에 저장된 페이지의 URL이 어떻게 생겼는지 살펴보겠습니다.
+
+== 이름이 지정된 모듈 페이지의 URL
+
+예제 1의 Hyper Lemur 소스 파일을 사용하여 __user-management.adoc__ 파일의 URL이 어떻게 생겼는지 살펴보겠습니다. 이 파일은 __admin__ 모듈의 __pages__ 패밀리에 할당되어 있습니다.
+
+image::module-page-url.svg[]
+
+모듈 이름 __admin__ 이 컴포넌트의 버전 바로 뒤에 있는 URL에 있음을 주목하세요.
