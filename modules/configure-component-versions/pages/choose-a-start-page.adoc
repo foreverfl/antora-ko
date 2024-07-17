@@ -1,2 +1,44 @@
-= choose-a-start-page.adoc
+= 시작 페이지 선택
 
+각 컴포넌트 버전에는 시작 페이지가 필요합니다. 이 페이지는 기본 시작 페이지이거나 컴포넌트 버전 디스크립터에 의해 식별된 페이지일 수 있습니다. 방문자는 컴포넌트 버전 선택기에서 해당 항목을 클릭하거나 페이지 메뉴 상단에서 이름을 클릭할 때 컴포넌트 버전의 시작 페이지에 도착합니다.
+
+컴포넌트 버전의 시작 페이지는 사이트의 시작 페이지와 별개입니다. 사이트의 시작 페이지는 방문자가 사이트의 메인 URL로 이동할 때 안내되는 곳입니다. 사이트의 시작 페이지를 구성하려면 사이트 Site Start Page를 참조하세요.
+
+== 기본 시작 페이지
+
+기본적으로 Antora는 컴포넌트 버전의 ROOT 모듈에서 __index.adoc__라는 이름의 페이지를 찾아 컴포넌트 버전의 시작 페이지로 사용합니다(예: __pass:[https://site-url.org/component-name/version/index.html]__). Antora가 이 페이지를 찾지 못하면 방문자는 컴포넌트 버전 선택기나 페이지 메뉴에서 컴포넌트 버전을 클릭할 때마다 404 페이지로 이동합니다.
+
+컴포넌트 버전의 __antora.yml__에서 start_page 키를 설정하면 Antora는 ROOT 모듈의 __index.adoc__ 페이지 대신 해당 페이지를 시작 페이지로 사용합니다. 시작 페이지로 기본값 대신 대체 페이지를 사용하려는 경우에만 start_page 키를 설정하면 됩니다.
+
+== start_page 키
+
+다음의 경우 __antora.yml__에 start_page 키를 설정해야 합니다:
+
+. 컴포넌트 버전의 ROOT 모듈에 __index.adoc__라는 이름의 페이지가 없는 경우, 또는
+. Antora가 대체 페이지(__index.adoc__가 존재하더라도)를 컴포넌트 버전의 시작 페이지로 사용해야 하는 경우.
+
+start_page 키는 __antora.yml__ **파일에서 설명하는 컴포넌트 버전에 속한** 페이지의 리소스 ID를 허용합니다. 리소스 ID는 모듈 좌표에서 시작해야 합니다(ROOT 모듈이 없으면 암시됨).
+
+.예제 1. antora.yml
+[source,yaml]
+----
+name: colorado
+title: Colorado ∆
+version: '5.6'
+start_page: get-started:overview.adoc
+----
+
+예제 1에서 컴포넌트 버전의 시작 페이지 __overview.adoc__은 get-started 모듈에 위치합니다.
+
+시작 페이지가 ROOT 모듈에 있는 경우 모듈 좌표를 생략할 수 있습니다.
+
+.예제 2. antora.yml
+[source,yaml]
+----
+name: colorado
+title: Colorado ∆
+version: '5.6'
+start_page: overview.adoc
+----
+
+예제 2에서 컴포넌트 버전의 시작 페이지 __overview.adoc__은 ROOT 모듈에서 찾을 수 있습니다.

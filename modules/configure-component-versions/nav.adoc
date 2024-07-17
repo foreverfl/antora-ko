@@ -11,6 +11,6 @@
 ** xref:assign-attributes-to-a-component-version.adoc[컴포넌트 버전에 속성 할당]
 ** xref:choose-a-start-page.adoc[시작 페이지 선택]
 ** xref:assign-navigation-files-to-a-component-version.adoc[컴포넌트 버전에 탐색 파일 할당]
-** xref:version-facets.adoc[버전 패싯]
+** xref:version-facets.adoc[버전 속성]
 ** xref:how-component-versions-are-sorted.adoc[컴포넌트 버전 정렬 방법]
 ** xref:distributed-component-versions.adoc[분산된 컴포넌트 버전]

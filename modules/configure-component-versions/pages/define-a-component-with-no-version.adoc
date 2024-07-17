@@ -25,7 +25,7 @@ Antora는 명명된 버전이나 의미 있는 버전을 가진 컴포넌트 버
 - UI 메뉴에서 표시 목적으로 런타임에 대체 값 default를 display_version 키에 할당합니다. 다음의 경우는 예외입니다:
   ** __antora.yml__에서 display_version 키에 값이 할당된 경우, 또는
   ** prerelease 키에 식별자가 할당되고 __antora.yml__에 display_version 키가 설정되지 않은 경우, 런타임에 Antora는 식별자를 display_version 키에 할당합니다.
-- latest_version_segment_strategy가 redirect:from이 아닌 한, 플레이북에 latest_version_segment 키 또는 latest_prerelease_version_segment 키가 설정되어 있더라도 버전이 없는 컴포넌트 버전의 게시 가능한 리소스 URL에 버전 세그먼트를 추가하지 않습니다.
+- latest_version_segment_strategy가 ``redirect:from``이 아닌 한, 플레이북에 ``latest_version_segment`` 키 또는 ``latest_prerelease_version_segment`` 키가 설정되어 있더라도 버전이 없는 컴포넌트 버전의 게시 가능한 리소스 URL에 버전 세그먼트를 추가하지 않습니다.
 
 [TIP]
 ====
