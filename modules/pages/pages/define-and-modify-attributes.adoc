@@ -92,7 +92,7 @@ CAUTION: 일부 내장 AsciiDoc 속성은 Antora 환경에서 적용되지 않�
 :url-repo: https://gitlab.com/antora/demo/docs-site
 ----
 
-이제 속성의 이름을 중괄호(``{attribute-name}``) 안에 입력하여 페이지 전체에서 필요할 때마다 참조할 수 있습니다. Create an attribute for a URL에서 복잡한 URL을 대체하는 데 사용되는 또 다른 사용자 정의 속성 예제를 볼 수 있습니다.
+이제 속성의 이름을 중괄호(``\{attribute-name}``) 안에 입력하여 페이지 전체에서 필요할 때마다 참조할 수 있습니다. Create an attribute for a URL에서 복잡한 URL을 대체하는 데 사용되는 또 다른 사용자 정의 속성 예제를 볼 수 있습니다.
 
 == 속성 미설정
 
