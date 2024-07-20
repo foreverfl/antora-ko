@@ -1,0 +1,96 @@
+= page-aliases로 URL 리디렉션 설정
+
+Antora의 내장 ``page-aliases`` 속성을 사용하여 이전 페이지에서 새 페이지로 리디렉션을 생성할 수 있습니다. 이 페이지 속성은 페이지를 삭제하거나, 페이지 파일의 이름을 변경하거나, 페이지를 다른 모듈 또는 컴포넌트로 이동할 때 유용합니다. ``page-aliases`` 속성을 사용하면 페이지가 하나 이상의 다른 페이지의 ID를 클레임할 수 있습니다. 그러면 Antora는 해당 페이지의 URL을 별칭이 정의된 페이지로 리디렉션합니다.
+
+== 페이지 별칭 및 대량 URL 리디렉션
+
+페이지 별칭은 **특히 컴포넌트 버전 내에서** 페이지 이름 변경 또는 이동을 처리하도록 설계되었습니다. 일반 목적의 URL 라우터가 아닙니다. 페이지 별칭은 컴포넌트나 컴포넌트 버전 간에 리디렉션을 생성하는 데 사용할 수 있지만, 이 기능을 주의해서 사용해야 합니다. 그렇지 않으면 매우 혼란스러워질 수 있습니다.
+
+컴포넌트 또는 컴포넌트 버전을 제거하거나 이름을 변경하는 경우와 같이 많은 수의 페이지를 제거하고 기존 URL을 유지하려는 경우 페이지 별칭을 사용하여 이를 시도해서는 안 됩니다. 페이지 별칭은 대량 URL 리디렉션을 제공하도록 설계되지 않았습니다. 대신 컴포넌트 또는 컴포넌트 버전을 제거하거나 이름을 변경할 때 웹 서버 또는 호스트에서 제공하는 라우터를 사용하는 것이 좋습니다. 게시 중에 별도의 단계를 사용하거나 Antora 확장을 사용하여 이를 수행할 수 있습니다.
+
+== page-aliases 속성
+
+page-aliases 속성은 속성 항목을 사용하여 대상 페이지의 페이지 헤더에 설정됩니다. **대상 페이지**는 소스 페이지를 리디렉션하는 페이지를 의미합니다. **소스 페이지**는 리디렉션하는 삭제, 이름 변경 또는 이동된 페이지(즉, 클레임할 페이지)를 의미합니다. 소스 페이지의 리소스 ID(삭제, 이름 변경 또는 이동되기 전의 리소스 ID)는 대상 페이지의 page-aliases 속성에 할당됩니다. 쉼표로 구분된 목록에 여러 리소스 ID를 속성에 할당할 수 있습니다.
+
+.예제 1. 대상 페이지의 헤더
+[source,asciidoc]
+----
+= Title of Target Page
+:page-aliases: source-page-filename.adoc, version@component:module:source-page-filename.adoc
+
+----
+행 연속(행 끝에 공백 다음에 백슬래시)을 사용하여 이 목록을 여러 행으로 분할할 수 있습니다:
+
+.예제 2. 여러 행으로 분할된 페이지 별칭
+[source,asciidoc]
+----
+= Title of Target Page
+:page-aliases: source-page-filename.adoc, \
+version@component:module:source-page-filename.adoc
+----
+
+Antora는 소스 페이지의 리소스 ID에 대한 URL을 계산하고 소스 페이지 URL이 대상 페이지 URL로 리디렉션되도록 리디렉션 정보를 생성합니다. ``page-aliases``에 할당된 리소스 ID에 지정되지 않은 버전 또는 컴포넌트와 같은 좌표는 대상 페이지의 좌표에서 보간됩니다. 리디렉션 정보의 생성된 출력 형식은 선택한 리디렉션 기능에 따라 결정됩니다.
+
+``page-aliases`` 속성에 할당된 리소스 ID는 xref에서 사용할 수 있습니다. 따라서 페이지를 삭제, 이름 변경 또는 이동하는 경우 소스 파일의 참조를 업데이트할 필요가 없습니다.
+
+=== 페이지 별칭 제한 사항
+
+``page-aliases`` 속성은 페이지에만 적용할 수 있습니다. Partials, Examples, Images 및 Attachments 폴더 내에 있는 파일은 별칭을 지정할 수 없습니다. ``page-aliases``에 할당된 리소스 ID가 xref에서 작동하지만, 참조 UI의 페이지 버전 선택기는 소스 페이지의 이전 버전을 대상 페이지에 연결하지 않습니다.
+
+== 이름이 바뀐 페이지에 대한 리디렉션 생성
+
+소스 페이지의 파일 이름을 __old-name.adoc__에서 __new-name.adoc__로 변경하는 경우 파일의 이전 리소스 ID를 헤더의 ``page-aliases``에 할당합니다.
+
+.예제 3. new-name.adoc
+[source,asciidoc]
+----
+= Title of Target Page
+:page-aliases: old-name.adoc
+----
+
+이렇게 하면 __pass:[https://base-url.com/component/version/module/old-name.html]__이 __pass:[https://base-url.com/component/version/module/new-name.html]__로 리디렉션됩니다. old-name.adoc 리소스 ID에 지정되지 않은 버전, 컴포넌트 및 모듈 좌표는 대상 페이지의 좌표에서 보간됩니다. 또는 플레이북의 ``html-extension-style`` 키에 ``indexify``를 할당한 경우 __pass:[https://base-url.com/component/version/module/old-name/]__이 __pass:[https://base-url.com/component/version/module/new-name/]__으로 리디렉션됩니다.
+
+== 이동된 페이지에 대한 리디렉션 생성
+
+페이지가 동일한 컴포넌트의 한 모듈에서 다른 모듈로 이동하면 별칭 리소스 ID에 소스 페이지의 이전 모듈 좌표가 포함되어야 합니다. 예제 4에서 __page source-1.adoc__이 ``module-1``에서 ``module-z``로 이동했습니다. ``module-1``과 ``module-z``는 모두 ``component-1``의 버전 ``5.0``의 모듈입니다.
+
+.예제 4. source-1.adoc
+[source,asciidoc]
+----
+= Title of Target Page
+:page-aliases: module-1:source-1.adoc <1>
+----
+<1> 페이지를 다른 모듈로 이동할 때 파일 좌표 외에 이전 모듈 좌표를 지정합니다.
+
+이제 Antora는 URL __pass:[https://base-url.com/component-1/5.0/module-1/source-1.html]__을 URL __pass:[https://base-url.com/component-1/5.0/module-z/source-1.html]__로 리디렉션합니다.
+
+페이지가 한 컴포넌트에서 다른 컴포넌트로 이동하면 소스 페이지의 완전한 이전 리소스 ID를 page-aliases에 할당합니다. 예제 5에서 page __source-w.adoc__은 ``component-8``의 버전 ``1.4``, ``module-u``에서 ``component-delta``의 버전 ``3.0``, ROOT로 이동했습니다.
+
+.예제 5. source-w.adoc
+[source,asciidoc]
+----
+= Title of Target Page
+:page-aliases: 1.4@component-8:module-u:source-w.adoc
+----
+
+이렇게 하면 URL __pass:[https://base-url.com/component-8/1.4/module-u/source-w.html]__이 __pass:[https://base-url.com/component-delta/3.0/source-w.html]__로 리디렉션됩니다.
+
+== 삭제된 페이지에 대한 리디렉션 생성
+
+때로는 페이지를 삭제해야 할 때가 있습니다. 삭제된 페이지의 URL을 다른 페이지로 리디렉션하기 전에 다음 사항을 고려하십시오:
+
+- 삭제된 페이지의 정보를 이전에 사용한 방문자에게 도움이 될 수 있는 잠재적인 대상 페이지가 있습니까? 예를 들어 삭제된 페이지에서 기능 A를 설명했지만 기능 A가 더 이상 사용되지 않습니다. 기능 A의 사용자는 이제 기능 B로 마이그레이션해야 합니다.
+- 삭제된 페이지가 트래픽이 많은 페이지입니까? 그렇다면 삭제된 페이지를 찾는 사람들에게 확실히 도움이 될 관련 페이지가 있습니까?
+
+삭제된 페이지와 공통점이 거의 없는 대상 페이지로 리디렉션하면 안 됩니다. 이는 종종 방문자를 좌절시킵니다.
+
+삭제된 페이지의 URL을 다른 페이지로 리디렉션하는 것이 적절한 경우 필요한 좌표를 지정하여 삭제된 페이지의 ID를 ``page-aliases`` 속성에 할당합니다.
+
+.예제 6. 대상 페이지
+[source,asciidoc]
+----
+= Title of Target Page
+:page-aliases: source-page-filename.adoc
+----
+
+TIP: 삭제된 페이지를 사이트의 홈 페이지 또는 프로젝트의 시작 페이지로 리디렉션하면 나쁜 사용자 경험(나쁜 SEO 관행이기도 함)이 생성됩니다. 이 정책은 방문자들이 찾고 있던 페이지가 더 이상 존재하지 않는다는 사실을 깨닫지 못할 수 있기 때문에 혼란을 줍니다. 삭제된 페이지를 리디렉션할 수 있는 매우 관련성 있는 대상 페이지가 없는 경우 방문자를 사용자 정의 404 페이지로 보내는 것이 더 좋습니다.

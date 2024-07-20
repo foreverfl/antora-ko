@@ -1,0 +1,79 @@
+= reftext 및 navtitle 사용자 정의
+
+``reftext`` 및 ``navtitle`` 속성은 Antora가 실행될 때 자동으로 설정되고 기본값이 할당됩니다. 페이지의 헤더에서 이러한 속성을 설정하여 값을 사용자 정의할 수 있습니다.
+
+== reftext 속성
+
+페이지나 리소스 파일에서 시작되는 xref에서 대상 페이지의 ``reftext`` 값이 링크 텍스트로 사용됩니다. 기본적으로 Antora는 런타임에 페이지의 제목을 ``reftext`` 속성에 할당합니다. 예제 1에서 __install-prerequisites.adoc__ 파일을 참조하고 링크 텍스트 필드를 비워 두겠습니다.
+
+.예제 1. current-page.adoc
+[source,asciidoc]
+----
+Make sure you xref:install-prerequisites.adoc[].
+----
+
+이제 __install-prerequisites.adoc__ 파일의 헤더를 살펴보겠습니다.
+
+.예제 2. install-prerequisites.adoc
+[source,asciidoc]
+----
+= Installing and Testing Silver Leaf's Prerequisites
+
+Here are the prerequisites:
+----
+
+예제 2에서 reftext가 페이지의 헤더에 설정되어 있지 않다는 점에 주목하세요. 즉, 페이지의 제목인 __Installing and Testing Silver Leaf's Prerequisites__가 런타임에 자동으로 ``reftext``에 할당되어 예제 1에서 xref의 링크 텍스트로 사용됩니다.
+페이지의 제목을 기본 ``reftext``로 사용하지 않으려면 속성 항목으로 속성에 사용자 정의 값을 할당하세요. 예제 3은 ``reftext`` 속성에 사용자 정의 값이 할당되는 것을 보여줍니다.
+
+.예제 3. 사용자 정의 reftext 값 할당
+[source,asciidoc]
+----
+= Installing and Testing Silver Leaf's Prerequisites
+:reftext: Install Silver Leaf's Prerequisites
+
+Here are the prerequisites:
+----
+
+사이트가 생성되면 reftext의 값인 Install Silver Leaf's Prerequisites가 예제 1에서 xref의 링크 텍스트로 사용됩니다. 또한 페이지의 navtitle 값으로 사용됩니다.
+
+CAUTION: 대상 페이지의 리소스 ID에 프래그먼트가 추가되면 링크 텍스트가 자동으로 채워지지 않습니다. 이러한 경우에는 ``xref``의 링크 텍스트를 지정해야 합니다.
+
+== navtitle 속성
+
+탐색 파일에서 시작되는 ``xref``에서 대상 페이지의 ``navtitle`` 값이 링크 텍스트로 사용됩니다. 기본적으로 Antora는 페이지의 ``reftext`` 속성 값을 ``navtitle``에 할당합니다. 페이지의 ``reftext``는 종종 자동으로 페이지의 제목에 할당됩니다.
+
+예제 4에서 탐색 파일에서 __get-started.adoc__ 파일을 참조하고 링크 텍스트 필드를 비워 두겠습니다.
+
+.예제 4. nav.adoc
+[source,asciidoc]
+----
+* xref:index.adoc[]
+* xref:get-started.adoc[]
+----
+
+이제 예제 5의 __get-started.adoc__ 파일의 헤더를 살펴보겠습니다.
+
+.예제 5. get-started.adoc
+[source,asciidoc]
+----
+= Get Started with Silver Leaf
+
+Let's get started!
+----
+
+``reftext``와 ``navtitle`` 모두 헤더에 설정되어 있지 않다는 점에 주목하세요. 즉, 페이지의 제목인 __Get Started with Silver Leaf__가 자동으로 ``reftext``에 할당되고, 따라서 ``navtitle``에도 할당되어 탐색 파일의 xref 링크 텍스트를 채우는 데 사용됩니다.
+
+페이지의 기본 또는 사용자 정의 ``reftext`` 값을 기본 ``navtitle``로 할당하지 않으려면 속성 항목으로 속성에 사용자 정의 값을 할당하세요. 예제 6은 ``navtitle`` 속성에 사용자 정의 값이 할당되는 것을 보여줍니다.
+
+.예제 6. 사용자 정의 navtitle 값 할당
+[source,asciidoc]
+----
+= Get Started with Silver Leaf
+:navtitle: Getting Started
+
+Let's get started!
+----
+
+사이트가 생성되면 ``navtitle``의 값인 __Getting Started__가 탐색 파일의 xref 링크 텍스트를 채웁니다.
+
+CAUTION: 대상 페이지의 리소스 ID에 프래그먼트(딥 링크라고도 함)가 추가되고 대괄호 사이에 링크 텍스트가 지정되지 않은 경우(xref:page.adoc#fragment[]와 같은 경우), 링크 텍스트가 자동으로 채워지지 않습니다. 프래그먼트를 사용할 때는 xref 매크로에서 링크 텍스트를 지정해야 합니다.

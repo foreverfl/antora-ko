@@ -1,0 +1,35 @@
+= page-partial 전역 해제
+
+== Antora의 페이지 처리 과정
+
+Antora는 각 페이지를 처리할 때 파일의 내용을 AsciiDoc에서 HTML로 변환합니다. (컴포넌트 버전 내에서 페이지는 일반적으로 모듈과 상대 파일 이름 순서대로 처리됩니다). 내용을 AsciiDoc에서 HTML로 변환하면 일반적으로 include 지시어의 동작에 영향을 미칩니다. 특히 include 지시어를 사용하여 이미 처리된 페이지를 포함하는 페이지는 AsciiDoc 대신 HTML을 보게 됩니다.
+
+이 순서 문제를 해결하기 위해 Antora는 모든 페이지가 변환될 때까지 AsciiDoc 소스를 유지할 수 있습니다. 이 동작은 페이지의 문서 헤더에 ``page-partial`` 속성을 설정하여 활성화됩니다. Antora 2.2부터는 ``page-partial`` 속성이 기본적으로 전역적으로(소프트) 설정됩니다. (소프트 설정은 페이지에 의해 여전히 재정의될 수 있음을 의미합니다). 따라서 실제로 이에 대해 생각할 필요가 없습니다. 그냥 작동할 것입니다.
+
+AsciiDoc 소스를 유지하는 단점은 매우 큰 사이트의 경우 Antora의 최대 힙 사용량을 약 10% 증가시킬 수 있다는 것입니다. 이것이 문제가 되는 경우 이전의 "a la carte(필요한 페이지만 선택적으로 처리하는 방식)" 동작으로 되돌릴 수 있습니다. 이전 동작(Antora 2.2 이전)으로 되돌리려면 플레이북 파일에 다음 속성을 설정하세요:
+
+[source,yaml]
+----
+asciidoc:
+  attributes:
+    page-partial: false
+----
+
+page-partial 속성은 더 이상 전역적으로 설정되지 않습니다. 이제 include 지시어에서 사용하려는 모든 페이지에 ``page-partial`` 속성을 반드시 설정해야 합니다. 예를 들면:
+
+[source,asciidoc]
+----
+= Shared Page
+:page-partial:
+
+Page contents.
+----
+
+``page-partial`` 속성이 설정되면 include 지시어를 사용하여 해당 페이지를 안전하게 참조할 수 있습니다:
+
+[source,asciidoc]
+----
+\include::shared-page.adoc[]
+----
+
+포함된 페이지의 page-partial 속성은 모든 페이지가 변환될 때까지 AsciiDoc 소스를 유지하도록 Antora에 지시한다는 점을 기억하세요.

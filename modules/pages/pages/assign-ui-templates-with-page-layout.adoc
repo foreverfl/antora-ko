@@ -1,0 +1,19 @@
+= page-layout으로 UI 템플릿 할당
+
+Antora는 ``page-layout``이라는 페이지 속성을 제공합니다. 이 속성은 페이지 내용에 대체 UI 레이아웃을 적용합니다.
+
+== page-layout 속성
+
+``page-layout`` 속성은 선택 사항입니다. AsciiDoc 속성 항목을 사용하여 페이지의 헤더에 정의됩니다.
+
+[source,asciidoc]
+----
+= Page Title
+:page-layout: tiles
+----
+
+``page-layout`` 속성은 파일 확장자 없이 UI 레이아웃 파일의 파일 이름을 받아들입니다. 예를 들어 페이지에서 레이아웃 파일 __tiles.hbs__를 사용하려면 ``page-layout``에 ``tiles`` 값을 할당하세요. 연결된 레이아웃 파일(예: __tiles.hbs__)은 UI 번들의 __layouts__ 디렉토리에 있어야 합니다. page-layout 속성이 페이지의 헤더에 명시적으로 설정되면 기본 레이아웃을 무시합니다.
+
+== 기본 page-layout
+
+``page-layout``이 페이지의 헤더에 정의되지 않은 경우 사이트가 생성될 때 ``default_layout`` 플레이북 키로 정의된 페이지 레이아웃이 적용됩니다. ``page-layout``과 ``default_layout`` 모두 설정되지 않은 경우 Antora는 자동으로 내장된 ``default`` 값을 ``default_layout``에 할당합니다. ``default`` 페이지 레이아웃은 ``page-layout``이 명시적으로 설정되지 않은 모든 페이지에 __default.hbs__ 레이아웃 파일을 적용합니다.

@@ -1,0 +1,257 @@
+= Page 포함하기
+
+AsciiDoc include 지시어와 페이지의 리소스 ID를 사용하여 페이지 또는 페이지의 일부를 사이트의 다른 페이지에 삽입할 수 있습니다.
+
+== 페이지용 AsciiDoc include 지시어
+
+AsciiDoc include 지시어는 페이지의 소스 파일에서 다른 페이지로 내용을 삽입합니다. include 지시어는 partials, examples 및 pages의 Antora 리소스 ID를 값으로 받아들입니다.
+
+예제 1은 페이지의 완전한 리소스 ID가 포함된 include 지시어의 구조를 보여줍니다. 기본적으로 include 지시어는 패밀리 좌표가 지정되지 않은 경우 패밀리 좌표가 page$라고 가정합니다.
+
+.예제 1. 페이지의 완전한 리소스 ID가 할당된 include 지시어
+[source,asciidoc]
+----
+\include::version@component:module:file-coordinate-of-target-page.adoc[optional attribute]
+----
+
+include 지시어는 지시어의 접두사(include::), 대상 페이지의 리소스 ID 및 대괄호([])로 구성됩니다. 대괄호 내에 쉼표로 구분된 키-값 쌍으로 선택적 속성을 지정할 수 있습니다. **대상 페이지**는 현재 페이지에서 참조하는 페이지의 소스 파일입니다. 대상 페이지는 현재 페이지의 내용에서 include 지시어에 리소스 ID를 할당하여 참조됩니다. **현재 페이지**는 대상 페이지를 참조하는 include 지시어를 포함하는 페이지 소스 파일입니다.
+
+Antora가 실행되면 대상 페이지의 소스 내용이 include 지시어가 입력된 위치에 현재 페이지에 삽입됩니다. 대상 페이지의 내용은 현재 페이지에 삽입된 후 변환됩니다. 즉, 현재 페이지의 컴포넌트 버전, 모듈, 속성 및 기타 요소가 대상 페이지에서 포함된 내용에 적용되거나 영향을 줄 수 있습니다. 자세한 내용은 Current page context and structure를 참조하세요.
+
+== 페이지에 페이지 삽입
+
+대상 페이지를 현재 페이지에 삽입하는 데 필요한 AsciiDoc include 지시어와 리소스 ID 좌표를 분석해 보겠습니다.
+
+. IDE 또는 일반 텍스트 편집기에서 대상 페이지의 내용을 포함할 페이지를 엽니다. 이 단계와 후속 단계에서는 __ranges.adoc__ 파일을 열었다고 가정해 보겠습니다.
++
+.예제 2. ranges.adoc (현재 페이지)
+[source,asciidoc]
+----
+There are three mountain passes in the Sawatch Range.
+----
++
+현재 페이지인 __ranges.adoc__는 예제 3에 표시된 대로 컴포넌트 버전 __colorado 5.2__와 모듈 __ROOT__에 속합니다.
++
+.예제 3. colorado 5.2에 할당된 디렉토리 및 파일
+[source]
+----
+📄 antora.yml <1>
+📂 modules
+  📂 ROOT <2>
+    📂 pages <3> 
+      📄 cottonwood-pass.adoc
+      📄 index.adoc
+      📄 ranges.adoc
+----
+<1> 컴포넌트 버전을 __colorado 5.2__로 정의합니다.
+<2> __ROOT__ 모듈을 정의합니다.
+<3> 후속 파일을 페이지로 정의합니다.
+
+. 현재 페이지에서 페이지 내용을 삽입할 행을 선택합니다. 행의 시작 부분에 지시어 이름 다음에 두 개의 콜론을 입력합니다(include::).
++
+.예제 4. ranges.adoc (현재 페이지)
+[source,asciidoc]
+----
+There are three mountain passes in the Sawatch Range.
+
+include::
+----
+
+. 현재 페이지에서 대상 페이지인 __cottonwood-pass.adoc__를 참조해 보겠습니다. 대상 페이지의 리소스 ID를 include 지시어에 할당합니다. __cottonwood-pass.adoc__와 __ranges.adoc__는 모두 동일한 컴포넌트 버전과 모듈에 속합니다(예제 3 참조). 따라서 대상 페이지의 파일 좌표만 지정하면 됩니다.
++
+.예제 5. ranges.adoc (현재 페이지)
+[source,asciidoc]
+----
+There are three mountain passes in the Sawatch Range.
+
+include::cottonwood-pass.adoc
+----
++
+__cottonwood-pass.adoc__ 페이지의 파일 좌표는 __cottonwood-pass.adoc__입니다. 대상 페이지의 파일 좌표는 __cottonwood-pass.adoc__이 __pages__ 디렉토리의 루트에 저장되어 있기 때문에 파일 이름과 파일 확장자로만 구성됩니다.
++
+NOTE: 원하는 경우 리소스 ID에 page$ 패밀리 좌표를 지정할 수 있지만 페이지에 페이지를 포함할 때는 필요하지 않습니다. include 지시어는 패밀리 좌표가 지정되지 않은 경우 패밀리 좌표가 page$라고 가정합니다.
+
+. 대상 페이지의 리소스 ID 바로 뒤에 대괄호([])를 사용하여 지시어를 완성합니다.
++
+.예제 6. ranges.adoc (현재 페이지)
+[source,asciidoc]
+----
+There are three mountain passes in the Sawatch Range.
+
+\include::cottonwood-pass.adoc[]
+----
+
+include 지시어의 대괄호에는 ``lines``, ``tag`` 또는 ``tags``와 같은 선택적 속성 목록이 포함될 수 있습니다. 속성은 쉼표로 구분된 키-값 쌍으로 입력됩니다. ``lines``, ``tag`` 및 ``tags`` 구문에 대한 자세한 내용은 AsciiDoc include directive documentation을 참조하세요.
+
+이것으로 끝입니다! 대상 페이지를 현재 페이지에 삽입하는 include 지시어를 작성했습니다.
+
+대상 페이지의 파일 좌표 구조는 앞의 지침과 같이 대상 페이지가 pages 패밀리 디렉토리의 루트에 저장되는지 아니면 pages 디렉토리의 하위 디렉토리에 저장되는지에 따라 달라집니다.
+
+.예제 7. current-page.adoc
+[source,asciidoc]
+----
+include::target-page-filename.adoc[] <1>
+
+include::path/to/target-page-filename.adoc[] <2>
+
+include::./target-page-filename.adoc[] <3>
+----
+<1> pages 디렉토리의 루트에 저장된 경우 대상 페이지의 파일 좌표.
+<2> pages 디렉토리의 하위 디렉토리에 저장된 경우 대상 페이지의 파일 좌표.
+<3> 대상 페이지와 현재 페이지가 pages 디렉토리의 동일한 하위 디렉토리에 저장된 경우 대상 페이지의 파일 좌표.
+
+다음 섹션에서는 페이지 상대 디렉토리 경로 또는 상대 경로 토큰이 있는 파일 좌표를 지정하는 방법을 설명합니다. 또한 대상 페이지와 현재 페이지가 동일한 모듈 또는 컴포넌트 버전에 속하지 않을 때 추가 리소스 ID 좌표를 지정해야 합니다.
+
+=== 페이지 상대 디렉토리 경로가 있는 파일 좌표
+
+대상 페이지가 pages 디렉토리의 하위 디렉토리에 저장된 경우 파일 좌표에 대상 페이지의 페이지 상대 디렉토리 경로가 필요합니다.
+
+.예제 8. 대상 페이지가 pages 디렉토리의 하위 디렉토리에 저장된 경우의 파일 좌표
+[source,asciidoc]
+----
+\include::path/to/target-page-filename.adoc[optional attribute]
+----
+
+이 섹션의 예제에 대한 기준으로 예제 9의 컴포넌트 버전에 속하는 파일을 사용해 보겠습니다.
+
+.예제 9. colorado 5.2에 할당된 디렉토리 및 파일
+[source]
+----
+📄 antora.yml <1>
+📂 modules
+  📂 ROOT <2> 
+    📂 pages <3> 
+      📄 cottonwood-pass.adoc
+      📄 index.adoc
+      📄 ranges.adoc
+      📂 supplies <4>
+        📄 gear.adoc
+        📄 safety.adoc
+----
+<1> 컴포넌트 버전을 __colorado 5.__2로 정의합니다.
+<2> __ROOT__ 모듈을 정의합니다.
+<3> 후속 파일을 페이지로 정의합니다.
+<4> 페이지의 소스 파일이 포함된 pages의 하위 디렉토리
+
+__cottonwood-pass.adoc__에서 __safety.adoc__를 참조해 보겠습니다. 예제 9에서 볼 수 있듯이 대상 페이지와 현재 페이지는 __ROOT__ 모듈에 속합니다. 예제 10에서는 __cottonwood-pass.adoc__ 페이지(현재 페이지)의 include 지시어가 __safety.adoc__ 파일(대상 페이지)을 참조합니다.
+
+.예제 10. cottonwood-pass.adoc (현재 페이지)
+[source,asciidoc]
+----
+== Trip planning
+
+\include::supplies/safety.adoc[]
+----
+
+예제 10에서 볼 수 있듯이 __safety.adoc__의 파일 좌표는 __supplies/safety.adoc__입니다. __safety.adoc__의 파일 좌표는 __supplies__ 하위 디렉토리에 저장되어 있는 반면 현재 페이지인 __cottonwood-pass.adoc__은 __pages__ 디렉토리에 저장되어 있기 때문에 페이지 상대 디렉토리 경로, 파일 이름 및 파일 확장자로 구성됩니다. 현재 페이지와 대상 페이지가 동일한 하위 디렉토리에 저장된 경우 페이지 상대 디렉토리 경로 대신 상대 경로 토큰 ``./``를 사용할 수 있습니다.
+
+=== 상대 경로 토큰이 있는 파일 좌표
+
+대상 페이지와 현재 페이지가 __pages__ 디렉토리 내의 동일한 하위 디렉토리에 저장된 경우 대상 페이지의 파일 좌표에서 페이지 상대 디렉토리 경로를 상대 경로 토큰 ./로 대체할 수 있습니다.
+
+.예제 11. 대상 페이지와 현재 페이지가 동일한 하위 디렉토리에 저장된 경우 include 지시어의 파일 좌표
+[source,asciidoc]
+----
+\include::./target-page-filename.adoc[]
+----
+
+이 섹션의 예제에 대한 기준으로 예제 12에 표시된 컴포넌트 버전에 속하는 페이지를 사용해 보겠습니다.
+
+.예제 12. colorado 5.2에 할당된 디렉토리 및 파일
+[source]
+----
+📄 antora.yml <1>
+📂 modules
+  📂 ROOT <2>
+    📂 pages <3> 
+      📄 cottonwood-pass.adoc
+      📄 index.adoc
+      📄 ranges.adoc
+      📂 supplies <4> 
+        📄 gear.adoc
+        📄 safety.adoc
+----
+<1> 컴포넌트 버전을 __colorado 5.2__로 정의합니다.
+<2> __ROOT__ 모듈을 정의합니다.
+<3> 후속 파일을 페이지로 정의합니다.
+<4> 페이지의 소스 파일이 포함된 pages의 하위 디렉토리
+
+__safety.adoc__에서 __gear.adoc__를 참조해 보겠습니다. 예제 12는 두 파일 모두 __pages__ 디렉토리의 __supplies__ 하위 디렉토리에 저장되어 있으며, 두 파일 모두 동일한 컴포넌트 버전의 __ROOT__ 모듈에 속함을 보여줍니다. 대상 페이지와 현재 페이지가 __pages__ 디렉토리 내의 동일한 하위 디렉토리에 저장된 경우 상대 경로 토큰 ``./``를 사용하여 대상 페이지의 파일 좌표를 줄일 수 있습니다.
+
+예제 13에서는 __safety.adoc__ 페이지(현재 페이지)의 include 지시어가 __gear.adoc__ 페이지(대상 페이지)를 참조합니다.
+
+.예제 13. safety.adoc (현재 페이지)
+[source,asciidoc]
+----
+\include::./gear.adoc[]
+----
+
+예제 13에서 볼 수 있듯이 __safety.adoc__에서 참조될 때 __gear.adoc__의 파일 좌표는 __./gear.adoc__입니다. 두 페이지 모두 __supplies__ 하위 디렉토리에 저장되므로 대상 페이지의 파일 좌표에서 페이지 상대 디렉토리 경로를 ``./`` 토큰으로 대체합니다.
+
+CAUTION: ``./`` 토큰을 파일 좌표에 사용하지 않아도 include 지시어가 대상 페이지를 해결할 수 있다는 것을 알 수 있습니다. 그러나 현재 페이지와 동일한 하위 디렉토리에 저장된 대상 페이지를 참조할 때는 ``./`` 토큰을 사용하는 것이 좋습니다.
+
+== 다른 모듈 또는 컴포넌트 버전에서 페이지 포함
+
+대상 페이지의 모듈 좌표 또는 버전, 컴포넌트 및 모듈 좌표를 각각 include 지시어에 할당하여 사이트에 속하는 다른 페이지에 모든 모듈 또는 컴포넌트 버전의 페이지를 포함할 수 있습니다.
+
+.예제 14. current-page.adoc
+[source,asciidoc]
+----
+include::module:file-coordinate-of-target-page.adoc[] <1>
+
+include::version@component:module:file-coordinate-of-target-page.adoc[] <2>
+
+include::component:module:file-coordinate-of-target-page.adoc[] <3>
+----
+<1> 대상 페이지와 현재 페이지가 동일한 컴포넌트 버전에 속하지만 동일한 모듈에 속하지 않을 때 include 지시어에 대상 페이지의 모듈 및 파일 좌표를 할당합니다.
+<2> 대상 페이지와 현재 페이지가 동일한 컴포넌트 버전에 속하지 않을 때 include 지시어에 대상 페이지의 버전, 컴포넌트, 모듈 및 파일 좌표를 할당합니다.
+<3> 버전 좌표가 지정되지 않은 경우 Antora는 런타임에 대상 페이지의 컴포넌트 최신 버전을 사용하여 리소스 ID를 완성합니다. 이 동작은 대상 페이지와 현재 페이지가 서로 다른 문서 컴포넌트에 속하는 경우에만 적용됩니다.
+
+예를 들어 __colorado 5.2__ 컴포넌트 버전의 다른 모듈에 속하는 페이지(현재 페이지)에 __cottonwood-pass.adoc__(대상 페이지)의 내용을 포함하려면 include 지시어에 대상 페이지의 모듈 좌표를 지정합니다.
+
+.예제 15. current-page.adoc
+[source,asciidoc]
+----
+\include::ROOT:cottonwood-pass.adoc[]
+----
+
+현재 페이지가 __cottonwood-pass.adoc__(대상 페이지)과 다른 컴포넌트 버전에 속하는 경우 대상 페이지의 버전, 컴포넌트, 모듈 및 파일 좌표를 지정합니다.
+
+.예제 16. current-page.adoc
+[source,asciidoc]
+----
+\include::5.2@colorado:ROOT:cottonwood-pass.adoc[]
+----
+
+예제 16에서 볼 수 있듯이 대상 페이지의 버전 좌표는 ``5.2``, 컴포넌트 좌표는 ``colorado``, 모듈 좌표는 ``ROOT``, 파일 좌표는 ``cottonwood-pass.adoc``입니다.
+
+=== include 지시어 배치
+
+include 지시어는 새 줄의 시작 부분에 배치됩니다. include 지시어 위아래에 빈 줄을 입력하면 대상 페이지의 내용이 독립 실행형 블록으로 표시됩니다. include 지시어를 새 줄에 직접 인접한 내용 바로 위에 배치하여 대상 페이지의 내용을 현재 페이지의 블록에 연결할 수 있습니다.
+
+.예제 17. current-page.adoc
+[source,asciidoc]
+----
+A paragraph in the page.
+
+include::resource-id-of-target-page.adoc[tag=value] <1>
+
+A line of content.
+include::resource-id-of-target-page.adoc[] <2>
+Another line of content.
+----
+<1> 포함된 내용을 독립 실행형 블록으로 표시하려면 include 지시어 앞뒤로 빈 줄을 두어야 합니다.
+<2> 포함된 내용을 현재 페이지의 블록에 연결하려면 include 지시어를 블록의 내용 줄 바로 위, 사이 또는 아래의 새 줄에 입력합니다.
+
+== 더 알아보기
+
+- Unset page-partial Globally
+- Include a Partial
+- Include an Example
+- Resources and Resource IDs
+
+.*AsciiDoc and Asciidoctor resources*
+
+- Select regions of content with tags
+- Offset section headings with leveloffset
+- AsciiDoc include directive

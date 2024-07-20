@@ -1,0 +1,21 @@
+= Page 링크 텍스트
+
+== 대상 페이지의 기본 링크 텍스트 사용하기
+
+xref에 링크 텍스트가 지정되지 않은 경우 Antora는 대상 페이지의 reftext 값을 링크 텍스트로 사용합니다. Antora 자체 문서에서 __resource-id.adoc__ 페이지에 대한 xref를 만들어 보겠습니다.
+
+[source,asciidoc]
+----
+See xref:resource-id.adoc[].
+----
+xref에 링크 텍스트가 지정되지 않았다는 점에 주목하세요. 아래 예제 출력에서 볼 수 있듯이 Antora는 대상 페이지의 제목을 사용하여 링크 텍스트를 자동으로 채웁니다.
+
+====
+See xref:resource-id.adoc[Resources and Resource IDs.].
+====
+
+링크를 클릭하면 클릭 가능한 텍스트와 대상 페이지의 제목이 동일한 것을 볼 수 있습니다. 페이지의 제목은 기본적으로 내장 AsciiDoc ``reftext`` 속성에 할당됩니다. ``reftext`` 속성에 사용자 정의 값을 할당할 수도 있습니다.
+
+CAUTION: 대상 페이지의 리소스 ID에 프래그먼트(딥 링크)가 추가되고 대괄호 사이에 링크 텍스트가 지정되지 않은 경우(xref:page.adoc#fragment[]와 같은 경우), 링크 텍스트가 자동으로 채워지지 않습니다. 프래그먼트를 사용할 때는 xref 매크로에서 링크 텍스트를 지정해야 합니다.
+
+TIP: 탐색 파일의 xref는 한 가지 추가 기능과 함께 동일한 방식으로 동작합니다. 탐색 파일은 누락된 링크 텍스트를 채우기 위해 ``navtitle`` 값을 사용합니다. ``navtitle``이 설정되지 않은 경우 페이지의 ``reftext`` 값을 사용합니다.
