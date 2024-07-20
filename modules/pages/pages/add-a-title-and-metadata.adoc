@@ -1,0 +1,63 @@
+= 제목 및 메타데이터 추가
+
+이 페이지에서는 다음을 배웁니다:
+
+* [x] 페이지 제목을 추가하는 방법.
+* [x] 페이지에 메타데이터를 추가하는 방법.
+
+== 페이지 제목
+
+페이지 제목은 등호 기호(=) 하나, 공백 하나, 그리고 제목의 텍스트로 지정됩니다.
+
+[source,asciidoc]
+----
+= Title of This Page
+----
+
+모든 페이지에는 페이지 제목이 있어야 합니다. 페이지 제목이 없으면 페이지는 ID의 중요한 부분이 부족하고 Antora의 특정 기능이 작동하지 않습니다. 특정 페이지에서 페이지 제목을 표시하지 않으려면 UI 템플릿에 조건부 로직을 추가하여 제목을 숨길 수 있습니다.
+
+페이지 제목에는 기본 텍스트 서식이 포함될 수 있습니다. 예를 들면:
+
+[source,asciidoc]
+----
+= A _Formatted_ Page Title
+----
+
+그러나 페이지 제목에는 이미지와 같은 리소스 참조를 포함할 수 없습니다. 페이지 제목은 다양한 컨텍스트에서 사용되며 리소스 참조가 항상 적절하거나 해결 가능한 것은 아닙니다. 따라서 리소스 참조는 허용되지 않습니다.
+
+== 페이지 설명 및 키워드
+
+description이 설정되면 동일한 이름의 HTML <meta> 태그로 출력됩니다. 공백 다음에 백슬래시 \로 각 줄을 끝내면 긴 값을 여러 줄로 나눌 수 있습니다.
+
+.예제 1. 설명 속성 구문
+[source,asciidoc]
+----
+= Page Title
+:description: A description of the page stored in an HTML meta tag. This page is \
+about all kinds of interesting things.
+----
+
+keywords 속성에는 동일한 이름의 HTML <meta> 태그에 할당된 쉼표로 구분된 값 목록이 포함되어 있습니다.
+
+.예제 2. 키워드 속성 구문
+[source,asciidoc]
+----
+= Page Title
+:keywords: comma-separated values, stored, in an HTML, meta, tag
+----
+
+== 페이지 작성자
+
+페이지의 작성자를 지정하는 것은 선택 사항입니다. 작성자는 페이지 제목 바로 아래 줄에 나열됩니다. 작성자 이름 뒤에 꺾쇠 괄호(< >) 안에 선택적 이메일 주소 또는 연락처 URL이 올 수 있습니다. 페이지에 여러 작성자가 있는 경우 각 작성자는 세미콜론(;)으로 구분됩니다.
+
+.예제 3. 여러 작성자 및 작성자 정보 구문
+[source,asciidoc]
+----
+= Page Title
+First Middle Last <author@email.com>; First Last <author@email.com>
+
+----
+
+작성자 이름은 HTML <meta> 태그로 출력됩니다. 게시된 페이지에 작성자 정보가 표시되는지 여부는 사이트의 UI 템플릿에 따라 다릅니다.
+
+작성자 정보를 지정하는 추가 작성자 속성 및 방법은 AsciiDoc 문서를 참조하세요.

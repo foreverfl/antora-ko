@@ -1,0 +1,159 @@
+= 내재적 속성
+
+Antora는 런타임 환경, 사이트 구성 및 현재 페이지에 대한 정보를 다양한 문서 및 페이지 속성에 자동으로 할당합니다. 우리는 이것을 **내재적 속성**이라고 부릅니다. Antora는 이러한 속성을 사용하여 사이트 및 현재 페이지에 대한 정보를 AsciiDoc 콘텐츠, 확장 및 UI 템플릿에 전파합니다.
+
+page-aliases와 같은 다른 내장 속성과 달리 내재적 속성은 Antora에서 페이지로 정보를 전달하는 통로 역할을 합니다. **따라서 내재적 속성은 읽기 전용으로 사용되며 재할당되어서는 안 됩니다.**
+
+이러한 속성은 페이지 또는 탐색 파일이 로드(즉, 구문 분석)될 때 정의됩니다. 컴포넌트 설명자의 속성이 해결될 때는 아직 할당되지 않으므로 컴포넌트 설명자에는 표시되지 않습니다.
+
+== 내재적 환경 속성
+
+내재적 환경 속성은 문서(또는 문서 확장)가 Antora에 의해 처리되고 있음을 전달합니다. 이러한 속성은 사이트의 모든 페이지에 설정됩니다.
+
+- env=site
+- env-site
+- site-gen=antora
+- site-gen-antora
+
+이러한 속성을 전처리기 조건부에 사용하여 문서가 Antora에 의해 처리되고 있는지 여부에 따라 콘텐츠를 포함하거나 제외할 수 있습니다. 예를 들면:
+
+[source,asciidoc]
+----
+\ifndef::site-gen-antora[]
+\include::local-preview-settings.adoc[]
+\endif::[]
+----
+
+플레이북에서 추가 환경 속성을 정의할 수 있습니다.
+
+== 사이트 및 구성 속성
+
+Antora는 AsciiDoc 프로세서를 구성하기 위해 다양한 속성을 설정합니다.
+
+- attribute-missing=warn
+- !data-uri
+- icons=font
+- sectanchors
+- source-highlighter=highlight.js
+
+이러한 속성은 합리적인 기본값으로 사용하기 위한 것입니다. 다른 내재적 속성과 달리 CLI 또는 플레이북을 사용하여 재구성할 수 있습니다. 또한 컴포넌트 설명자 또는 페이지에 의해 재정의될 수 있는 방식으로 재정의할 수 있습니다.
+
+CAUTION: Antora가 현재 소스 블록에 대해 지원하는 유일한 구문 강조 표시기는 highlight.js입니다. 따라서 source-highlighter 속성을 다른 값으로 변경하는 것은 의미가 없습니다. 소스 블록에서 구문 강조 표시를 비활성화하려면 이 속성을 비활성화할 수 있습니다.
+
+Antora는 또한 속성을 사용하여 일반 사이트 정보를 전달합니다.
+
+- site-title
+- site-url
+
+이러한 속성의 값은 플레이북에 정의된 값과 일치합니다.
+
+== 내재적 페이지 속성
+
+Antora는 페이지 속성을 통해 현재 페이지에 대한 다양한 정보를 전달합니다. 이러한 속성은 각 페이지와 각 탐색 파일에 대해 재할당됩니다.
+
+[cols="1,2,1"]
+|===
+|속성 |설명 |예시 출력
+
+|page-component-display-version
+|__antora.yml__에 지정된 컴포넌트 버전의 표시 버전입니다.
+|7.1 Beta
+
+|page-component-name
+|__antora.yml__에 지정된 컴포넌트 버전의 컴포넌트 이름입니다.
+|silver-leaf
+
+|page-component-title
+|__antora.yml__에 지정된 컴포넌트 버전의 컴포넌트 제목입니다.
+|Silver Leaf
+
+|page-component-latest-version
+|현재 페이지의 컴포넌트에서 최신 버전의 버전 문자열입니다.
+|7.5
+
+|page-component-version
+|antora.yml에 지정된 컴포넌트 버전의 버전입니다.
+|7.1
+
+|page-component-version-is-latest
+|현재 페이지의 컴포넌트 버전이 현재 페이지의 컴포넌트에서 최신 버전인 경우 설정됩니다.
+|__empty__
+
+|page-edit-url
+|페이지의 소스 파일을 편집할 수 있는 URL입니다.
+|pass:[https://gitlab.com/forest-co/silver-leaf/edit/main/modules/ROOT/pages/index.adoc]
+
+|page-module
+|페이지의 모듈 이름입니다.
+|ROOT
+
+|page-origin-branch
+|페이지의 소스 파일이 저장되는 저장소 브랜치의 이름입니다. (page-origin-tag와 상호 배타적)
+|v7.1.0
+
+|page-origin-private
+|페이지의 소스 파일이 저장되는 출처가 비공개인 경우 설정됩니다.
+|empty
+
+|page-origin-refhash
+|페이지의 소스 파일이 저장되는 참조의 SHA-1 해시입니다. 파일이 git 작업 트리(즉, 로컬 디렉토리)에서 가져온 경우 값은 (worktree)입니다.
+|e8e6f6ba33b1ab3f796907b5a256893a64844cd1
+
+|page-origin-refname
+|페이지의 소스 파일이 저장되는 참조의 이름입니다.
+|v7.1.0
+
+|page-origin-reftype
+|페이지의 소스 파일이 저장되는 참조 유형(예: 태그 또는 브랜치)입니다. 파일이 git 작업 트리(즉, 로컬 디렉토리)에서 가져온 경우 값은 branch입니다.
+|branch
+
+|page-origin-tag
+|페이지의 소스 파일이 저장되는 저장소 태그의 이름입니다. (page-origin-branch와 상호 배타적)
+|v7.1.0
+
+|page-origin-start-path
+|페이지의 소스 파일이 저장되는 콘텐츠 소스의 시작 경로입니다.
+|docs
+
+|page-origin-type
+|페이지의 소스 파일이 저장되는 콘텐츠 소스의 유형(예: git)입니다.
+|git
+
+|page-origin-url
+|페이지의 소스 파일이 저장되는 콘텐츠 소스의 URL(자격 증명 없음)입니다.
+|pass:[https://gitlab.com/forest-co/silver-leaf.git]
+
+|page-origin-worktree
+|git 작업 트리(즉, 로컬 디렉토리)의 절대 경로입니다. 파일이 git 작업 트리에서 가져온 경우에만 설정됩니다.
+|/user/projects/project-name
+
+|page-relative-src-path
+|페이지 소스 파일의 family-relative 경로(__modules/<module>/pages__에서 시작)입니다.
+|whats-new-in-spiky.adoc
+
+|page-version
+|page-component-version의 별칭입니다.
+|7.1
+|===
+
+AsciiDoc 프로세서는 현재 문서에 대한 정보(예: docname 및 docfilesuffix)를 전달하기 위해 수많은 내재적 속성을 할당하지만 이러한 속성은 페이지 속성(즉, page- 접두사가 붙지 않음)은 아닙니다.
+
+=== 내재적 페이지 속성 활용하기
+
+이러한 페이지 속성의 값은 AsciiDoc 콘텐츠에서 속성 참조 구문(예: ``{page-component-name}``)을 사용하거나 템플릿 변수(예: ``page.attributes.component-name``)를 사용하여 페이지 UI 모델을 통해 액세스할 수 있습니다.
+
+.예시 1. 현재 페이지의 모듈 이름, 컴포넌트 제목 및 버전 참조
+[source,asciidoc]
+----
+This page belongs to the *{page-module}* module in the *{page-component-title} {page-component-version}* component version.
+----
+
+위의 예시에서 속성 참조는 현재 페이지, 즉 지금 읽고 있는 페이지에 대한 데이터(아래 표시)를 출력합니다.
+
+====
+This page belongs to the *{page-module}* module in the *{page-component-title} {page-component-version}* component version.
+====
+
+이러한 속성은 페이지 속성이므로 다른 모든 페이지 속성과 함께 페이지 UI 모델의 ``page.attributes`` 맵으로 승격됩니다. UI 템플릿에서 속성 표현식(예: ``page.attributes.component-name``)을 사용하여 액세스할 수 있습니다.
+
+페이지 속성의 작동 방식에 대해 자세히 알아보려면 Page Attributes을 참조하세요.

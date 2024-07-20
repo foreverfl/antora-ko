@@ -1,3 +1,11 @@
 {
-  "asciidoc.antora.enableAntoraSupport": false
+  "asciidoc.preview.asciidoctorAttributes": {
+    "showtitle": true,
+    "icons": "font",
+    "source-highlighter": "highlightjs",
+    "toc": "",
+    "toclevels": 2,
+    "toc-title": "컨텐츠",
+    "sectanchors": true
+  }
 }
