@@ -17,7 +17,7 @@ site:
 +
 site 키는 전역 사이트 속성을 정의하는 키-값 쌍의 맵을 허용합니다.
 
-. title 키는 site의 하위 키입니다. title:을 입력한 다음 사이트의 제목이 될 텍스트를 입력합니다. kbd:[Enter]를 누릅니다.
+. title 키는 site의 하위 키입니다. ``title:``을 입력한 다음 사이트의 제목이 될 텍스트를 입력합니다. kbd:[Enter]를 누릅니다.
 +
 [source,yaml]
 ----
@@ -25,7 +25,7 @@ site:
   title: My Demo Site
 ----
 
-. url:을 입력한 다음 사이트의 기본 URL을 입력합니다.
+. ``url:``을 입력한 다음 사이트의 기본 URL을 입력합니다.
 +
 [source,yaml]
 ----
@@ -36,7 +36,7 @@ site:
 +
 url 키에 절대 URL을 할당하면 사이트맵과 같은 보조 기능이 활성화됩니다.
 
-. 다음 줄에 start_page:를 입력하고 Antora가 사이트의 홈 페이지로 사용해야 하는 페이지의 페이지 ID를 입력합니다.
+. 다음 줄에 ``start_page:``를 입력하고 Antora가 사이트의 홈 페이지로 사용해야 하는 페이지의 페이지 ID를 입력합니다.
 +
 [source,yaml]
 ----
@@ -46,7 +46,7 @@ site:
   start_page: component-b::index.adoc
 ----
 +
-위 예제의 start_page 값은 Component B에 속하는 파일 index.adoc의 최신 버전에 대한 페이지 ID입니다. Antora가 이 페이지를 사용하려면 Component B에 속하는 소스 파일을 찾을 위치를 Antora에 알려줘야 합니다.
+위 예제의 start_page 값은 Component B에 속하는 파일 __index.adoc__의 최신 버전에 대한 페이지 ID입니다. Antora가 이 페이지를 사용하려면 Component B에 속하는 소스 파일을 찾을 위치를 Antora에 알려줘야 합니다.
 
 다음 섹션에서는 콘텐츠 소스 URL, 브랜치 및 시작 경로를 정의해 보겠습니다.
 
@@ -54,7 +54,7 @@ site:
 
 Antora는 소스 파일을 찾아 가져와야 하는 git 리포지토리, 브랜치 및 태그와 리포지토리의 루트에 있지 않은 콘텐츠 소스 루트의 위치를 알아야 합니다. 이전 섹션에서 시작한 플레이북 파일에서 이러한 키를 정의해 보겠습니다.
 
-. 파일의 왼쪽에 붙여서 content:를 입력합니다. kbd:[Enter]를 눌러 다음 줄로 이동합니다.
+. 파일의 왼쪽에 붙여서 ``content:``를 입력합니다. kbd:[Enter]를 눌러 다음 줄로 이동합니다.
 +
 [source,yaml]
 ----
@@ -63,7 +63,7 @@ Antora는 소스 파일을 찾아 가져와야 하는 git 리포지토리, 브�
 content:
 ----
 
-. sources 키는 content의 하위 키입니다. sources:를 입력하고 kbd:[Enter]를 누릅니다.
+. sources 키는 content의 하위 키입니다. ``sources:``를 입력하고 kbd:[Enter]를 누릅니다.
 +
 [source,yaml]
 ----
@@ -73,9 +73,9 @@ content:
   sources:
 ----
 +
-sources 키에는 최소한 하나의 url 키에 원격 리포지토리 URL 또는 파일 시스템 경로가 할당되어야 합니다. 다음 단계에서 Demo Component A라는 원격 리포지토리의 URL을 url에 할당해 보겠습니다.
+sources 키에는 최소한 하나의 url 키에 원격 리포지토리 URL 또는 파일 시스템 경로가 할당되어야 합니다. 다음 단계에서 __Demo Component A__라는 원격 리포지토리의 URL을 url에 할당해 보겠습니다.
 
-. 하이픈(-)과 공백을 입력합니다. 그런 다음 url:을 입력하고 콘텐츠 소스 리포지토리의 URL을 입력합니다.
+. 하이픈(``-``)과 공백을 입력합니다. 그런 다음 ``url:``을 입력하고 콘텐츠 소스 리포지토리의 URL을 입력합니다.
 +
 [source,yaml]
 ----
@@ -86,11 +86,11 @@ content:
   - url: https://gitlab.com/antora/demo/demo-component-a.git
 ----
 +
-이제 Antora는 Demo Component A 리포지토리를 찾을 수 있습니다. 하지만 가져와야 할 브랜치와 태그도 알아야 합니다.
+이제 Antora는 __Demo Component A__ 리포지토리를 찾을 수 있습니다. 하지만 가져와야 할 브랜치와 태그도 알아야 합니다.
 +
-url 키에 branches 또는 tags 키가 설정되어 있지 않으면 런타임에 기본 브랜치 필터가 적용됩니다. Demo Component A 리포지토리에는 브랜치가 하나뿐이고 해당 브랜치의 이름(main)이 기본 필터의 매개변수 내에 있으므로 이 url 키에 명시적으로 branches를 설정할 필요가 없습니다.
+``url`` 키에 ``branches`` 또는 ``tags`` 키가 설정되어 있지 않으면 런타임에 기본 브랜치 필터가 적용됩니다. __Demo Component A__ 리포지토리에는 브랜치가 하나뿐이고 해당 브랜치의 이름(``main``)이 기본 필터의 매개변수 내에 있으므로 이 ``url`` 키에 명시적으로 ``branches``를 설정할 필요가 없습니다.
 
-. Demo Component B 리포지토리의 URL을 추가해 보겠습니다. 새 줄에 - url:과 리포지토리의 URL을 입력합니다.
+. __Demo Component B__ 리포지토리의 URL을 추가해 보겠습니다. 새 줄에 ``- url:``과 리포지토리의 URL을 입력합니다.
 +
 [source,yaml]
 ----
@@ -102,9 +102,9 @@ content:
   - url: https://gitlab.com/antora/demo/demo-component-b.git
 ----
 +
-Demo Component B 리포지토리는 버전 관리에 브랜치를 사용합니다. 브랜치 v1.0과 v2.0의 콘텐츠 소스 파일은 게시할 준비가 되었습니다. 그러나 main 브랜치의 파일은 사이트에 게시해서는 안 되므로 이 url에 기본 브랜치 필터를 사용할 수 없습니다. 대신 Demo Component B 리포지토리에서 가져와야 할 브랜치를 Antora에 알려줘야 합니다.
+__Demo Component B__ 리포지토리는 버전 관리에 브랜치를 사용합니다. 브랜치 ``v1.0``과 ``v2.0``의 콘텐츠 소스 파일은 게시할 준비가 되었습니다. 그러나 ``main`` 브랜치의 파일은 사이트에 게시해서는 안 되므로 이 url에 기본 브랜치 필터를 사용할 수 없습니다. 대신 __Demo Component B__ 리포지토리에서 가져와야 할 브랜치를 Antora에 알려줘야 합니다.
 
-. 다음 줄에 branches:와 여는 대괄호([)를 입력합니다. [내에 Antora가 가져와야 할 각 브랜치 이름을 입력합니다. 값을 쉼표로 구분합니다. 브랜치 이름을 나열하는 순서는 중요하지 않습니다. 목록 끝에 닫는 대괄호(])를 입력합니다. kbd:[Enter]를 누릅니다.
+. 다음 줄에 ``branches:``와 여는 대괄호(``[``)를 입력합니다. ``[``내에 Antora가 가져와야 할 각 브랜치 이름을 입력합니다. 값을 쉼표로 구분합니다. 브랜치 이름을 나열하는 순서는 중요하지 않습니다. 목록 끝에 닫는 대괄호(``]``)를 입력합니다. kbd:[Enter]를 누릅니다.
 +
 [source,yaml]
 ----
@@ -117,10 +117,10 @@ content:
     branches: [v2.0, v1.0]
 ----
 +
-TIP: branches를 충분히 들여쓰기하여 url의 u와 branches의 b가 정렬되도록 합니다.
-branches 키는 셸 글로브 패턴(Shell Glob Pattern)도 허용합니다. 예를 들어 Demo Component B의 url 키에 branches: v*를 정의하여 Antora가 이름이 v1.0 및 v2.0인 브랜치를 가져오도록 지정할 수 있습니다.
+TIP: branches를 충분히 들여쓰기하여 ``url``의 u와 ``branches``의 b가 정렬되도록 합니다.
+``branches`` 키는 셸 글로브 패턴(Shell Glob Pattern)도 허용합니다. 예를 들어 __Demo Component B__의 ``url`` 키에 ``branches: v*``를 정의하여 Antora가 이름이 ``v1.0`` 및 ``v2.0``인 브랜치를 가져오도록 지정할 수 있습니다.
 +
-Demo Component B 리포지토리의 키 구성이 아직 끝나지 않았습니다. 각 브랜치의 콘텐츠 소스 루트는 리포지토리의 루트에 있지 않고 docs에 있습니다. Antora가 콘텐츠 소스 루트를 찾을 수 있도록 url에 start_path 키를 설정해야 합니다.
+__Demo Component B__ 리포지토리의 키 구성이 아직 끝나지 않았습니다. 각 브랜치의 콘텐츠 소스 루트는 리포지토리의 루트에 있지 않고 __docs__에 있습니다. Antora가 콘텐츠 소스 루트를 찾을 수 있도록 ``url``에 ``start_path`` 키를 설정해야 합니다.
 
 . start_path:를 입력하고 리포지토리 루트 상대 경로를 입력합니다.
 +
@@ -144,7 +144,7 @@ content:
 
 Antora는 사이트를 생성하려면 UI 번들이 필요합니다. 이전 섹션에서 작업한 플레이북 파일에 필요한 키를 정의하여 Antora에 참조 UI 번들을 사용하도록 지시해 보겠습니다.
 
-. 파일의 왼쪽에 붙여서 ui:를 입력합니다. kbd:[Enter]를 눌러 다음 줄로 이동합니다.
+. 파일의 왼쪽에 붙여서 ``ui:``를 입력합니다. kbd:[Enter]를 눌러 다음 줄로 이동합니다.
 +
 [source,yaml]
 ----
@@ -153,7 +153,7 @@ Antora는 사이트를 생성하려면 UI 번들이 필요합니다. 이전 섹�
 ui:
 ----
 
-. bundle 키는 ui의 하위 키입니다. bundle:을 입력하고 kbd:[Enter]를 누릅니다.
+. ``bundle`` 키는 ``ui``의 하위 키입니다. ``bundle:``을 입력하고 kbd:[Enter]를 누릅니다.
 +
 [source,yaml]
 ----
@@ -163,7 +163,7 @@ ui:
   bundle:
 ----
 
-. url 키는 bundle의 하위 키입니다. url:을 입력한 다음 Antora의 참조 UI 번들 URL을 입력합니다.
+. ``url`` 키는 ``bundle``의 하위 키입니다. ``url:``을 입력한 다음 Antora의 참조 UI 번들 URL을 입력합니다.
 +
 [source,yaml]
 ----
@@ -174,9 +174,9 @@ ui:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
 ----
 +
-Antora의 참조 UI 아카이브는 시간이 지남에 따라 변경되지만 URL은 변경되지 않으므로 snapshot 키를 활성화해야 합니다.
+Antora의 참조 UI 아카이브는 시간이 지남에 따라 변경되지만 URL은 변경되지 않으므로 ``snapshot`` 키를 활성화해야 합니다.
 
-. 다음 줄에 snapshot:과 값 true를 입력합니다.
+. 다음 줄에 ``snapshot:``과 값 ``true``를 입력합니다.
 +
 [source,yaml]
 ----
@@ -188,7 +188,7 @@ ui:
     snapshot: true
 ----
 +
-snapshot이 true로 설정되면 플레이북 또는 CLI에서 fetch가 활성화될 때마다 Antora는 UI 번들을 다운로드합니다.
+``snapshot``이 ``true``로 설정되면 플레이북 또는 CLI에서 fetch가 활성화될 때마다 Antora는 UI 번들을 다운로드합니다.
 
 거의 다 왔습니다! 지금까지 작성한 전체 플레이북 파일은 다음과 같습니다.
 
@@ -211,7 +211,7 @@ ui:
 ----
 
 
-이 플레이북은 지정된 리포지토리 브랜치의 콘텐츠 파일과 지정된 UI 번들의 UI 파일을 사용하여 My Demo Site라는 사이트를 생성합니다.
+이 플레이북은 지정된 리포지토리 브랜치의 콘텐츠 파일과 지정된 UI 번들의 UI 파일을 사용하여 __My Demo Site__라는 사이트를 생성합니다.
 
 이 플레이북에서 Antora를 실행하기 전에 해야 할 일은 저장하는 것뿐입니다. 플레이북 파일은 종종 __antora-playbook.yml__ 또는 사용되는 컨텍스트에 따라 __local-antora-playbook.yml__과 같은 관련 파일 이름으로 저장됩니다.
 
