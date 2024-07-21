@@ -49,8 +49,12 @@ image::console.svg[xref=modes.adoc] <1>
 
 페이지의 리소스 ID 끝에 프래그먼트를 추가하여 페이지 내의 요소에 연결할 수도 있습니다. 예제 5에서는 __modes.adoc__의 내용에 설정된 요소 ID protocols에 해당하는 프래그먼트가 __modes.adoc__의 리소스 ID 끝에 추가되어 있습니다.
 
-.예제 5. current-page.adoc [source,asciidoc]
+.예제 5. current-page.adoc
+[source,asciidoc]
+----
 image::console.svg[xref=modes.adoc#protocols]
+----
+
 현재 페이지의 요소 ID에 연결할 수도 있습니다.
 
 == 이미지에서 첨부 파일로 링크
