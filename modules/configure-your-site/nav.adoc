@@ -1,4 +1,4 @@
-* xref:configure-your-site.adoc[사이트 구성하기]
+* 사이트 구성하기
 ** xref:the-antora-playbook.adoc[Antora 플레이북]
 ** xref:set-up-a-playbook.adoc[플레이북 설정]
 ** xref:site-keys.adoc[사이트 키]
