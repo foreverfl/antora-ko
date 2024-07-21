@@ -1,0 +1,363 @@
+= Image 리소스 ID 예제
+
+== 이미지 리소스 ID 예제
+
+대상 이미지 파일이 속한 모듈이나 컴포넌트 버전에 관계없이 사이트의 모든 페이지에 이미지를 삽입할 수 있습니다. 이 페이지에서는 이미지가 포함될 페이지와 관련하여 이미지가 속한 버전, 컴포넌트 및 모듈을 기준으로 이미지 매크로에 올바른 리소스 ID 좌표를 할당하는 방법을 배웁니다.
+
+[NOTE]
+====
+블록 이미지 매크로 및 인라인 이미지 매크로에 대한 개요와 페이지에 추가하는 단계별 지침은 다음을 참조하세요:
+
+- Add Block Images
+- Add Inline Images
+
+Antora 리소스 ID 또는 그 좌표에 익숙하지 않은 경우 다음을 참조하세요:
+
+- Resources and Resource IDs
+- Resource ID Coordinates
+====
+
+TIP: 이 페이지의 모든 예제는 개념을 설명하는 데 사용하는 이미지 매크로에 관계없이 블록 이미지 매크로와 인라인 이미지 매크로 모두에 적용됩니다.
+
+== 모듈 내에서 이미지 사용
+
+이미지 매크로로 참조하는 대부분의 이미지는 아마도 현재 페이지와 동일한 모듈 및 컴포넌트 버전에 속할 것입니다. 이러한 상황에서는 AsciiDoc 이미지 매크로에 대상 이미지의 리소스 ID의 파일 좌표만 값으로 할당하면 됩니다.
+
+NOTE: 대상 이미지는 현재 페이지에서 참조하는 이미지 소스 파일입니다. 대상 이미지는 현재 페이지의 내용에서 인라인 또는 블록 이미지 매크로에 리소스 ID를 할당하여 참조됩니다. 현재 페이지는 대상 이미지를 참조하는 이미지 매크로를 포함하는 페이지 소스 파일입니다.
+
+대상 이미지의 파일 좌표 구조는 대상 이미지가 이미지 패밀리 디렉토리의 루트에 저장되는지 아니면 이미지 디렉토리의 하위 디렉토리에 저장되는지에 따라 달라집니다.
+
+.예제 1. current-page.adoc
+[source,asciidoc]
+----
+image:target-image-filename.ext[optional attribute] <1>
+
+image:path/to/target-image-filename.ext[optional attribute] <2>
+
+image:./target-image-filename.ext[optional attribute] <3>
+----
+<1> 대상 이미지가 이미지 디렉토리의 루트에 저장된 경우 대상 이미지의 파일 좌표.
+<2> 대상 이미지가 이미지 디렉토리의 하위 디렉토리에 저장된 경우 대상 이미지의 파일 좌표.
+<3> 대상 이미지와 현재 페이지가 패밀리 상대 디렉토리 경로가 동일한 하위 디렉토리에 저장된 경우 대상 이미지의 파일 좌표. 이것은 고급 사용 사례입니다.
+다음 섹션에서는 다양한 파일 좌표 구조를 보여주는 예제를 제공합니다.
+
+=== 이미지 디렉토리 루트의 파일 좌표
+
+대상 이미지가 이미지 패밀리 디렉토리의 루트에 저장되면 파일 좌표는 대상 이미지의 파일 이름과 파일 확장자입니다. 대상 이미지의 파일 좌표는 항상 이미지 패밀리 디렉토리의 루트에서 계산된다는 점을 기억하세요.
+
+.예제 2. 대상 이미지가 이미지 디렉토리의 루트에 저장된 경우 이미지 매크로의 파일 좌표
+[source,asciidoc]
+----
+image::target-image-filename.ext[optional attribute]
+----
+
+이 섹션의 예제에 대한 기준으로 컴포넌트 버전 __colorado 5.2__에 속하는 파일을 사용해 보겠습니다. 컴포넌트 버전의 소스 파일은 예제 3에 나열된 표준 디렉토리 세트를 기준으로 모듈과 패밀리에 할당됩니다.
+
+.예제 3. colorado 5.2에 할당된 디렉토리 및 파일
+[source]
+----
+📄 antora.yml <1>
+📂 modules
+  📂 la-garita <2>
+    📂 images <3>
+      📄 wilderness-map.jpg
+    📂 pages <4>
+      📄 ridge.adoc
+----
+<1> 컴포넌트 버전을 __colorado 5.2__로 정의합니다.
+<2> __la-garita__라는 이름의 모듈을 정의합니다.
+<3> 후속 파일을 이미지로 정의합니다.
+<4> 후속 파일을 페이지로 정의합니다.
+
+위의 예제 3에 표시된 __la-garita__ 모듈에 속하는 두 파일을 사용하여 __wilderness-map.jpg__ 이미지를 __ridge.adoc__ 페이지에 삽입해 보겠습니다. 즉, 소스 파일 __wilderness-map.jpg__는 대상 이미지이고 __ridge.adoc__는 현재 페이지입니다.
+
+예제 4는 __ridge.adoc__ 페이지(현재 페이지)에서 __wilderness-map.jpg__ 이미지(대상 이미지)를 참조하는 블록 이미지 매크로를 보여줍니다. 대상 이미지와 현재 페이지가 동일한 모듈에 속할 때는 대상 이미지의 리소스 ID의 파일 좌표만 이미지 매크로에 입력하면 됩니다.
+
+.예제 4. ridge.adoc (현재 페이지)
+[source,asciidoc]
+----
+The trailhead is north of town.
+
+image::wilderness-map.jpg[]
+----
+
+예제 4에서 __wilderness-map.jpg__ 이미지의 파일 좌표는 __wilderness-map.jpg__입니다. __wilderness-map.jpg__가 이미지 디렉토리의 루트에 저장되어 있기 때문에 파일 좌표는 파일 이름과 파일 확장자로만 구성됩니다.
+
+대상 이미지가 이미지 디렉토리의 하위 디렉토리에 저장된 경우 파일 좌표에는 이미지 상대 디렉토리 경로, 파일 이름 및 파일 확장자를 지정해야 합니다. 대상 이미지가 하위 디렉토리에 저장된 경우의 파일 좌표 예제는 이미지 상대 디렉토리 경로가 있는 파일 좌표를 참조하세요.
+
+=== 이미지 상대 디렉토리 경로가 있는 파일 좌표
+
+대상 이미지가 이미지 디렉토리의 하위 디렉토리에 저장된 경우 파일 좌표에 대상 이미지의 이미지 상대 디렉토리 경로가 필요합니다.
+
+.예제 5. 대상 이미지가 이미지 디렉토리의 하위 디렉토리에 저장된 경우 이미지 매크로의 파일 좌표
+[source,asciidoc]
+----
+image::path/to/target-image-filename.ext[optional attribute]
+----
+
+이 섹션의 예제에 대한 기준으로 예제 6에 표시된 컴포넌트 버전에 속하는 페이지를 사용해 보겠습니다.
+
+.예제 6. colorado 5.2에 할당된 디렉토리 및 파일
+[source]
+----
+📄 antora.yml <1>
+📂 modules
+  📂 la-garita <2>
+    📂 images <3>
+      📂 aerial <4>
+        📄 skyline.jpg
+    📂 pages <5>
+      📄 ridge.adoc
+----
+<1> 컴포넌트 버전을 __colorado 5.2__로 정의합니다.
+<2> __la-garita__라는 이름의 모듈을 정의합니다.
+<3> 후속 파일을 이미지로 정의합니다.
+<4> 이미지의 소스 파일이 포함된 이미지의 하위 디렉토리
+<5> 후속 파일을 페이지로 정의합니다.
+
+__ridge.adoc__에서 __skyline.jpg__를 참조해 보겠습니다. 위의 예제 6에서 볼 수 있듯이 이미지와 페이지는 __la-garita__ 모듈에 속합니다. 예제 7에서는 __ridge.adoc__ 페이지(현재 페이지)의 이미지 매크로가 __skyline.jpg__ 이미지(대상 이미지)를 참조합니다.
+
+.예제 7. ridge.adoc (현재 페이지)
+[source,asciidoc]
+----
+= La Garita Ridgeline
+
+image::aerial/skyline.jpg[]
+----
+
+예제 7에서 볼 수 있듯이 __skyline.jpg__의 파일 좌표는 __aerial/skyline.jpg__입니다. __skyline.jpg__의 파일 좌표는 aerial 하위 디렉토리에 저장되어 있기 때문에 이미지 상대 디렉토리 경로, 파일 이름 및 파일 확장자로 구성됩니다.
+
+TIP: 대상 이미지의 이미지 상대 디렉토리 경로와 현재 페이지의 페이지 상대 디렉토리 경로가 병렬인 특별한 상황에서는 파일 좌표의 이미지 상대 디렉토리 경로를 상대 경로 토큰 ``./``로 대체할 수 있습니다.
+
+== 다른 모듈의 이미지 사용
+
+대상 이미지와 현재 페이지가 동일한 모듈에 속하지 않는 경우 이미지 매크로에 대상 이미지의 모듈 좌표와 파일 좌표를 지정해야 합니다.
+
+.예제 8. 이미지 매크로에 할당된 모듈 및 파일 좌표
+[source,asciidoc]
+----
+image:module:target-image-filename.ext[optional attribute] <1>
+
+image:module:path/to/target-image-filename.ext[optional attribute] <2>
+----
+<1> 대상 이미지가 현재 페이지와 동일한 모듈에 속하지 않을 때 이미지 매크로에 대상 이미지의 모듈 좌표와 파일 좌표가 할당됩니다. 대상 이미지가 이미지 패밀리 디렉토리의 루트에 저장된 경우 대상 이미지의 파일 좌표는 파일 이름과 파일 확장자입니다.
+<2> 대상 이미지가 이미지 디렉토리의 하위 디렉토리에 저장된 경우 대상 이미지의 파일 좌표에는 이미지 상대 디렉토리 경로, 파일 이름 및 파일 확장자를 지정해야 합니다.
+
+이 섹션의 예제에 대한 기준으로 예제 9에 표시된 컴포넌트 버전에 속하는 파일을 사용해 보겠습니다.
+
+.예제 9. colorado 5.2에 할당된 디렉토리 및 파일
+[source]
+----
+📄 antora.yml <1>
+📂 modules
+  📂 la-garita <2> 
+    📂 images <3>
+      📂 aerial <4>
+        📄 skyline.jpg
+    📂 pages <5>
+      📄 ridge.adoc
+      📄 willow-creek.adoc
+  📂 ROOT <6>
+    📂 images <7>
+      📄 peak.svg
+    📂 pages <8>
+      📄 index.adoc
+      📄 ranges.adoc
+----
+<1> 컴포넌트 버전을 colorado 5.2로 정의합니다.
+<2> la-garita라는 이름의 모듈을 정의합니다.
+<3> 후속 파일을 이미지로 정의합니다.
+<4> 이미지의 소스 파일이 포함된 이미지의 하위 디렉토리
+<5> 후속 파일을 페이지로 정의합니다.
+<6> ROOT 모듈을 정의합니다.
+<7> 후속 파일을 이미지로 정의합니다.
+<8> 후속 파일을 페이지로 정의합니다.
+
+위의 예제 9에 표시된 __colorado 5.2__ 컴포넌트 버전에서 __peak.svg__ 이미지를 __willow-creek.adoc__ 페이지에 삽입해 보겠습니다. 즉, 소스 파일 __peak.svg__는 대상 이미지이고 __willow-creek.adoc__는 현재 페이지입니다.
+
+예제 10은 __willow-creek.adoc__(현재 페이지)에서 이미지 파일 __peak.svg__(대상 이미지)를 참조하는 인라인 이미지 매크로를 보여줍니다. 대상 이미지의 리소스 ID의 모듈 및 파일 좌표가 이미지 매크로에 할당됩니다. __willow-creek.adoc__ 페이지는 __la-garita__ 모듈에 속합니다. __peak.svg__ 이미지는 __ROOT__ 모듈에 속합니다.
+
+.예제 10. peak.svg(대상 이미지)를 willow-creek.adoc(현재 페이지)에 삽입
+[source,asciidoc]
+----
+The elevation is image:ROOT:peak.svg[] 10,067 ft (3,068 m).
+----
+
+예제 10에서 볼 수 있듯이 대상 이미지의 모듈 좌표는 __ROOT__이고 파일 좌표는 __peak.svg__입니다.
+
+예제 11에서는 __skyline.jpg__ 이미지(대상 이미지)를 __ranges.adoc__(현재 페이지)에 포함해 보겠습니다. __skyline.jpg__ 이미지는 __la-garita__ 모듈에 속하고 __ranges.adoc__은 __ROOT__ 모듈에 속합니다.
+
+.예제 11. skyline.jpg(대상 이미지)를 ranges.adoc(현재 페이지)에 삽입
+[source,asciidoc]
+----
+image::la-garita:aerial/skyline.jpg[]
+----
+
+예제 11에서 볼 수 있듯이 대상 이미지의 모듈 좌표는 __la-garita__이고 파일 좌표는 __aerial/skyline.jpg__입니다. 이미지 패밀리 디렉토리의 __aerial__ 하위 디렉토리에 저장되어 있기 때문입니다.
+
+== 다른 문서 컴포넌트의 이미지 사용
+
+대상 이미지와 현재 페이지가 서로 다른 문서 컴포넌트에 속하는 경우 이미지 매크로에 최소한 대상 이미지의 컴포넌트, 모듈 및 파일 좌표를 지정해야 합니다. 대부분의 경우 버전 좌표도 지정합니다.
+
+.예제 12. 이미지 매크로에 할당된 버전, 컴포넌트, 모듈 및 파일 좌표
+[source,asciidoc]
+----
+image:version@component:module:target-image-filename.ext[optional attribute] <1>
+
+image:version@component:module:path/to/target-image-filename.ext[optional attribute] <2>
+
+image:component:module:file-coordinate-of-target-image.ext[optional attribute] <3>
+----
+<1> 대상 이미지와 현재 페이지가 동일한 컴포넌트 버전에 속하지 않을 때 이미지 매크로에 대상 이미지의 버전, 컴포넌트, 모듈 및 파일 좌표가 할당됩니다. 대상 이미지가 이미지 패밀리 디렉토리의 루트에 저장된 경우 대상 이미지의 파일 좌표는 파일 이름과 파일 확장자입니다.
+<2> 대상 이미지가 이미지 디렉토리의 하위 디렉토리에 저장된 경우 대상 이미지의 파일 좌표에는 이미지 상대 디렉토리 경로, 파일 이름 및 파일 확장자를 지정해야 합니다.
+<3> 버전 좌표가 지정되지 않은 경우 Antora는 런타임에 대상 이미지의 컴포넌트 최신 버전을 사용하여 리소스 ID를 완성합니다. 이 동작은 대상 이미지와 현재 페이지가 서로 다른 문서 컴포넌트에 속하는 경우에만 적용됩니다.
+
+이 섹션의 예제에 대한 기준으로 컴포넌트 버전 __colorado 5.2__(예제 13)와 __wyoming 1.0__(예제 14)에 속하는 파일을 사용해 보겠습니다.
+
+.예제 13. colorado 5.2에 할당된 디렉토리 및 파일
+[source]
+----
+📄 antora.yml <1>
+📂 modules
+  📂 ROOT <2>
+    📂 images <3> 
+      📄 peak.svg
+    📂 pages <4>
+      📄 index.adoc
+      📄 ranges.adoc
+----
+<1> 컴포넌트 버전을 colorado 5.2로 정의합니다.
+<2> ROOT 모듈을 정의합니다.
+<3> 후속 파일을 이미지로 정의합니다.
+<4> 후속 소스 파일을 페이지로 정의합니다.
+
+.예제 14. wyoming 1.0에 할당된 디렉토리 및 파일
+[source]
+----
+📄 antora.yml <1>
+📂 modules
+  📂 sierra-madre <2>
+    📂 images <3>
+      📄 panorama.png
+    📂 pages <4>
+      📄 elevation.adoc
+      📄 wilderness-areas.adoc
+----
+<1> 컴포넌트 버전을 __wyoming 1.0__으로 정의합니다.
+<2> __sierra-madre__라는 이름의 모듈을 정의합니다.
+<3> 후속 파일을 이미지로 정의합니다.
+<4> 후속 파일을 페이지로 정의합니다.
+
+예제 13과 예제 14의 파일을 사용하여 __panorama.png__(대상 이미지)를 __ranges.adoc__(현재 페이지)에 삽입해 보겠습니다. __panorama.png__ 이미지는 __wyoming 1.0__의 __sierra-madre__모듈에 속합니다. 예제 15에서는 대상 이미지가 __wyoming 1.0__ 컴포넌트 버전에 속하는 반면 현재 페이지는 __colorado 5.2__에 속하므로 이미지 매크로에 할당된 리소스 ID는 대상 이미지의 버전, 컴포넌트, 모듈 및 파일 좌표를 지정합니다.
+
+.예제 15. panorama.png(대상 이미지)를 ranges.adoc(현재 페이지)에 블록 이미지로 삽입
+
+[source,asciidoc]
+----
+image::1.0@wyoming:sierra-madre:panorama.png[]
+----
+
+예제 15에서 볼 수 있듯이 대상 이미지의 버전 좌표는 1.0, 컴포넌트 좌표는 wyoming, 모듈 좌표는 sierra-madre, 파일 좌표는 panorama.png입니다.
+
+이제 예제 16에서는 __peak.svg__(대상 이미지)를 __wilderness-areas.adoc__(현재 페이지)에 삽입해 보겠습니다. __peak.svg__ 이미지는 컴포넌트 버전 __colorado 5.2__에 속합니다. __wilderness-areas.adoc__ 페이지는 컴포넌트 버전 __wyoming 1.0__에 속합니다.
+
+.예제 16. wilderness-areas.adoc (현재 페이지)
+[source,asciidoc]
+----
+image:5.2@colorado::peak.svg[] Bridger Peak is in the Sierra Madre range.
+----
+
+예제 16에서 모듈 좌표 ROOT가 리소스 ID에서 누락된 것 같다는 점에 주목하세요. 리소스 ID에 컴포넌트 좌표가 지정되고 대상 이미지가 ROOT 모듈에 속하는 경우 모듈 좌표 ROOT를 명시적으로 지정할 필요가 없습니다. 그러나 모듈 좌표 뒤에 오는 콜론(``:``)은 여전히 입력해야 합니다. 파일 좌표 peak.svg 바로 앞에 이 ``:``가 있는 것을 볼 수 있습니다. 이 단축 표기법은 컴포넌트 좌표가 지정되고 대상 이미지의 모듈 좌표가 ``ROOT``인 경우에만 작동합니다. 모듈 좌표가 필요한 다른 모든 경우에는 모듈의 이름을 지정해야 합니다.
+
+예제 15와 예제 16 모두에서 버전 좌표가 지정되었다는 점을 알아차렸을 것입니다. 버전을 지정하지 않으면 Antora는 런타임에 대상 이미지의 최신 컴포넌트 버전의 버전 좌표를 사용하여 대상 이미지의 리소스 ID를 완성합니다.
+
+=== 이미지의 최신 버전 사용
+
+TIP: 이 동작은 대상 이미지와 현재 페이지가 서로 다른 문서 컴포넌트에 속하는 경우에만 적용됩니다!
+
+리소스 ID에 버전이 지정되지 않고 **대상 이미지와 현재 페이지가 서로 다른 문서 컴포넌트에 속하는 경우** Antora는 런타임에 대상 이미지의 컴포넌트 최신 버전의 버전 좌표를 사용하여 리소스 ID를 완성합니다.
+
+이 섹션의 예제에 대한 기준으로 __colorado 5.2__(이전 섹션의 예제 13), __wyoming 1.0__(이전 섹션의 예제 14) 및 __wyoming 1.5__(아래의 예제 17)에 속하는 파일을 사용해 보겠습니다.
+
+.예제 17. wyoming 1.5에 할당된 디렉토리 및 파일
+[source]
+----
+📄 antora.yml <1>
+📂 modules
+  📂 sierra-madre
+    📂 images
+      📄 panorama.png
+    📂 pages
+      📄 elevation.adoc
+      📄 wilderness-areas.adoc
+----
+<1> 컴포넌트 버전을 __wyoming 1.5__로 정의합니다.
+
+__index.adoc__(현재 페이지)에서 __panorama.png__ 이미지(대상 이미지)를 참조해 보겠습니다. __index.adoc__은 __colorado 5.2__ 컴포넌트 버전에 속합니다. __wyoming__ 컴포넌트, __sierra-madre__ 모듈 및 이미지 패밀리에 속하는 __panorama.png__ 파일은 두 개가 있습니다. 하나의 __panorama.png__는 버전 1.0에 속하고 다른 __panorama.png__는 버전 1.5에 속합니다.
+
+예제 18은 __index.adoc__(현재 페이지)에서 __panorama.png__(대상 이미지)를 참조하는 블록 이미지 매크로를 보여줍니다. 대상 이미지의 버전 좌표가 지정되지 않았다는 점에 주목하세요.
+
+.예제 18. index.adoc (현재 페이지)
+[source,asciidoc]
+----
+image::wyoming:sierra-madre:panorama.png[]
+----
+
+Antora가 실행되면 버전 정렬 규칙과 최신 버전 기준에 따라 __wyoming 1.5__를 __wyoming__ 컴포넌트의 최신 버전으로 식별합니다. 예제 18에 버전 좌표가 지정되지 않았기 때문에 Antora는 최신 __wyoming__ 컴포넌트의 버전 좌표(1.5)를 사용하여 이미지 매크로에 할당된 리소스 ID를 완성합니다.
+
+WARNING: 이 최신 버전으로 연결하는 동작은 버전 좌표가 지정되지 않고 대상 이미지와 현재 페이지가 서로 다른 컴포넌트에 속하는 경우에만 적용됩니다. 리소스 ID에 버전 및 컴포넌트 좌표가 지정되지 않은 경우 Antora는 대상 이미지가 현재 페이지와 동일한 컴포넌트 버전에 속한다고 가정하고 현재 페이지의 버전 및 컴포넌트 좌표를 사용하여 대상 이미지의 리소스 ID를 완성합니다.
+
+== 컴포넌트의 다른 버전에서 이미지 사용
+
+현재 페이지와 대상 이미지가 동일한 컴포넌트에 속하지만 대상 이미지가 컴포넌트의 다른 버전에 속하는 경우 버전, 모듈(현재 페이지의 모듈과 다른 경우) 및 파일 좌표를 지정합니다.
+
+.예제 19. current-page.adoc
+[source,asciidoc]
+----
+image:version@module:file-coordinate-of-target-image.ext[optional attribute] <1>
+
+image:version@file-coordinate-of-target-image.ext[optional attribute] <2>
+----
+<1> 대상 이미지가 현재 페이지와 동일한 버전과 모듈에 속하지 않을 때 이미지 매크로에 대상 이미지의 버전, 모듈 및 파일 좌표가 할당됩니다.
+<2> 대상 이미지가 현재 페이지와 동일한 버전에 속하지 않을 때 이미지 매크로에 대상 이미지의 버전 및 파일 좌표가 할당됩니다.
+
+이 섹션의 예제에 대한 기준으로 컴포넌트 버전 __colorado 5.2__(예제 20)와 컴포넌트 버전 __colorado 6.0__(예제 21)에 속하는 파일을 사용해 보겠습니다.
+
+.예제 20. colorado 5.2에 할당된 디렉토리 및 파일
+[source]
+----
+📄 antora.yml <1>
+📂 modules
+  📂 la-garita
+    📂 images
+      📄 wilderness-map.jpg
+    📂 pages
+      📄 index.adoc
+      ...
+----
+<1> 컴포넌트 버전을 __colorado 5.2__로 정의합니다.
+
+.예제 21. colorado 6.0에 할당된 디렉토리 및 파일
+[source]
+----
+📄 antora.yml <1>
+📂 modules
+  📂 la-garita
+    📂 pages
+      📄 index.adoc
+      📄 ridge.adoc
+      📄 willow-creek.adoc
+----
+<1> 컴포넌트 버전을 __colorado 6.0__으로 정의합니다.
+
+예제 20의 __colorado 5.2__ 컴포넌트 버전에는 이미지 __wilderness-map.jpg__가 있습니다. 그러나 예제 21에 표시된 __colorado 6.0__에는 그러한 이미지 파일이 없습니다.
+
+__colorado 5.2__에 속하는 이미지 __wilderness-map.jpg__(대상 이미지)를 __colorado 6.0__ 컴포넌트 버전에 속하는 __ridge.adoc__ 페이지(현재 페이지)에서 참조해 보겠습니다. 두 리소스 모두 __la-garita__ 모듈에 속합니다. 예제 22에서는 이미지 __wilderness-map.jpg__(대상 이미지)가 페이지 __ridge.adoc__(현재 페이지)에 포함되어 있습니다.
+
+.예제 22. ridge.adoc (현재 페이지) in colorado 6.0
+[source,asciidoc]
+----
+image::5.2@wilderness-map.jpg[]
+----
+
+예제 22에서 볼 수 있듯이 대상 이미지의 버전 좌표는 ``5.2``이고 파일 좌표는 ``wilderness-map.jpg``입니다.

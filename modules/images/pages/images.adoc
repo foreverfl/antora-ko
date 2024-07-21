@@ -1,0 +1,37 @@
+= Images
+
+== 이미지 리소스
+
+이미지는 사진, 다이어그램, 스크린샷 등과 같이 __images__ 패밀리 디렉토리에 저장되는 소스 파일입니다. AsciiDoc 이미지 매크로를 사용하면 이미지가 속한 모듈이나 컴포넌트 버전에 관계없이 모든 페이지나 부분에 이미지를 삽입할 수 있습니다. AsciiDoc은 PNG, JPG, SVG 및 GIF(정적 및 애니메이션) 이미지 파일 형식을 지원합니다.
+
+== 블록 및 인라인 이미지 매크로
+
+블록과 인라인의 두 가지 AsciiDoc 이미지 매크로 유형이 있습니다. 블록 이미지는 페이지에서 개별 요소로 표시됩니다.
+
+.예제 1. 블록 이미지 매크로
+[source,asciidoc]
+----
+This is a paragraph.
+
+image::resource-id-of-target-image.ext[]
+----
+
+인라인 이미지는 단락이나 사이드바 블록과 같은 다른 요소의 흐름 안에 표시됩니다.
+
+.예제 2. 인라인 이미지 매크로
+[source,asciidoc]
+----
+This sentence contains an inline image:resource-id-of-target-image.ext[] image.
+----
+
+== 이미지 매크로에서 리소스로 연결
+
+``xref`` 요소 속성을 사용하면 페이지에 포함된 이미지에서 페이지, 첨부 파일, 요소 또는 다른 이미지까지 참조할 수 있습니다.
+
+.예제 3. 이미지 매크로에 할당된 xref 요소 속성
+[source,asciidoc]
+----
+image::resource-id-of-target-image.ext[xref=resource-id.ext]
+----
+
+자세한 내용은 Resource Links From Images를 참조하세요.

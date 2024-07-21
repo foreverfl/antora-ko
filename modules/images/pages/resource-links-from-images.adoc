@@ -1,0 +1,105 @@
+= Image에서 리소스 링크
+
+xref 속성을 인라인 또는 블록 이미지 매크로에 할당하여 이미지에서 페이지, 첨부 파일, 이미지 또는 요소로 연결되는 링크를 만들 수 있습니다.
+
+== Xref 요소 속성
+
+xref 요소 속성은 블록 및 인라인 이미지 매크로의 속성 목록에 설정할 수 있습니다. xref 속성은 선택 사항입니다. 블록 이미지 매크로 또는 인라인 이미지 매크로에 할당하는지 여부에 관계없이 구조와 동작 방식이 동일합니다.
+
+xref 속성은 게시 가능한 리소스(페이지, 첨부 파일 또는 이미지)의 리소스 ID를 값으로 받아들입니다.
+
+.예제 1. xref 속성 설정 및 리소스 ID 할당
+[source,asciidoc]
+----
+image::an-image.jpg[xref=version@component:module:family$file.ext]
+----
+
+또한 현재 페이지에 지정된 요소의 ID를 받아들입니다. xref 속성에 할당할 때는 요소 ID 앞에 해시 기호(#)를 붙여야 합니다.
+
+.예제 2. xref 속성 설정 및 요소 ID 할당
+[source,asciidoc]
+----
+image::an-image.gif[xref=#fragment]
+----
+
+사이트가 게시되고 방문자가 포함된 이미지를 선택하면 게시된 리소스의 URL 또는 지정된 요소 ID에 해당하는 현재 게시된 페이지의 앵커로 연결됩니다.
+
+xref 속성은 명명된 속성입니다. 이미지 매크로에 alt 텍스트, 너비 또는 높이와 같은 위치 속성을 설정하는 경우 xref 또는 기타 명명된 속성을 설정하기 전에 속성 목록에서 이를 할당하세요.
+
+.예제 3. 이미지 매크로에 할당된 선택적 위치 및 명명된 속성
+[source,asciidoc]
+----
+image:an-image.svg[The image alt text,xref=version@component:module:family$file.ext,title="A tooltip for the image"]
+----
+
+위치 및 명명된 요소 속성은 이미지 매크로의 속성 목록에서 쉼표로 구분됩니다.
+
+== 이미지에서 페이지로 링크
+
+포함된 이미지에서 페이지를 참조하려면 속성 목록에서 xref 속성을 설정한 다음 등호(``=``)를 입력하고 대상 페이지의 리소스 ID를 입력하세요. 현재 페이지와 관련하여 대상 페이지의 컴포넌트 버전 및 모듈에 따라 대상 페이지의 리소스 ID 좌표를 얼마나 많이 지정해야 하는지가 결정됩니다.
+
+.예제 4. current-page.adoc
+[source,asciidoc]
+----
+image::console.svg[xref=modes.adoc] <1>
+----
+<1> 이 예제에서는 현재 페이지와 대상 페이지가 동일한 컴포넌트 버전과 모듈에 속한다고 가정하므로 xref에 할당된 리소스 ID는 페이지의 파일 좌표만 지정합니다.
+
+예제 4에 표시된 블록 이미지 매크로는 이미지 __console.svg__를 현재 페이지에 포함하고 이미지에서 대상 페이지의 게시된 URL로 연결되는 링크를 만듭니다.
+
+페이지의 리소스 ID 끝에 프래그먼트를 추가하여 페이지 내의 요소에 연결할 수도 있습니다. 예제 5에서는 __modes.adoc__의 내용에 설정된 요소 ID protocols에 해당하는 프래그먼트가 __modes.adoc__의 리소스 ID 끝에 추가되어 있습니다.
+
+.예제 5. current-page.adoc [source,asciidoc]
+image::console.svg[xref=modes.adoc#protocols]
+현재 페이지의 요소 ID에 연결할 수도 있습니다.
+
+== 이미지에서 첨부 파일로 링크
+
+포함된 이미지에서 첨부 파일을 참조하려면 속성 목록에서 ``xref`` 속성을 설정한 다음 등호(=)를 입력하고 대상 첨부 파일의 리소스 ID를 입력하세요. ``xref`` 속성에 할당된 값에 패밀리 좌표 attachment$가 지정되었는지 확인하세요.
+
+예제 6은 매크로의 속성 목록에 세 개의 위치 속성이 설정된 인라인 이미지 매크로와 명명된 xref 속성을 보여줍니다. xref 속성에는 첨부 파일의 리소스 ID가 할당됩니다.
+
+.예제 6. current-page.adoc
+[source,asciidoc]
+----
+Select the image:red-dot.jpg[Red circle,40,40,xref=telemetry:attachment$flight-patterns.pdf]. <1>
+----
+<1> 위치 속성은 선택 사항입니다. 이미지 매크로에 하나 이상의 위치 속성을 설정하는 경우 xref 또는 기타 명명된 속성을 설정하기 전에 속성 목록에서 이를 할당하세요. 이 예제에서는 위치 속성 alt, width 및 height가 이미지 매크로에서 허용하는 순서대로 설정됩니다.
+
+이 예제에서는 대상 첨부 파일이 현재 페이지와 다른 모듈에 속한다고 가정하므로 ``xref``에 할당된 리소스 ID는 대상 첨부 파일의 모듈, ``attachment$`` 및 파일 좌표를 지정합니다. 리소스가 첨부 파일인 경우에는 항상 ``attachment$`` 좌표가 필요합니다.
+
+예제 6에 표시된 인라인 이미지 매크로는 이미지 red-dot.jpg를 현재 페이지에 포함하고 이미지에서 대상 첨부 파일의 게시된 URL로 연결되는 링크를 만듭니다.
+
+== 이미지에서 현재 페이지의 요소로 딥 링크
+
+현재 페이지의 요소를 참조하려면 요소의 ID를 xref 속성에 할당하세요. xref 속성에 할당할 때는 요소 ID 앞에 해시 기호(``#``)를 붙이세요. 예제 7은 xref 속성에 현재 페이지의 ID에 해당하는 요소 ID가 할당된 블록 이미지 매크로를 보여줍니다.
+
+.예제 7. current-page.adoc
+[source,asciidoc]
+----
+image::panorama.png[xref=#elevation] <1>
+
+The range can be traversed by Cottonwood Pass, Independence Pass, or Hagerman Pass.
+
+[#elevation] <2>
+== Pass elevations
+
+The passes usually open in late spring.
+----
+<1> 속성 목록에서 xref 속성을 설정한 다음 등호(``=``), 해시 기호(``#``)를 입력하고 현재 페이지의 요소에 할당된 ID에 해당하는 요소 ID를 입력하세요.
+<2> 현재 페이지의 섹션에 설정되고 할당된 요소 ID.
+
+예제 7에 표시된 블록 이미지 매크로는 이미지 __panorama.png__를 현재 페이지에 포함하고 이미지에서 현재 페이지의 Pass elevations 섹션의 시작 부분으로 연결되는 링크를 만듭니다.
+
+== 원본 크기로 열기 위해 이미지 자체에 연결
+
+이미지를 원본 크기로 제한 없이 열 수 있게 하려면(html 출력에서) link=self 속성을 추가하세요.
+
+[source,asciidoc]
+----
+image::panorama.png[link=self]
+----
+
+=== 더 알아보기
+
+추가 이미지 매크로 속성과 요소 ID에 대한 자세한 내용은 AsciiDoc 문서를 참조하세요.

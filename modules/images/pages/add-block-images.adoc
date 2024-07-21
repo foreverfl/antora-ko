@@ -1,0 +1,104 @@
+= 블록 Image 추가
+
+이 페이지에서 다음을 배웁니다:
+
+* [*] AsciiDoc 블록 이미지 매크로의 구조.
+* [*] 리소스 ID를 사용하여 블록 이미지를 삽입하는 방법.
+
+== AsciiDoc 블록 이미지 매크로
+
+AsciiDoc 블록 이미지 매크로는 이미지의 소스 파일을 부분 또는 페이지에 포함하는 데 사용됩니다. 블록 이미지 매크로는 PNG, JPG, SVG 및 GIF(정적 및 애니메이션) 이미지 파일의 Antora 리소스 ID를 값으로 받아들입니다.
+
+Antora가 실행되면 블록 이미지 매크로에 의해 참조되는 이미지 파일이 게시된 페이지에 개별 요소로 포함되어 표시됩니다. 예를 들어, 이 단락 아래의 SVG 이미지는 블록 이미지 매크로를 사용하여 이 페이지에 포함되어 있습니다.
+
+image::console.svg[]
+
+=== 블록 이미지 매크로 구조
+
+예제 1은 블록 이미지 매크로의 구조를 보여줍니다.
+
+.예제 1. 블록 이미지 매크로
+[source,asciidoc]
+----
+This is a paragraph.
+
+image::resource-id-of-target-image.ext[optional attribute,optional attribute] <1>
+
+This is another paragraph.
+----
+<1> 블록 이미지는 매크로 이름 뒤에 두 개의 콜론(::)으로 지정됩니다. 빈 줄이 앞에 오고, 그 자체로 한 줄에 입력된 다음, 빈 줄이 뒤따릅니다.
+
+최소한 블록 이미지 매크로는 매크로의 접두사(image::), 대상 이미지의 리소스 ID 및 대괄호([])로 구성됩니다. 대상 이미지는 현재 페이지에서 참조하는 이미지 소스 파일입니다. 대상 이미지는 현재 페이지의 내용에서 인라인 또는 블록 이미지 매크로에 리소스 ID를 할당하여 참조됩니다. 현재 페이지는 대상 이미지를 참조하는 이미지 매크로를 포함하는 페이지 소스 파일입니다.
+
+예제 1에 표시된 블록 이미지 매크로의 각 부분은 아래에서 더 자세히 설명합니다.
+
+image::
+블록 이미지 매크로는 매크로의 이름 image와 두 개의 콜론(::)으로 시작합니다.
+
+대상 이미지의 리소스 ID::
+이미지 매크로는 이미지 소스 파일의 리소스 ID를 값으로 받아들입니다. 값은 매크로 이름(image::) 뒤의 두 번째 콜론 바로 뒤에 입력됩니다. 현재 페이지와 관련하여 대상 이미지의 컴포넌트 버전 및 모듈에 따라 대상 이미지의 리소스 ID 좌표를 얼마나 많이 지정해야 하는지가 결정됩니다. 이미지 매크로에서 이미지를 참조할 때는 대상 이미지의 리소스 ID에 image$ 패밀리 좌표를 포함할 필요가 없습니다. 런타임에 자동으로 적용됩니다.
+
+[optional attribute,optional attribute]::
+블록 이미지 매크로는 대상 이미지의 리소스 ID 끝에 대괄호([])로 완성됩니다. 대괄호를 비워 둘 수 있으며, 선택적 속성을 하나 이상 쉼표로 구분된 목록으로 대괄호 안에 할당할 수 있습니다.
+
+다음 섹션인 블록 이미지 포함에서는 블록 이미지 매크로를 단계별로 설정하는 방법을 설명합니다.
+
+== 블록 이미지 포함
+
+블록 이미지 매크로를 사용하여 페이지(현재 페이지)에 이미지(대상 이미지)를 삽입하는 데 필요한 블록 이미지 매크로와 리소스 ID 좌표를 분석해 보겠습니다.
+
+. IDE 또는 텍스트 편집기에서 이미지를 삽입할 페이지를 엽니다. 이 연습에서는 __satellites.adoc__ 파일을 열었습니다. __satellites.adoc__는 현재 페이지입니다.
+
+. __satellites.adoc__에서 블록 이미지 __console.svg__를 포함해 보겠습니다.
+
+. 새 줄의 시작 부분에 매크로의 이름 다음에 두 개의 콜론을 입력합니다(image::). 이전 요소(예: 단락 또는 소스 블록)와 이미지 매크로를 배치하는 줄 사이에 빈 줄이 있는지 확인하세요.
++
+.예제 2. satellites.adoc (현재 페이지)
+[source,asciidoc]
+----
+After scanning your badge, you should see this screen.
+
+image::
+----
+
+. 두 개의 콜론 바로 뒤에 대상 이미지 파일의 리소스 ID를 입력합니다. 이 예제에서는 __console.svg__와 __satellites.adoc__ 모두 동일한 컴포넌트 버전과 모듈에 속하며 대상 이미지가 image 패밀리 디렉토리의 루트에 저장되어 있습니다. 따라서 __console.svg__의 파일 이름과 확장자만 블록 이미지 매크로의 값으로 할당하면 됩니다.
++
+.예제 3. satellites.adoc (현재 페이지)
+[source,asciidoc]
+----
+After scanning your badge, you should see this screen.
+
+image::console.svg
+----
++
+__console.svg__의 리소스 ID에 패밀리 좌표가 포함되어 있지 않다는 점에 주목하세요. Antora는 이미지 매크로에 할당된 리소스 ID에 자동으로 image$ 패밀리 좌표를 적용합니다.
+
+. 대상 이미지의 리소스 ID 바로 뒤에 왼쪽 대괄호([)를 입력한 다음 오른쪽 대괄호(])를 입력합니다.
++
+.예제 4. satellites.adoc (현재 페이지)
+[source,asciidoc]
+----
+After scanning your badge, you should see this screen.
+
+image::console.svg[]
+----
++
+이 예제에서는 블록 이미지 매크로에 선택적 속성을 적용하지 않았습니다. 그러나 대괄호 안에 쉼표로 구분된 목록으로 하나 이상의 속성을 지정할 수 있습니다.
+
+. 마지막 대괄호(]) 뒤에 kbd:[Enter] 키를 두 번 눌러 이미지 매크로 뒤에 새 줄을 삽입합니다.
++
+.예제 5. satellites.adoc (현재 페이지)
+[source,asciidoc]
+----
+After scanning your badge, you should see this screen.
+
+image::console.svg[]
+
+Enter the satellite position after the prompt.
+----
+
+이것으로 끝입니다! AsciiDoc 블록 이미지 매크로를 사용하여 대상 이미지(__console.svg__)를 현재 페이지(__satellites.adoc__)에 삽입했습니다.
+
+== 더 알아보기
+
+다른 모듈, 문서 컴포넌트 및 버전에 속하는 이미지를 포함하는 방법을 알아보려면 Image resource ID examples를 참조하세요.
