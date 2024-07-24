@@ -1,2 +1,95 @@
-= robots.adoc
+= 로봇
 
+Antora는 사이트 크롤러가 방문할 수 있는 경로를 제어하기 위해 __robots.txt__ 파일을 생성할 수 있습니다.
+
+== robots 키
+
+robots 키는 선택 사항입니다. 플레이북의 site 키 아래에 구성됩니다. 허용되는 값은 다음과 같습니다:
+
+allow::
+게시된 사이트의 모든 경로에 대한 액세스를 모든 사용자 에이전트에 허용합니다.
+
+disallow::
+게시된 사이트의 모든 경로에 대한 액세스를 모든 사용자 에이전트에 허용하지 않습니다.
+
+사용자 정의 여러 줄 문자열::
+생성된 __robots.txt__ 파일의 내용으로 사용되는 비어 있지 않은 사용자 지정 문자열입니다.
+
+.예제 1. antora-playbook.yml
+[source,yaml]
+----
+site:
+  title: Site Title
+  url: https://example.org
+  robots: disallow
+----
+
+Antora는 사이트의 루트에 __robots.txt__ 파일을 생성합니다.
+
+``robots`` 키는 형제 ``url`` 키에 의존합니다. ``url`` 키에 값이 할당되지 않으면 ``robots``가 허용되는 값으로 설정되어 있더라도 Antora는 __robots.txt__ 파일을 생성하지 않습니다.
+
+== robots에 allow 또는 disallow 할당
+
+``url``과 ``robots`` 키가 다음과 같이 정의되어 있다고 가정해 보겠습니다:
+
+.예제 2. antora-playbook.yml
+[source,yaml]
+----
+site:
+  title: Demo Docs Site
+  url: https://demo.antora.org
+  robots: allow
+----
+
+이렇게 하면 사용자 에이전트에게 사이트의 모든 경로에 대한 액세스를 허용하는 __robots.txt__ 파일이 생성됩니다.
+
+.생성된 robots.txt
+[source]
+----
+User-agent: *
+Allow: /
+----
+
+유사하게, url과 robots 키가 다음과 같이 정의된 경우:
+
+.예제 3. antora-playbook.yml
+[source,yaml]
+----
+site:
+  title: Demo Docs Site
+  url: https://demo.antora.org
+  robots: disallow
+----
+
+이렇게 하면 모든 경로에 대한 액세스를 허용하지 않는 __robots.txt__ 파일이 생성됩니다.
+
+.생성된 robots.txt
+[source]
+----
+User-agent: *
+Disallow: /
+----
+
+== 사용자 정의 내용으로 robots.txt 생성
+
+robots에 할당된 다른 모든 비어 있지 않은 값은 __robots.txt__ 파일의 내용으로 사용됩니다. 예를 들어, robots 키가 다음과 같이 선언되었다고 가정해 보겠습니다:
+
+.예제 4. antora-playbook.yml
+[source,yaml]
+----
+site:
+  title: Demo Docs Site
+  url: https://demo.antora.org
+  robots: |
+    User-agent: *
+    Disallow: /private/
+----
+
+이렇게 하면 다음과 같은 __robots.txt__ 파일이 생성됩니다.
+
+.생성된 robots.txt
+[source,text]
+----
+User-agent: *
+Disallow: /private/
+----

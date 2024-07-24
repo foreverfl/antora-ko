@@ -1,2 +1,29 @@
-= site-title.adoc
+= 사이트 제목
+
+== title 키
+
+``title`` 키는 필수입니다. 플레이북의 ``site`` 키 아래에 구성됩니다.
+
+.예제 1. antora-playbook.yml
+[source,yaml]
+----
+site:
+  title: Site Title
+  url: https://example.org
+----
+
+``title`` 키는 UI가 사이트의 제목을 호출하는 곳마다 표시되는 문자열을 받아들입니다. ``title`` 키는 CLI에서도 할당할 수 있습니다.
+
+== 사이트 제목 추가
+
+``title`` 키를 사용하여 사이트에 제목을 추가하세요.
+
+.예제 2. antora-playbook.yml
+[source,yaml]
+----
+site:
+  title: Demo Docs Site
+----
+
+제목은 사이트의 UI가 이 키를 호출하는 곳마다 표시됩니다. Antora의 참조 UI는 전역 탐색 막대의 왼쪽 상단 모서리에 사이트 제목을 표시합니다.
 
