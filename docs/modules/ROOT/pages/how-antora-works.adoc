@@ -1,102 +1,99 @@
-= How Antora Works
-//The playbook is a configuration file that contains an inventory of documentation component names, branches, and addresses.
+= Antora의 작동 방식
 
-Antora's site generator handles all aspects of creating a documentation site, from fetching and aggregating to converting and arranging the content to publishing the files of the generated site.
-This page describes that process in detail.
+Antora의 사이트 생성기는 문서 사이트를 만드는 전 과정을 담당합니다. 콘텐츠를 가져와 집계하고, 변환 및 정리한 다음, 생성된 사이트의 파일을 게시하는 모든 단계를 포함합니다. 이 페이지에서는 그 과정을 자세히 설명합니다.
 
-The default pipeline is opinionated to get you started as quickly as possible.
-But understand that Antora features a modular, open architecture.
-That means this architecture can accommodate specialized use cases by allowing custom Antora components, such as a validators, to be inserted into the pipeline at strategic points as needed.
-This page focuses on the core, built-in Antora components and capabilities in Antora.
+기본 파이프라인은 가능한 한 빠르게 시작할 수 있도록 미리 설정된 방식으로 제공됩니다.
+하지만 Antora가 모듈식의 개방형 아키텍처를 특징으로 한다는 것을 이해하세요.
+이는 필요에 따라 전략적 지점에 검증기와 같은 사용자 정의 Antora 컴포넌트를 삽입하여 특수한 사용 사례를 수용할 수 있다는 것을 의미합니다.
+이 페이지는 Antora의 핵심 내장 컴포넌트와 기능에 초점을 맞춥니다.
 
-== Steps in the default generator pipeline
+== 기본 생성기 파이프라인의 단계
 
-The steps listed in this section describe the operations the site generator performs.
-Certain operations are executed asynchronously, so some of the steps below may occur in a different order or happen simultaneously.
-For example, the UI is fetched and loaded while the content is being aggregated to optimize use of the network.
+이 섹션에 나열된 단계는 사이트 생성기가 수행하는 작업을 설명합니다.
+특정 작업은 비동기적으로 실행되므로 아래의 일부 단계는 다른 순서로 발생하거나 동시에 발생할 수 있습니다.
+예를 들어, 네트워크 사용을 최적화하기 위해 콘텐츠가 집계되는 동안 UI가 가져와지고 로드됩니다.
 
-Build playbook::
-When you're ready to generate a site, you pass Antora a playbook file and tell it to run.
+플레이북 빌드::
+사이트를 생성할 준비가 되면 Antora에 플레이북 파일을 전달하고 실행하도록 지시합니다.
 +
-A xref:playbook:index.adoc[playbook file is a simple configuration file] that can be written in YAML, JSON, or TOML.
-It contains information and settings such as what content to use, how the content should be processed, how the site should be generated, and where to publish the output.
+xref:playbook:index.adoc[플레이북 파일은 간단한 구성 파일]로, YAML, JSON 또는 TOML로 작성할 수 있습니다.
+어떤 콘텐츠를 사용할지, 콘텐츠를 어떻게 처리해야 할지, 사이트를 어떻게 생성해야 할지, 그리고 출력을 어디에 게시할지와 같은 정보와 설정을 포함합니다.
 +
-Antora reads the playbook file and builds a playbook from it, which it then uses to drive the pipeline.
+Antora는 플레이북 파일을 읽고 이를 기반으로 플레이북을 빌드한 다음, 이를 사용하여 파이프라인을 구동합니다.
 
-Load content repositories::
-Using the xref:playbook:configure-content-sources.adoc[content sources] listed in the playbook, Antora loads the specified git repositories or local content folders in preparation to scan them for content files.
+콘텐츠 저장소 로드::
+플레이북에 나열된 xref:playbook:configure-content-sources.adoc[콘텐츠 소스]를 사용하여 Antora는 지정된 git 저장소 또는 로컬 콘텐츠 폴더를 로드하여 콘텐츠 파일을 스캔할 준비를 합니다.
 +
-For each remote URL, Antora clones the remote git repository into a local cache using the built-in git client.
-If the repository has already been cloned, Antora fetches updates if configured to do so.
+각 원격 URL에 대해 Antora는 내장된 git 클라이언트를 사용하여 원격 git 저장소를 로컬 캐시로 클론합니다.
+저장소가 이미 클론되어 있다면 Antora는 구성된 경우 업데이트를 가져옵니다.
 +
-Finally, Antora determines which references (branches, tags, and start paths) to use from the specified repositories.
+마지막으로, Antora는 지정된 저장소에서 사용할 참조(브랜치, 태그 및 시작 경로)를 결정합니다.
 
-Find the content source roots::
-Starting at a xref:content-source-repositories.adoc[content source root], Antora identifies a group of files as being part of a component version when it finds a component version descriptor file named [.path]_antora.yml_.
-These source files can be stored in a single repository, at the root of a repository or in a subpath, or distributed across multiple repositories.
+콘텐츠 소스 루트 찾기::
+xref:content-source-repositories.adoc[콘텐츠 소스 루트]에서 시작하여, Antora는 [.path]__antora.yml__이라는 컴포넌트 버전 설명자 파일을 찾았을 때 파일 그룹을 컴포넌트 버전의 일부로 식별합니다.
+이러한 소스 파일은 단일 저장소에 저장되거나, 저장소의 루트 또는 하위 경로에 저장되거나, 여러 저장소에 분산될 수 있습니다.
 
-Transform input files into virtual file objects::
-Antora collects all of the files--text, images, samples, and other supporting materials--from each xref:standard-directories.adoc[content source root subtree].
-Then it creates a virtual file of each input file.
+입력 파일을 가상 파일 객체로 변환::
+Antora는 각 xref:standard-directories.adoc[콘텐츠 소스 루트 하위 트리]에서 모든 파일(텍스트, 이미지, 샘플 및 기타 지원 자료)을 수집합니다.
+그런 다음 각 입력 파일의 가상 파일을 만듭니다.
 
-Assign files to component version buckets::
-Antora reads the component version descriptor ( [.path]_antora.yml_) files.
+파일을 컴포넌트 버전 단위에 할당::
+Antora는 컴포넌트 버전 설명자( [.path]_antora.yml_) 파일을 읽습니다.
 +
-A xref:component-version-descriptor.adoc[component version descriptor] associates the files under it with a specified component name and version, that is, a component version.
-This allows the files to be decoupled from the repository in which they live and makes Antora's URL agnostic xref:page:xref.adoc[cross references] possible.
+xref:component-version-descriptor.adoc[컴포넌트 버전 설명자]는 그 아래의 파일을 지정된 컴포넌트 이름과 버전, 즉 컴포넌트 버전과 연결합니다.
+이를 통해 파일을 저장된 저장소에서 분리할 수 있으며 Antora의 URL에 구애받지 않는 xref:page:xref.adoc[상호 참조]가 가능해집니다.
 +
-Antora assigns the descriptor information and other source metadata to the virtual files.
-Then it sorts each file into a virtual collection based on the assigned component version data.
+Antora는 설명자 정보와 기타 소스 메타데이터를 가상 파일에 할당합니다.
+그런 다음 할당된 컴포넌트 버전 데이터를 기반으로 각 파일을 가상 컬렉션으로 분류합니다.
 +
-A xref:component-version.adoc[component version] typically represents a discrete and unique version of the documentation for a project, library, service, or training course.
+xref:component-version.adoc[컴포넌트 버전]은 일반적으로 프로젝트, 라이브러리, 서비스 또는 교육 과정에 대한 문서의 개별적이고 고유한 버전을 나타냅니다.
 
-Compute additional metadata::
-Using xref:playbook:configure-site.adoc[site properties] from the playbook and information assigned to the files in the previous step, Antora adds module, family, family-relative path, and other metadata values to each file.
-It also computes the output path (disk) and publish path (URL) information for each publishable file.
+추가 메타데이터 계산::
+플레이북의 xref:playbook:configure-site.adoc[사이트 속성]과 이전 단계에서 파일에 할당된 정보를 사용하여 Antora는 각 파일에 모듈, 패밀리, 패밀리 상대 경로 및 기타 메타데이터 값을 추가합니다.
+또한 게시 가능한 각 파일에 대한 출력 경로(디스크)와 게시 경로(URL) 정보를 계산합니다.
 
-Organize files into a content catalog::
-Antora further sorts the aggregated files into a content catalog that can be queried and transmitted.
+파일을 콘텐츠 카탈로그로 구성::
+Antora는 집계된 파일을 쿼리하고 전송할 수 있는 콘텐츠 카탈로그로 추가 분류합니다.
 
-// add pages xref when page is available
-Convert AsciiDoc files to embeddable HTML::
-The AsciiDoc files in the xref:pages-directory.adoc[page family] of the content catalog are converted to embeddable HTML with Asciidoctor.js.
+AsciiDoc 파일을 포함 가능한 HTML로 변환::
+콘텐츠 카탈로그의 xref:pages-directory.adoc[페이지 패밀리]에 있는 AsciiDoc 파일은 Asciidoctor.js를 사용하여 포함 가능한 HTML로 변환됩니다.
 
-Convert navigation files::
-Antora retrieves xref:navigation:index.adoc[navigation files] from the content catalog, translates their contents into navigation items organized in a specified hierarchy (navigation trees grouped inside a navigation menu), and returns a navigation model.
+내비게이션 파일 변환::
+Antora는 콘텐츠 카탈로그에서 xref:navigation:index.adoc[내비게이션 파일]을 검색하고, 그 내용을 지정된 계층 구조(내비게이션 메뉴 내에 그룹화된 내비게이션 트리)로 구성된 내비게이션 항목으로 변환한 다음, 내비게이션 모델을 반환합니다.
 
-Locate and fetch UI bundle::
-Antora finds the xref:playbook:configure-ui.adoc[UI bundle using the URL listed in the playbook] and fetches it.
-The UI bundle can be cached locally or remote.
+UI 번들 찾기 및 가져오기::
+Antora는 xref:playbook:configure-ui.adoc[플레이북에 나열된 URL을 사용하여 UI 번들]을 찾고 가져옵니다.
+UI 번들은 로컬 또는 원격으로 캐시될 수 있습니다.
 
-Transform UI files into virtual file objects::
-Antora extracts the UI files in the bundle and creates a virtual file object for each file containing the file's contents and path information.
+UI 파일을 가상 파일 객체로 변환::
+Antora는 번들에서 UI 파일을 추출하고 파일의 내용과 경로 정보를 포함하는 각 파일에 대한 가상 파일 객체를 만듭니다.
 
-Classify UI files::
-Antora identifies the static UI files using the UI descriptor file ([.path]_ui.yml_) and sets the file type to static.
-It sets the type for all other files based on their location (asset, layout, helper, partial).
+UI 파일 분류::
+Antora는 UI 설명자 파일([.path]_ui.yml_)을 사용하여 정적 UI 파일을 식별하고 파일 유형을 정적으로 설정합니다.
+다른 모든 파일에 대해서는 위치(자산, 레이아웃, 헬퍼, 부분)에 따라 유형을 설정합니다.
 
-Compute UI file output paths::
-For each UI file that is publishable (of type static or asset), Antora computes its output path.
+UI 파일 출력 경로 계산::
+게시 가능한 각 UI 파일(정적 또는 자산 유형)에 대해 Antora는 출력 경로를 계산합니다.
 
-Organize UI files into UI catalog::
-The virtual UI files are sorted into a transmittable collection.
+UI 파일을 UI 카탈로그로 구성::
+가상 UI 파일은 전송 가능한 컬렉션으로 정렬됩니다.
 
-Wrap converted AsciiDoc content in page templates::
-Antora determines which page template each page requests.
-It populates the identified UI template with the page's embeddable HTML, site metadata, context data (component, version) for page, version, and product selectors, and navigation model information for menus and breadcrumbs.
+변환된 AsciiDoc 콘텐츠를 페이지 템플릿으로 래핑::
+Antora는 각 페이지가 요청하는 페이지 템플릿을 결정합니다.
+식별된 UI 템플릿에 페이지의 포함 가능한 HTML, 사이트 메타데이터, 페이지의 컨텍스트 데이터(컴포넌트, 버전), 버전 및 제품 선택기, 그리고 메뉴와 브레드크럼을 위한 내비게이션 모델 정보를 채웁니다.
 +
-Relying on a page template to produce the pages gives the site owner complete control over the construction of the pages, and thus complete control over the UI.
+페이지를 생성하기 위해 페이지 템플릿에 의존함으로써 사이트 소유자에게 페이지 구성에 대한 완전한 통제권을 주며, 따라서 UI에 대한 완전한 통제권을 줍니다.
 
-Produce sitemap::
-Antora generates a site map that can be used as an internal report or published with the site.
-This sitemap is partitioned by component name (using a sitemap index).
-The sitemap index links to the sitemap for each component name, which is where the URLs for the individual pages can be found.
+사이트맵 생성::
+Antora는 내부 보고서로 사용하거나 사이트와 함께 게시할 수 있는 사이트맵을 생성합니다.
+이 사이트맵은 컴포넌트 이름별로 분할됩니다(사이트맵 인덱스 사용).
+사이트맵 인덱스는 각 컴포넌트 이름의 사이트맵에 링크하며, 여기서 개별 페이지의 URL을 찾을 수 있습니다.
 
-Publish site::
-Antora writes the generated pages to a default or xref:playbook:output-dir.adoc[user-specified location].
-The site can be published in multiple formats to multiple locations over multiple protocols using xref:playbook:configure-output.adoc[built-in and custom destination providers].
+사이트 게시::
+Antora는 생성된 페이지를 기본 또는 xref:playbook:output-dir.adoc[사용자 지정 위치]에 씁니다.
+사이트는 xref:playbook:configure-output.adoc[내장 및 사용자 정의 대상 제공자]를 사용하여 여러 형식으로 여러 위치에 여러 프로토콜을 통해 게시될 수 있습니다.
 
-It's possible to substitute the default site generator with a custom one.
-You first need to create a library or script that exports the function with signature `generateSite(args, env)`.
-Within that script, you're free to import core components from Antora to reassemble your own pipeline.
-You then activate your pipeline by passing the name of the library or script to the `--generator` option of the xref:cli:index.adoc[Antora CLI].
+기본 사이트 생성기를 사용자 정의 생성기로 대체할 수 있습니다.
+먼저 `generateSite(args, env)` 서명을 가진 함수를 내보내는 라이브러리나 스크립트를 만들어야 합니다.
+해당 스크립트 내에서 Antora의 핵심 컴포넌트를 자유롭게 가져와 자신만의 파이프라인을 재조립할 수 있습니다.
+그런 다음 xref:cli:index.adoc[Antora CLI]의 `--generator` 옵션에 라이브러리나 스크립트의 이름을 전달하여 파이프라인을 활성화합니다.

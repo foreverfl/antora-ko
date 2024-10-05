@@ -1,40 +1,38 @@
-= Repositories and Content Source Roots
+= 저장소와 콘텐츠 소스 루트
 
-Antora collects content source files from directories in branches, tags, and worktrees of git repositories.
-These source files are only retrieved and processed correctly if Antora can locate them within a content source root.
+Antora는 git 저장소의 브랜치, 태그 및 작업 트리에 있는 디렉토리에서 콘텐츠 소스 파일을 수집합니다.
+이러한 소스 파일은 Antora가 콘텐츠 소스 루트 내에서 찾을 수 있을 때만 올바르게 검색되고 처리됩니다.
 
 [#git-and-content-sources]
-== git repositories and content sources
+== git 저장소와 콘텐츠 소스
 
-The source files containing a site's content are stored in one or more git repositories.
-These repositories can be remote, local, or a combination of both.
-In a playbook file, you'll enter several parameters (e.g., url, branches, tags, and start paths) that:
+사이트 콘텐츠를 포함하는 소스 파일은 하나 이상의 git 저장소에 저장됩니다.
+이 저장소들은 원격, 로컬 또는 둘의 조합일 수 있습니다.
+플레이북 파일에서는 여러 매개변수(예: url, branches, tags 및 start paths)를 입력하게 됩니다. 이는 다음을 위한 것입니다:
 
-. allow Antora to locate and connect to your content source repositories, and
-. provide Antora with the location criteria that resolves to one or more <<content-source-root,content source roots>> within a git repository.
+. Antora가 콘텐츠 소스 저장소를 찾고 연결할 수 있게 하고,
+. git 저장소 내에서 하나 이상의 <<content-source-root,콘텐츠 소스 루트>>로 해결되는 위치 기준을 Antora에 제공합니다.
 
-If the repository is local, by default Antora will attempt to use the worktree of that repository if the current branch matches one of the branches defined on the content source.
-This behavior is configurable.
+저장소가 로컬인 경우, 기본적으로 Antora는 현재 브랜치가 콘텐츠 소스에 정의된 브랜치 중 하나와 일치하면 해당 저장소의 작업 트리를 사용하려고 시도합니다.
+이 동작은 구성 가능합니다.
 
-Antora requires a local directory to be a git repository, which means the local directory is a git worktree.
-The git repository itself can be empty, meaning you don't have to commit any files in order for it to work.
-If the local directory is not yet a git repository, you can make it one by running the following commands:
+Antora는 로컬 디렉토리가 git 저장소여야 합니다. 즉, 로컬 디렉토리가 git 작업 트리여야 합니다.
+git 저장소 자체는 비어 있을 수 있습니다. 즉, 작동하기 위해 파일을 커밋할 필요가 없습니다.
+로컬 디렉토리가 아직 git 저장소가 아닌 경우 다음 명령을 실행하여 만들 수 있습니다:
 
  $ git init . && git commit --allow-empty -m init
 
-Before configuring a site's playbook, you'll want to determine where to set up the content source roots in your repositories.
-// to be located and then set up the directories Antora requires.
-//to place your content source roots to beet up the required directories and sorted your content source files into them at each content source root.
+사이트의 플레이북을 구성하기 전에, 저장소에서 콘텐츠 소스 루트를 어디에 설정할지 결정해야 합니다.
 
 [#content-source-root]
-== What's a content source root?
+== 콘텐츠 소스 루트란 무엇인가요?
 
-A [.term]*content source root* is a location in a branch or tag (i.e., a reference) of a repository from where Antora begins looking for content source files.
-Think of the content source root as the entrance of the store where Antora shops.
-From the content source root, Antora looks for an [.path]_antora.yml_ file, which identifies the component version bucket, then scans for a collection of source files organized in a xref:standard-directories.adoc[standard set of directories] to add to that bucket.
+[.term]**콘텐츠 소스 루트**는 저장소의 브랜치나 태그(즉, 참조)에서 Antora가 콘텐츠 소스 파일을 찾기 시작하는 위치입니다.
+콘텐츠 소스 루트를 Antora가 쇼핑하는 상점의 입구라고 생각하세요.
+콘텐츠 소스 루트에서 Antora는 컴포넌트 버전 버킷을 식별하는 [.path]_antora.yml_ 파일을 찾은 다음, 해당 버킷에 추가할 xref:standard-directories.adoc[표준 디렉토리 세트]로 구성된 소스 파일 모음을 스캔합니다.
 
-A repository can have many content source roots.
-You may have one content source root per branch or tag.
-Or you may have multiple content source roots per branch or tag defined using xref:playbook:content-source-start-paths.adoc[multiple start paths].
-You can also have a combination of both.
-Where you store the content source roots is up to you.
+하나의 저장소에 여러 개의 콘텐츠 소스 루트가 있을 수 있습니다.
+브랜치나 태그마다 하나의 콘텐츠 소스 루트가 있을 수 있습니다.
+또는 xref:playbook:content-source-start-paths.adoc[여러 시작 경로]를 사용하여 정의된 브랜치나 태그마다 여러 개의 콘텐츠 소스 루트가 있을 수 있습니다.
+두 가지 방식을 조합할 수도 있습니다.
+콘텐츠 소스 루트를 어디에 저장할지는 여러분의 선택입니다.

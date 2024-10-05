@@ -1,4 +1,4 @@
-.Set Up Content Sources
+.콘텐츠 소스 설정
 * xref:organize-content-files.adoc[]
 * xref:content-source-repositories.adoc[]
 * xref:content-source-versioning-methods.adoc[]

@@ -1,44 +1,44 @@
-= Install and Run Antora Quickstart
+= Antora 설치 및 실행 빠른 시작
 :listing-caption!:
 :url-demo: https://gitlab.com/antora/demo
 
-This quickstart walks you through the initial steps required to install Antora and generate your first documentation site.
+이 빠른 시작 가이드는 Antora를 설치하고 첫 문서 사이트를 생성하는 데 필요한 초기 단계를 안내합니다.
 
-On this page, you’ll learn:
+이 페이지에서 다음을 배우게 됩니다:
 
-* [x] How to install Node.js.
-* [x] How to install Antora.
-* [x] How to create your first Antora playbook.
-* [x] How to run Antora to generate a site based on the playbook.
+* [x] Node.js 설치 방법
+* [x] Antora 설치 방법
+* [x] 첫 Antora 플레이북 생성 방법
+* [x] 플레이북을 기반으로 사이트를 생성하기 위해 Antora를 실행하는 방법
 
 [#install-nodejs]
-== Install Node.js
+== Node.js 설치
 
-Antora requires an active long term support (LTS) release of Node.js.
-To see if you have Node.js installed, and which version, open a terminal and type:
+Antora는 Node.js의 활성 장기 지원(LTS) 릴리스가 필요합니다.
+Node.js가 설치되어 있는지, 그리고 어떤 버전인지 확인하려면 터미널을 열고 다음을 입력하세요:
 
  $ node -v
 
-This command should return an {url-node-releases}[active Node.js LTS version number], for example:
+이 명령은 다음과 같이 {url-node-releases}[활성 Node.js LTS 버전 번호]를 반환해야 합니다:
 
 [subs=+attributes]
  $ node --version
  v{version-node}
 
-If you have an active Node.js LTS version on your machine, you're ready to <<install-antora,install Antora>>.
+활성 Node.js LTS 버전이 시스템에 있다면, <<install-antora,Antora를 설치>>할 준비가 된 것입니다.
 
-If *no version number is displayed in your terminal*, you need to install Node.js.
-We recommend using nvm to install Node.js, though you are free to take a different path.
-Follow one of these guides to learn how to install nvm and Node.js on your platform.
+*터미널에 버전 번호가 표시되지 않는다면*, Node.js를 설치해야 합니다.
+nvm을 사용해 Node.js를 설치하는 것을 권장하지만, 다른 방법을 선택해도 됩니다.
+다음 가이드 중 하나를 따라 해당 플랫폼에서 nvm과 Node.js를 설치하는 방법을 알아보세요.
 
-* xref:install:linux-requirements.adoc#install-nvm[Install nvm and Node.js on Linux]
-* xref:install:macos-requirements.adoc#install-nvm[Install nvm and Node.js on macOS]
-* xref:install:windows-requirements.adoc[Install nvm and Node.js on Windows]
+* xref:install:linux-requirements.adoc#install-nvm[Linux에서 nvm 및 Node.js 설치]
+* xref:install:macos-requirements.adoc#install-nvm[macOS에서 nvm 및 Node.js 설치]
+* xref:install:windows-requirements.adoc[Windows에서 nvm 및 Node.js 설치]
 
-If *you have Node.js installed, but it isn't an active LTS version*, you need to upgrade Node.js.
-To upgrade to the latest Node.js LTS version and set it as your default version, type the following commands in your terminal:
+*Node.js가 설치되어 있지만 활성 LTS 버전이 아니라면*, Node.js를 업그레이드해야 합니다.
+최신 Node.js LTS 버전으로 업그레이드하고 기본 버전으로 설정하려면 터미널에 다음 명령을 입력하세요:
 
-.Linux and macOS
+.Linux 및 macOS
 [subs=+attributes]
  $ nvm install --lts
  $ nvm alias default {version-node-major}
@@ -48,17 +48,17 @@ To upgrade to the latest Node.js LTS version and set it as your default version,
  $ nvm install {version-node}
  $ nvm alias default {version-node}
 
-Once you've installed Node.js, it's time to install Antora.
+Node.js를 설치했다면 이제 Antora를 설치할 차례입니다.
 
 [#install-antora]
-== Install Antora
+== Antora 설치
 
-To generate documentation sites with Antora, you need the Antora command line interface (CLI) and the Antora site generator.
-To install Antora, begin by making a new directory for your site named [.path]_docs-site_ and switch to it.
+Antora로 문서 사이트를 생성하려면 Antora 명령줄 인터페이스(CLI)와 Antora 사이트 생성기가 필요합니다.
+Antora를 설치하려면 먼저 [.path]_docs-site_라는 새 디렉토리를 만들고 그 디렉토리로 이동하세요.
 
  $ mkdir docs-site && cd docs-site
 
-Next, let's initialize a [.path]_package.json_ file and install the required packages within the playbook project so you can run the `antora` command using `npx`.
+다음으로, [.path]_package.json_ 파일을 초기화하고 플레이북 프로젝트 내에 필요한 패키지를 설치하여 `npx`를 사용해 `antora` 명령을 실행할 수 있게 합시다.
 
 [subs=+attributes]
  $ node -e "fs.writeFileSync('package.json', '{}')"
@@ -69,23 +69,23 @@ ifndef::page-component-version-is-latest[]
  $ npm i -D -E antora@{page-component-version}
 endif::[]
 
-NOTE: Refer to xref:security-bulletins.adoc[] to remediate any security vulnerabilities that are reported.
+NOTE: 보고된 보안 취약점을 해결하려면 xref:security-bulletins.adoc[]를 참조하세요.
 
-Verify the `antora` command is available by running:
+`antora` 명령을 사용할 수 있는지 확인하려면 다음을 실행하세요:
 
  $ npx antora -v
 
-If the installation is successful, the command will report the version of the Antora CLI and site generator packages you specified.
+설치가 성공하면 명령은 지정한 Antora CLI 및 사이트 생성기 패키지의 버전을 보고할 것입니다.
 
 [subs=+attributes]
  $ npx antora -v
  @antora/cli: {release-version}
  @antora/site-generator: {release-version}
 
-These versions can also be found in [.path]_package.json_ (pulled in transitively by the antora package), which you can use to upgrade Antora.
+이 버전들은 [.path]__package.json__에서도 확인할 수 있으며(antora 패키지에 의해 간접적으로 가져옴), 이를 사용하여 Antora를 업그레이드할 수 있습니다.
 
-You have the option of installing Antora globally so that the `antora` command is available on your PATH.
-To do so, pass the `-g` option to `npm i`.
+Antora를 전역적으로 설치하여 `antora` 명령을 PATH에서 사용할 수 있게 할 수도 있습니다.
+이를 위해 `npm i`에 `-g` 옵션을 사용하세요.
 
 [subs=+attributes]
 ifdef::page-component-version-is-latest[]
@@ -95,24 +95,24 @@ ifndef::page-component-version-is-latest[]
  $ npm i -g antora@{page-component-version}
 endif::[]
 
-You can verify that the `antora` command is available on your path by running:
+`antora` 명령이 PATH에서 사용 가능한지 확인하려면 다음을 실행하세요:
 
  $ antora -v
 
-We strongly recommend that you install Antora within the playbook project.
-This strategy makes it easier to manage the version of Antora.
-It also ensures that the version of Antora matches the version for which the playbook was made.
+플레이북 프로젝트 내에 Antora를 설치하는 것을 강력히 권장합니다.
+이 방법을 사용하면 Antora 버전을 더 쉽게 관리할 수 있습니다.
+또한 Antora 버전이 플레이북이 만들어진 버전과 일치하는지 확인할 수 있습니다.
 
-Now you're ready to create your first playbook.
+이제 첫 플레이북을 만들 준비가 되었습니다.
 
-TIP: See xref:install:install-antora.adoc[Install Antora] for more detailed information and additional installation methods.
+TIP: 더 자세한 정보와 추가 설치 방법은 xref:install:install-antora.adoc[Antora 설치]를 참조하세요.
 
-== Create a playbook
+== 플레이북 생성
 
-To produce a documentation site, Antora needs a playbook.
-Using your preferred text editor or IDE, create a new file and populate it with the configuration information <<demo-playbook,listed below>>.
-Save this file as [.path]_antora-playbook.yml_ in the [.path]_docs-site_ directory you made in the previous step.
-This playbook file will create a site using the {url-demo}[Antora demo repositories].
+문서 사이트를 생성하려면 Antora에 플레이북이 필요합니다.
+선호하는 텍스트 편집기나 IDE를 사용해 새 파일을 만들고 <<demo-playbook,아래 나열된>> 구성 정보를 입력하세요.
+이 파일을 이전 단계에서 만든 [.path]_docs-site_ 디렉토리에 [.path]_antora-playbook.yml_로 저장하세요.
+이 플레이북 파일은 {url-demo}[Antora 데모 저장소]를 사용하여 사이트를 만듭니다.
 
 .antora-playbook.yml
 [#demo-playbook,yaml]
@@ -132,33 +132,33 @@ ui: # <.>
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
 ----
-<.> A page from a component version to be used as the home page for your site.
-<.> The `sources` category contains the list of git repository locations, branch name patterns, and other repository properties that Antora uses when aggregating the site content.
-<.> The `ui` category contains keys that specify the location of the UI bundle and how it should be processed.
+<.> 사이트의 홈 페이지로 사용할 컴포넌트 버전의 페이지입니다.
+<.> `sources` 카테고리에는 Antora가 사이트 콘텐츠를 집계할 때 사용하는 git 저장소 위치, 브랜치 이름 패턴 및 기타 저장소 속성 목록이 포함되어 있습니다.
+<.> `ui` 카테고리에는 UI 번들의 위치와 처리 방법을 지정하는 키가 포함되어 있습니다.
 
-TIP: See the xref:playbook:index.adoc[Antora playbook] for more detailed information about the playbook file.
+TIP: 플레이북 파일에 대한 더 자세한 정보는 xref:playbook:index.adoc[Antora 플레이북]을 참조하세요.
 
-== Run Antora
+== Antora 실행
 
-To generate the site, point the `antora` command at your playbook file.
-In the terminal, make sure you're in [.path]_docs-site_ directory, then type:
+사이트를 생성하려면 `antora` 명령을 플레이북 파일에 지정하세요.
+터미널에서 [.path]_docs-site_ 디렉토리에 있는지 확인한 후 다음을 입력하세요:
 
  $ npx antora --fetch antora-playbook.yml
 
-Antora will clone the content and UI repositories and generate your documentation site to the default output directory.
+Antora는 콘텐츠와 UI 저장소를 복제하고 기본 출력 디렉토리에 문서 사이트를 생성합니다.
 
-IMPORTANT: By default, Antora does not sync the repository once it clones it.
-Instead, it tries to work offline by using the repository in the cache it previously cloned.
-This default can create some confusion when getting started.
-Therefore, we recommend including the xref:playbook:runtime-fetch.adoc#fetch-option[`--fetch` option] in the command until you're more familiar with Antora.
-You can also set the xref:playbook:runtime-fetch.adoc#fetch-key[fetch key] in your playbook to enable this setting permanently.
+IMPORTANT: 기본적으로 Antora는 저장소를 복제한 후 동기화하지 않습니다.
+대신 이전에 복제한 캐시의 저장소를 사용하여 오프라인으로 작업하려고 합니다.
+이 기본 설정은 시작할 때 혼란을 줄 수 있습니다.
+따라서 Antora에 더 익숙해질 때까지 명령에 xref:playbook:runtime-fetch.adoc#fetch-option[`--fetch` 옵션]을 포함하는 것이 좋습니다.
+또한 플레이북에서 xref:playbook:runtime-fetch.adoc#fetch-key[fetch 키]를 설정하여 이 설정을 영구적으로 활성화할 수 있습니다.
 
-Navigate to the [.path]_docs-site/build/site_ directory and open the [.path]_index.html_ file in your browser to see the result.
-Congratulations!
-You've successfully built your first site with Antora.
+[.path]_docs-site/build/site_ 디렉토리로 이동하여 브라우저에서 [.path]_index.html_ 파일을 열어 결과를 확인하세요.
+축하합니다!
+Antora로 첫 사이트를 성공적으로 만들었습니다.
 
-TIP: For more detailed information about running Antora and troubleshooting help, see xref:run-antora.adoc[Run Antora to generate your site].
+TIP: Antora 실행 및 문제 해결에 대한 더 자세한 정보는 xref:run-antora.adoc[사이트 생성을 위한 Antora 실행]을 참조하세요.
 
-== Learn more
+== 더 알아보기
 
-* Learn how to xref:organize-content-files.adoc[organize your content files] for Antora.
+* Antora를 위한 xref:organize-content-files.adoc[콘텐츠 파일 구성 방법]에 대해 알아보세요.

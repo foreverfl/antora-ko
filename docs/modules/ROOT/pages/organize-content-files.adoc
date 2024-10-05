@@ -1,84 +1,80 @@
-= How to Organize Your Content Files
+= 콘텐츠 파일 구성 방법
 
-Antora employs both convention and configuration to aggregate content and generate your site.
-Before setting up or migrating your repositories, let's review some key concepts that could impact how you organize your documentation projects and content files to work with Antora.
+Antora는 규칙과 구성을 모두 사용하여 콘텐츠를 모으고 사이트를 생성합니다.
+저장소를 설정하거나 마이그레이션하기 전에, Antora와 함께 작동하도록 문서 프로젝트와 콘텐츠 파일을 구성하는 데 영향을 줄 수 있는 몇 가지 주요 개념을 살펴보겠습니다.
 
-== Storing your content source files
+== 콘텐츠 소스 파일 저장
 
-Antora can retrieve content source files from numerous git repositories by searching for files or their xref:symlinks.adoc[symlinks] under a xref:playbook:content-source-start-path.adoc[start path] or xref:playbook:content-source-start-paths.adoc[multiple start paths] in branches, tags, or a local worktree.
-The repositories Antora uses don't have to be reserved exclusively for storing documentation (hence the start path).
-Antora can retrieve files from repositories that also host application code, tests, and other materials in sibling hierarchies.
-Antora relies on both xref:standard-directories.adoc[convention] and xref:playbook:configure-content-sources.adoc[configuration] to identify the documentation content.
+Antora는 브랜치, 태그 또는 로컬 작업 트리에서 xref:playbook:content-source-start-path.adoc[시작 경로] 또는 xref:playbook:content-source-start-paths.adoc[여러 시작 경로] 아래에 있는 파일이나 xref:symlinks.adoc[심볼릭 링크]를 검색하여 여러 git 저장소에서 콘텐츠 소스 파일을 가져올 수 있습니다.
+Antora가 사용하는 저장소가 문서 저장 전용일 필요는 없습니다(따라서 시작 경로가 있습니다).
+Antora는 애플리케이션 코드, 테스트 및 기타 자료를 형제 계층 구조로 호스팅하는 저장소에서도 파일을 가져올 수 있습니다.
+Antora는 문서 콘텐츠를 식별하기 위해 xref:standard-directories.adoc[규칙]과 xref:playbook:configure-content-sources.adoc[구성] 모두를 사용합니다.
 
-In order to fetch source files from multiple and multi-use repositories, Antora requires that the documentation files be:
+여러 저장소와 다용도 저장소에서 소스 파일을 가져오기 위해 Antora는 문서 파일이 다음과 같아야 합니다:
 
-* Located under a xref:content-source-repositories.adoc[content source root]
-* Labeled with a file named xref:component-version-descriptor.adoc[_antora.yml_]
-* Organized into a xref:standard-directories.adoc[standard set of directories]
+* xref:content-source-repositories.adoc[콘텐츠 소스 루트] 아래에 위치
+* xref:component-version-descriptor.adoc[_antora.yml_]이라는 이름의 파일로 레이블 지정
+* xref:standard-directories.adoc[표준 디렉토리 세트]로 구성
 
-Although not required, we *strongly* recommend that you always use lowercase for filenames.
-Some filesystems are case sensitive, while others are not.
-By always using lowercase, you avoid any problems that occur if the filesystem, webserver, or transfer tool does not preserve the casing.
+필수는 아니지만, 파일 이름에 항상 소문자를 사용하는 것을 *강력히* 권장합니다.
+일부 파일 시스템은 대소문자를 구분하지만 다른 시스템은 그렇지 않습니다.
+항상 소문자를 사용하면 파일 시스템, 웹 서버 또는 전송 도구가 대소문자를 보존하지 않을 때 발생할 수 있는 문제를 피할 수 있습니다.
 
-== Classifying your content source files
+== 콘텐츠 소스 파일 분류
 
-Once Antora collects the source files from all content source roots, it classifies each file by assigning metadata to it, which is used to uniquely identify the file within the site.
-The file's identifier, called a resource ID, is used for creating references from pages, other resources, and the configuration.
-This step also implicitly partitions the source files into component versions.
+Antora가 모든 콘텐츠 소스 루트에서 소스 파일을 수집하면, 각 파일에 메타데이터를 할당하여 분류합니다. 이 메타데이터는 사이트 내에서 파일을 고유하게 식별하는 데 사용됩니다.
+리소스 ID라고 불리는 파일의 식별자는 페이지, 다른 리소스 및 구성에서 참조를 만드는 데 사용됩니다.
+이 단계는 또한 소스 파일을 컴포넌트 버전으로 암시적으로 분할합니다.
 
-=== Antora's virtual filesystem
+=== Antora의 가상 파일 시스템
 
-Antora decouples source files from their storage locations after it collects them.
-For all intents and purposes, the origin of each file is irrelevant.
-In other words, Antora never goes back to the filesystem or git repository to read the file once it's discovered and loaded.
-Antora bases all of its file operations on the virtual filesystem (VFS) it creates after it collects the files.
+Antora는 소스 파일을 수집한 후 저장 위치에서 분리합니다.
+모든 의도와 목적에서 각 파일의 출처는 무관합니다.
+다시 말해, Antora는 파일을 발견하고 로드한 후에는 파일을 읽기 위해 파일 시스템이나 git 저장소로 돌아가지 않습니다.
+Antora는 파일을 수집한 후 만드는 가상 파일 시스템(VFS)을 기반으로 모든 파일 작업을 수행합니다.
 
-The only aspect of a file that maps back to the location on the filesystem is the family-relative path.
-And even this association is maintained merely as a convenience for the author.
-Aside from the family-relative path, all other parts of the file's identity are based on associative metadata, such as the component name, version, module name, and family.
+파일 시스템의 위치로 다시 매핑되는 파일의 유일한 측면은 패밀리 상대 경로입니다.
+그리고 이 연관성도 단순히 작성자의 편의를 위해 유지됩니다.
+패밀리 상대 경로를 제외하고 파일 identity의 다른 모든 부분은 컴포넌트 이름, 버전, 모듈 이름 및 패밀리와 같은 연관 메타데이터를 기반으로 합니다.
 
-=== File metadata
+=== 파일 메타데이터
 
-So how does a file get this metadata?
-All files in the same content source root inherit the component name and version from the component version descriptor file, named _antora.yml_.
-These descriptor files help Antora sort and organize all of the collected source files into component versions.
-You can think of a component version as all of the documentation for a version of a project.
-For example, you're reading a page in the {page-component-title} {page-component-display-version} component version right now.
+그렇다면 파일은 어떻게 이 메타데이터를 얻을까요?
+동일한 콘텐츠 소스 루트에 있는 모든 파일은 __antora.yml__이라는 컴포넌트 버전 설명자 파일에서 컴포넌트 이름과 버전을 상속받습니다.
+이러한 설명자 파일은 Antora가 수집된 모든 소스 파일을 컴포넌트 버전으로 정렬하고 구성하는 데 도움을 줍니다.
+컴포넌트 버전을 프로젝트 버전의 모든 문서로 생각할 수 있습니다.
+예를 들어, 지금 읽고 있는 페이지는 {page-component-title} {page-component-display-version} 컴포넌트 버전의 일부입니다.
 
-These _antora.yml_ files are how content that belongs to the same version of a project can be identified by Antora.
-It's also how component versions are defined and populated implicitly.
+이 _antora.yml_ 파일들은 Antora가 동일한 프로젝트 버전에 속하는 콘텐츠를 식별하는 방법입니다.
+또한 컴포넌트 버전이 암시적으로 정의되고 채워지는 방식이기도 합니다.
 
-Inside a content source root, files are further grouped into module and family folders, which provide two more facets of a source file's identity.
-Finally, the family-relative path is captured to uniquely identify a source file within a family, even across multiple repositories or git references.
+콘텐츠 소스 루트 내에서 파일은 모듈 및 패밀리 폴더로 더 그룹화되어 소스 파일 identity의 두 가지 추가 측면을 제공합니다.
+마지막으로, 패밀리 상대 경로가 캡처되어 여러 저장소나 git 참조에 걸쳐 패밀리 내에서 소스 파일을 고유하게 식별합니다.
 
-=== File locations and URLs
+=== 파일 위치 및 URL
 
-The location of a source file doesn't dictate the location of the published file.
-Once a source file is loaded into Antora's VFS, the file's metadata is manipulated, which includes computing the file's output location and URL.
-Each family of files has different rules for how these values are computed.
-The association between where the source file is found, where the published file is placed in the site, or how that file is accessed isn't hardwired.
+소스 파일의 위치가 게시된 파일의 위치를 결정하지는 않습니다.
+소스 파일이 Antora의 VFS에 로드되면 파일의 메타데이터가 조작되며, 여기에는 파일의 출력 위치와 URL 계산이 포함됩니다.
+각 파일 패밀리마다 이러한 값을 계산하는 방법에 대한 규칙이 다릅니다.
+소스 파일이 발견된 위치, 게시된 파일이 사이트에 배치된 위치 또는 해당 파일에 접근하는 방법 사이의 연관성은 고정되어 있지 않습니다.
 
-//That means the names and URLs of the repositories, branches, tags, and content source roots doesn't have any bearing on a site that's generated from these files.
-//
-//Except for the relative path of files stored in the family directories, the source files`' storage locations don't impact how they're referenced internally, organized, labeled, and versioned in the published site, or even how their resulting page URLs are constructed when the site is being generated.
+xref:component-version.adoc[컴포넌트 버전이란 무엇인가요?]와 xref:component-version-descriptor.adoc[antora.yml이란 무엇인가요?]를 참조하여 콘텐츠 소스 파일 그룹에 컴포넌트 이름, 버전 및 기타 선택적 정보를 할당하는 방법을 알아보세요.
 
-See xref:component-version.adoc[What's a component version?] and xref:component-version-descriptor.adoc[What's antora.yml?] to learn how to assign a component name, version and other optional information to groups of content source files.
+=== git 참조 이름
 
-=== git refnames
+브랜치와 태그 이름을 포함한 git 참조 이름은 URL 인코딩이 필요 없는 문자만 포함해야 합니다.
+이 규칙은 git에 의해 강제되지는 않지만, 이를 위반하면 Antora에서 미묘한 문제가 발생할 수 있습니다.
 
-git refnames, which includes the names of branches and tags, should only contain characters that do not need to be URL encoded.
-This rule is not enforced by git, but violating it can cause subtle problems in Antora.
+참조 이름이 게시된 리소스의 URL에 나타나지는 않지만, 파일 원본으로의 참조에 사용됩니다.
+특히 URL 인코딩이 필요한 문자를 참조 이름에 사용하면 페이지의 편집 URL 구성이 복잡해집니다.
 
-While the refname does not appear in the URL of published resources, it is used in references back to the file's origin.
-Specifically, using characters in the refname which have to be URL encoded complicates the assembly of the edit URL for pages.
+예를 들어, `+#+` 문자는 이 규칙을 위반하며 `%23`으로 인코딩해야 합니다.
+Antora는 이 문자를 포함하여 편집 URL을 즐겁게 구축하지만, 브라우저에서 URL이 예상대로 해석되지 않을 것입니다.
+그 이유는 `+#+`가 서버로 전송되는 URL과 브라우저에서만 볼 수 있는 프래그먼트 사이의 경계를 표시하기 때문입니다.
+결과적으로 불완전한 URL이 되어 404 페이지가 나타날 것입니다.
 
-As an example, the character `+#+` violates this rule, which would have to be encoded as `%23`.
-Although Antora will happily build the edit URL to include this character, the URL will not be interpreted as expected by the browser.
-That's because `+#+` marks the boundary between the URL that's sent to the server and the fragment that's only seen by the browser.
-The result will be an incomplete URL and thus a 404 page.
-
-It's acceptable to use the universal directory separator, `/`, in refnames.
-By doing so, it effectively organizes the refs into a folder structure (e.g., `r/3.0.x`).
-However, this strategy can impact refname matching.
-The `+*+` character in a refname pattern does not match `/` (it does not cross the boundary of a folder).
-Therefore, to match a refname such as `r/3.0.x`, you must use the pattern `+r/*+` instead of `+r*+`.
+참조 이름에 범용 디렉토리 구분자인 ``/``를 사용하는 것은 괜찮습니다.
+이렇게 하면 참조를 폴더 구조로 효과적으로 구성할 수 있습니다(예: `r/3.0.x`).
+하지만 이 전략은 참조 이름 매칭에 영향을 줄 수 있습니다.
+참조 이름 패턴의 `+*+` 문자는 ``/``와 일치하지 않습니다(폴더 경계를 넘지 않습니다).
+따라서 ``r/3.0.x``와 같은 참조 이름을 매칭하려면 `+r*+` 대신 `+r/*+` 패턴을 사용해야 합니다.
