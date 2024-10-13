@@ -1,13 +1,13 @@
-= Account and API Keys
+= 계정 및 API 키
 
-The `keys` key accepts a map of name-value pairs that specify account identifiers used for service integrations such as Google Analytics or search tools.
+``keys`` 키는 Google Analytics나 검색 도구와 같은 서비스 통합에 사용되는 계정 식별자를 지정하는 이름-값 쌍의 맵을 받습니다.
 
 [#keys-key]
-== keys key
+== keys 키
 
-The `keys` key is optional.
-You define the `keys` key under the xref:configure-site.adoc[site key] in a playbook.
-`keys` accepts a list of name-value pairs (aka subkeys) that specify account identifiers.
+``keys`` 키는 선택사항입니다.
+플레이북에서 xref:configure-site.adoc[site 키] 아래에 ``keys`` 키를 정의합니다.
+``keys``는 계정 식별자를 지정하는 이름-값 쌍(일명 하위 키)의 목록을 받습니다.
 
 .antora-playbook.yml
 [,yaml]
@@ -20,17 +20,17 @@ site:
     google_analytics: 'XX-123456'
 ----
 
-The value of these keys can then be accessed by a UI template from the `site.keys` property in the UI model.
-When assigned to the UI model, the name is converted to camelCase (regardless of whether words in the name are separated using hyphens or underscores).
-For example, you can access the keys defined in the example above as `site.keys.nameOfAccountKey` and `site.keys.googleAnalytics`, respectively.
+이러한 키의 값은 UI 모델의 ``site.keys`` 속성을 통해 UI 템플릿에서 접근할 수 있습니다.
+UI 모델에 할당될 때, 이름은 카멜케이스로 변환됩니다(이름의 단어가 하이픈이나 밑줄로 구분되어 있는지 여부와 관계없이).
+예를 들어, 위의 예시에서 정의된 키에 각각 ``site.keys.nameOfAccountKey``와 ``site.keys.googleAnalytics``로 접근할 수 있습니다.
 
-Site keys can also be configured from the xref:cli:options.adoc#key[CLI].
+사이트 키는 xref:cli:options.adoc#key[CLI]를 통해서도 구성할 수 있습니다.
 
 [#google-analytics-key]
-== Add a Google Analytics account
+== Google Analytics 계정 추가하기
 
-The `google_analytics` key assigns a Google Analytics account to the site.
-Setting this option implicitly enables the Google Analytics / Tag Manager embed code when using the default UI.
+``google_analytics`` 키는 사이트에 Google Analytics 계정을 할당합니다.
+이 옵션을 설정하면 기본 UI를 사용할 때 Google Analytics / Tag Manager 임베드 코드가 자동으로 활성화됩니다.
 
 .antora-playbook.yml
 [,yaml]
@@ -42,5 +42,5 @@ site:
     google_analytics: 'XX-123456'
 ----
 
-We recommend enclosing the value in single quotation marks (`'`) to prevent it from being mangled by the YAML parser.
-The `google_analytics` key can also be configured from the xref:cli:options.adoc#key[CLI] and using the xref:environment-variables.adoc[GOOGLE_ANALYTICS_KEY environment variable].
+YAML 파서에 의해 값이 변형되는 것을 방지하기 위해 작은따옴표(``'``)로 값을 감싸는 것을 권장합니다.
+``google_analytics`` 키는 xref:cli:options.adoc#key[CLI]를 통해서도 구성할 수 있으며, xref:environment-variables.adoc[GOOGLE_ANALYTICS_KEY 환경 변수]를 사용하여 설정할 수도 있습니다.

@@ -1,12 +1,12 @@
-= Site Keys
+= 사이트 키
 
-The playbook keys configured under `site` manage the site's published identity and how it interacts with certain applications once it's published.
+``site`` 아래에 구성된 플레이북 키는 사이트의 게시된 정체성과 게시 후 특정 애플리케이션과의 상호 작용을 관리합니다.
 
 [#site-key]
-== site key
+== site 키
 
-Global generated site files, service accounts, and other common properties are defined under the `site` key in a playbook file.
-These settings are applied to the entire site when it's generated.
+전역 생성 사이트 파일, 서비스 계정 및 기타 공통 속성은 플레이북 파일의 ``site`` 키 아래에 정의됩니다.
+이러한 설정은 사이트가 생성될 때 전체 사이트에 적용됩니다.
 
 [,yaml]
 ----
@@ -18,48 +18,51 @@ site: # <.>
   keys: # <.>
     google_analytics: XX-123456 # <.>
 ----
-<.> Required `site` key
-<.> Required `title` key
-<.> Optional `url` key
-<.> Optional `start_page` key
-<.> Optional `robots` key
-<.> Optional `keys` key
-<.> Example `google_analytics` key
+<.> 필수 ``site`` 키
+<.> 필수 ``title`` 키
+<.> 선택적 ``url`` 키
+<.> 선택적 ``start_page`` 키
+<.> 선택적 ``robots`` 키
+<.> 선택적 ``keys`` 키
+<.> ``google_analytics`` 키 예시
 
-The `title` key in the `site` category is required.
-The `url` key is optional, but recommended.
-See xref:site-url.adoc#when-should-the-site-url-be-set[When should the site URL be set?] for details.
-The other keys are optional; Antora will use default values if they're not specified.
-Alternatively, `title`, `start_page`, and `keys` can be xref:cli:options.adoc[assigned from the CLI].
-The `url` key can be assigned from the xref:cli:options.adoc#site-url[CLI] or using an xref:environment-variables.adoc[environment variable].
+``site`` 카테고리의 ``title`` 키는 필수입니다.
+``url`` 키는 선택사항이지만 권장됩니다.
+자세한 내용은 xref:site-url.adoc#when-should-the-site-url-be-set[사이트 URL을 언제 설정해야 하나요?]를 참조하세요.
+다른 키들은 선택사항입니다; 지정되지 않은 경우 Antora는 기본값을 사용합니다.
+``title``, ``start_page``, ``keys``는 xref:cli:options.adoc[CLI에서도 할당]할 수 있습니다.
+``url`` 키는 xref:cli:options.adoc#site-url[CLI]에서 할당하거나 xref:environment-variables.adoc[환경 변수]를 사용하여 할당할 수 있습니다.
 
 [#site-reference]
-== Available site keys
+== 사용 가능한 사이트 키
 
 [cols="3,6,1"]
 |===
-|Site Keys |Description |Required
+|사이트 키
+|설명
+|필수 +
+여부
 
 |xref:site-keys.adoc[keys]
-|Account and API keys for reference by the UI templates or extensions.
-Accepts a map of name-value pairs that specify account identifiers for service integrations such as Google Analytics.
-|No
+|UI 템플릿이나 확장에서 참조할 계정 및 API 키.
+Google Analytics와 같은 서비스 통합을 위한 계정 식별자를 지정하는 이름-값 쌍의 맵을 받습니다.
+|아니오
 
 |xref:site-robots.adoc[robots]
-|Specifies whether Antora generates a _robots.txt_ file.
-Accepts the values `allow`, `disallow`, and a custom, multi-line string.
-Ignored if the sibling `url` key is not set.
-|No
+|Antora가 _robots.txt_ 파일을 생성할지 여부를 지정합니다.
+``allow``, ``disallow``, 그리고 사용자 정의 다중 라인 문자열 값을 받습니다.
+형제 ``url`` 키가 설정되지 않은 경우 무시됩니다.
+|아니오
 
 |xref:site-start-page.adoc[start_page]
-|Accepts the resource ID of a page that specifies the start page of a site.
-|No
+|사이트의 시작 페이지를 지정하는 페이지의 리소스 ID를 받습니다.
+|아니오
 
 |xref:site-title.adoc[title]
-|Specifies the title of a site.
-|Yes
+|사이트의 제목을 지정합니다.
+|예
 
 |xref:site-url.adoc[url]
-|Specifies the base URL of a site.
-|No
+|사이트의 기본 URL을 지정합니다.
+|아니오
 |===

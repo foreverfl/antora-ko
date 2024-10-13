@@ -1,78 +1,79 @@
-= Get Help
-// URLs
+= 도움 요청
 :url-issues: {url-repo}/issues
 :url-twitter: https://twitter.com/antoraproject
 :url-twitter-hash: https://twitter.com/hashtag/antora?src=hash
 :url-contributing: https://gitlab.com/antora/antora/blob/main/contributing.adoc
 
-Antora is designed to help you write and publish your documentation.
-However, we can't fully realize this goal without your feedback!
-We encourage you to report issues, ask questions, share ideas, or discuss other aspects of this project using the communication channels provided below.
+Antora는 문서를 작성하고 게시하는 데 도움을 주기 위해 설계되었습니다.
+그러나 여러분의 피드백 없이는 이 목표를 완전히 달성하기 어렵습니다! 
+우리는 여러분이 문제를 보고하고, 질문을 하며, 아이디어를 공유하거나, 아래 제공된 소통 채널을 통해 프로젝트에 대해 자유롭게 논의해 주시길 권장합니다.
 
-== Chat
 
-*The project chat is the preferred means of communication for all users of Antora.*
-This policy helps keep the project sustainable.
+== 채팅
+[[Chat]]
 
-If you want to ask for help, share feedback, or exchange ideas with project maintainers and fellow community members in real time, please join us in the project chat.
+**프로젝트 채팅은 모든 Antora 사용자를 위한 선호되는 의사소통 수단입니다.**
+이 정책은 프로젝트의 지속하는 데 도움이 됩니다.
 
-* {url-chat}[Chat^] (Zulip)
+도움을 요청하거나, 피드백을 공유하거나, 프로젝트 유지 관리자 및 커뮤니티 구성원과 실시간으로 아이디어를 교환하고 싶다면 프로젝트 채팅에 참여해 주세요.
 
-The chat is partitioned into channels by subject matter.
-This partitioning helps to keep conversations organized and makes it possible to filter topics to follow.
-When you first join, spend a few minutes to get familiar with where topics are being discussed.
+* {url-chat}[채팅^] (Zulip)
 
-IMPORTANT: Please do not send direct messages to the maintainers asking for help with Antora.
-The project maintainers do not provide 1-on-1 support.
-All support should be done in the public channels, most often the `#users` channel.
-Direct messages should only be used for personal matters.
+채팅은 주제별로 채널로 나뉘어 있습니다.
+이러한 구분은 대화를 체계적으로 유지하고 팔로우할 주제를 필터링할 수 있게 합니다.
+처음 가입할 때는 주제가 어디서 논의되고 있는지 익숙해지는 데 몇 분 정도 시간을 투자하세요.
 
-Before starting a new topic, use the filter or search feature to look for existing topics before starting a new one.
-You may find the information you're seeking within the discussions that have already taken place.
-If you find an ongoing (i.e., unresolved) discussion that matches the topic of your post, feel free to join in that discussion.
+중요: Antora에 대한 도움을 요청하기 위해 유지 관리자에게 직접 메시지를 보내지 마세요.
+프로젝트 유지 관리자는 1대1 지원을 제공하지 않습니다.
+모든 지원은 공개 채널, 주로 ``#users`` 채널에서 이루어져야 합니다.
+직접 메시지는 개인적인 문제에만 사용해야 합니다.
 
-If you can't find an existing topic that answers your question, or it's already been marked as resolved, you can start a new topic.
-We ask that you select an appropriate channel before you create a new topic.
-If you aren't sure where to post, create a new topic in the `#users` channel and a moderator will reclassify it if necessary.
-No action is needed on your part.
+새로운 주제를 시작하기 전에 필터 또는 검색 기능을 사용하여 기존 주제를 찾아보세요.
+이미 진행된 토론에서 찾고 있는 정보를 발견할 수 있습니다.
+만약 귀하의 게시물 주제와 일치하는 진행 중인(즉, 해결되지 않은) 토론을 찾으면 그 토론에 자유롭게 참여하세요.
 
-Once you've selected a channel, click "`New Topic`", enter a subject, write your post, then click "`Send`".
-You can also select a channel after you click "`New Topic`".
+질문에 대한 답변이 있는 기존 주제를 찾을 수 없거나 이미 해결된 것으로 표시된 경우 새 주제를 시작할 수 있습니다.
+새 주제를 만들기 전에 적절한 채널을 선택해 주시기 바랍니다.
+어디에 게시해야 할지 확실하지 않다면 ``#users`` 채널에 새 주제를 만들고 필요한 경우 관리자가 재분류할 것입니다.
+귀하의 추가 조치는 필요하지 않습니다.
 
-The discussions in the project chat are archived and public.
-There's no guarantee the logs will be saved indefinitely, though we do plan keep them as long as we're permitted to do so.
+채널을 선택한 후 "New Topic"을 클릭하고 제목을 입력한 다음 게시물을 작성하고 "Send"를 클릭하세요.
+"New Topic"을 클릭한 후에도 채널을 선택할 수 있습니다.
 
-The project chat is not 1-on-1 support.
-You're in a public space.
-Users participate in the project chat voluntarily.
-Please be respectful of their time and interests.
+프로젝트 채팅의 토론은 아카이브되며 공개됩니다.
+로그가 영구적으로 저장된다는 보장은 없지만, 허용되는 한 오래 유지할 계획입니다.
 
-IMPORTANT: Do not `@` mention someone when writing a message unless a) the subject matter absolutely requires the attention of that person or b) that person has already replied to the topic and is interacting with you.
-Using the `@` mention to draw attention to your question is not courteous to that person or fair to others participating.
-You're free to post your message to the community at large (no `@` mention).
-If someone has something to share in response, they will do so if and when they have time.
-You can reference someone without notifying them using the `@_` prefix, which is considered acceptable conduct.
+프로젝트 채팅은 1대1 지원이 아닙니다.
+귀하는 공개 공간에 있습니다.
+사용자들은 자발적으로 프로젝트 채팅에 참여합니다.
+그들의 시간과 관심사를 존중해 주세요.
 
-== Issues
+중요: a) 해당 주제가 그 사람의 주의를 절대적으로 필요로 하거나 b) 그 사람이 이미 주제에 답변했고 귀하와 상호 작용하고 있는 경우가 아니라면 메시지를 작성할 때 ``@`` 멘션을 사용하지 마세요.
+질문에 주의를 끌기 위해 ``@`` 멘션을 사용하는 것은 그 사람에게 예의 바르지 않으며 참여하는 다른 사람들에게 공정하지 않습니다.
+커뮤니티 전체에 메시지를 자유롭게 게시할 수 있습니다(``@`` 멘션 없이).
+누군가가 응답으로 공유할 내용이 있다면 시간이 있을 때 그렇게 할 것입니다.
+``@_`` 접두사를 사용하여 알림 없이 누군가를 언급할 수 있으며, 이는 허용되는 행동으로 간주됩니다.
 
-The issue tracker is used to track changes to the software and for planning releases.
-The issue tracker is not a support portal.
-Instead, the issue tracker is reserved for reporting problems (verifiable bugs, regressions, and security vulnerabilities) and requesting new features.
-If you aren't confident that a change to the software is required, please post to the <<Chat>> instead.
+== 이슈
 
-* {url-issues}[Issue tracker^] (GitLab)
+이슈 트래커는 소프트웨어 변경 사항을 추적하고 릴리스를 계획하는 데 사용됩니다.
+이슈 트래커는 지원 포털이 아닙니다.
+대신 이슈 트래커는 문제 보고(검증 가능한 버그, 회귀, 보안 취약점)와 새로운 기능 요청을 위해 예약되어 있습니다.
+소프트웨어 변경이 필요하다고 확신하지 못한다면 <<Chat, 채팅>>에 게시해 주세요.
 
-Any significant change to the software or decision about the project must be logged in the issue tracker.
+* {url-issues}[이슈 트래커^] (GitLab)
 
-== Twitter
+소프트웨어의 중요한 변경이나 프로젝트에 대한 결정은 모두 이슈 트래커에 기록되어야 합니다.
 
-If you want to share your experience with Antora or help promote it, we encourage you to post about it on social media.
-When you talk about Antora on Twitter, you can mention the official account for the project:
+== 트위터
 
-* {url-twitter}[@antoraproject^] -- The official Antora account on Twitter.
+Antora에 대한 경험을 공유하거나 홍보하고 싶다면 소셜 미디어에 게시하는 것을 권장합니다.
+트위터에서 Antora에 대해 이야기할 때 프로젝트의 공식 계정을 언급할 수 있습니다:
 
-You can also use the {url-twitter-hash}[#antora^] hashtag to promote the project or discover other people talking about it.
+* {url-twitter}[@antoraproject^] -- 트위터의 공식 Antora 계정.
 
-== Code and content contributions
+또한 {url-twitter-hash}[#antora^] 해시태그를 사용하여 프로젝트를 홍보하거나 이에 대해 이야기하는 다른 사람들을 발견할 수 있습니다.
 
-If you're interested in helping the maintainers improve the project, then check out the {url-contributing}[Antora contributing guidelines^].
+== 코드 및 콘텐츠 기여
+
+프로젝트 개선을 위해 유지 관리자를 돕는 데 관심이 있다면 {url-contributing}[Antora 기여 가이드라인^]을 확인해 보세요.

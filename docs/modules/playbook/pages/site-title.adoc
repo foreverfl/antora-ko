@@ -1,10 +1,9 @@
-= Site Title
+= 사이트 제목
 
 [#title-key]
-== title key
+== title 키
 
-The `title` key is required.
-It's configured under the xref:configure-site.adoc[site key] in a playbook.
+``title`` 키는 필수입니다. 이는 플레이북의 xref:configure-site.adoc[site 키] 아래에 구성됩니다.
 
 .antora-playbook.yml
 [,yaml]
@@ -14,13 +13,12 @@ site:
   url: https://example.org
 ----
 
-The `title` key accepts a string that's displayed wherever the UI calls the site's title.
-The `title` key can also be xref:cli:options.adoc#title[assigned from the CLI].
+``title`` 키는 UI가 사이트의 제목을 호출하는 모든 곳에 표시되는 문자열을 받습니다. ``title`` 키는 xref:cli:options.adoc#title[CLI에서도 할당]할 수 있습니다.
 
 [#add-site-title]
-== Add a site title
+== 사이트 제목 추가하기
 
-Use the `title` key to add a title to your site.
+``title`` 키를 사용하여 사이트에 제목을 추가하세요.
 
 .antora-playbook.yml
 [,yaml]
@@ -29,5 +27,4 @@ site:
   title: Demo Docs Site
 ----
 
-The title is displayed wherever the site's UI calls this key.
-Antora's reference UI displays the site title in the top left corner of the global navigation bar.
+제목은 사이트의 UI가 이 키를 호출하는 모든 곳에 표시됩니다. Antora의 참조 UI는 전역 내비게이션 바의 왼쪽 상단에 사이트 제목을 표시합니다.

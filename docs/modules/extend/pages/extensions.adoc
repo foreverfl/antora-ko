@@ -1,103 +1,102 @@
-= Antora Extensions
+= Antora 확장
 
-Antora provides an event-based extension facility you can tap into to augment or influence the functionality of the generator.
-This extension facility is designed for users of all experience levels.
-This page provides a high-level summary of how the extension facility works and introduces you to the concepts and terminology you need to know to create or use extensions.
-Subsequent pages step you through creating your first extension.
+Antora는 생성기의 기능을 보완하거나 영향을 줄 수 있는 이벤트 기반 확장 기능을 제공합니다.
+이 확장 기능은 경험이 적은 사용자부터 전문가까지 모두 사용할 수 있도록 설계되었습니다.
+이 페이지에서는 확장 기능의 작동 방식에 대한 개요를 제공하고, 확장을 만들거나 사용하는 데 필요한 개념과 용어를 소개합니다.
+이어지는 페이지에서는 첫 번째 확장을 만드는 과정을 단계별로 안내합니다.
 
-== Generator events
+== 생성기 이벤트
 
-As described in xref:ROOT:how-antora-works.adoc[], Antora's site generator is a sequence of discrete, functional steps that progressively work to generate a static site.
-This pipeline of steps begins with reading the playbook and gathering the source material.
-It ends with publishing the HTML files and web assets to the output destination.
-Antora's extension facility, which is implemented by Antora's site generator, provides a way to hook custom code into the generator's build process.
+xref:ROOT:how-antora-works.adoc[]에서 설명한 대로, Antora의 사이트 생성기는 정적 사이트를 생성하기 위해 점진적으로 작동하는 개별적인 기능적인 단계의 시퀀스입니다.
+이 과정은 플레이북을 읽고 소스 자료를 수집하는 것으로 시작하여, HTML 파일과 웹 자산을 출력 대상에 게시하는 것으로 끝납니다.
+Antora의 사이트 생성기에 의해 구현된 Antora의 확장 기능은 생성기의 빌드 프로세스에 사용자 정의 코드를 연결할 수 있는 방법을 제공합니다.
 
-Antora's extension facility is event-driven, meaning it works by emitting events.
-Events are emitted (aka fired) to notify extension code (i.e., event listeners) of interesting transitions that occur during site generation (i.e., the execution of Antora).
-Specifically, once each discrete step in the generator is complete, and at other key transition points, Antora emits a named event (e.g., `contentAggregated`).
+Antora의 확장 기능은 이벤트 기반으로, 이벤트를 발생시켜 작동합니다.
+이벤트는 사이트 생성(즉, Antora의 실행) 동안 발생하는 중요한 전환을 확장 코드(즉, 이벤트 리스너)에 알리기 위해 발생(fire)됩니다.
+구체적으로, 생성기의 각 개별적인 단계가 완료되고 다른 주요 전환 지점에서 Antora는 명명된 이벤트(예: ``contentAggregated``)를 발생시킵니다.
 
-Events are handled by functions called listeners, which must be registered with that event.
-To hook your code into the operation of Antora, you register extensions that listen to one or more of these events.
-These listeners are defined in the register function of the extension.
+이벤트는 리스너라고 불리는 함수에 의해 처리되며, 이 함수는 해당 이벤트에 등록되어야 합니다.
+Antora의 작동에 코드를 연결하려면 이러한 이벤트 중 하나 이상을 수신하는 확장을 등록합니다.
+이러한 리스너는 확장의 등록 함수에서 정의됩니다.
 
-The listeners of an event can be synchronous or asynchronous, but are called synchronously and in sequence.
-Any value returned by an event listener is ignored.
-Once all the listeners for an event have finished running, the generator proceeds to the next step.
+이벤트의 리스너는 동기식 또는 비동기식일 수 있지만, 동기적으로 순차적으로 호출됩니다.
+이벤트 리스너가 반환하는 값은 무시됩니다.
+이벤트에 대한 모든 리스너의 실행이 완료되면 생성기는 다음 단계로 진행합니다.
 
-In brief, Antora extensions register listeners that respond to transition events emitted by the site generator.
-Subsequent pages go into detail about how to set up listeners, which events those listeners can observe, and how to access context variables.
+간단히 말해, Antora 확장은 사이트 생성기가 발생시키는 전환 이벤트에 응답하는 리스너를 등록합니다.
+이어지는 페이지에서는 리스너를 설정하는 방법, 이러한 리스너가 관찰할 수 있는 이벤트, 그리고 컨텍스트 변수에 접근하는 방법에 대해 자세히 설명합니다.
 
-== The generator context
+== 생성기 컨텍스트
 
-The extension facility in Antora is loosely based on the EventEmitter in Node.js.
-Antora uses an abstraction over this eventing system called the GeneratorContext, which adapts the EventEmitter for this use case.
+Antora의 확장 기능은 Node.js의 EventEmitter를 느슨하게 기반으로 합니다.
+Antora는 이 이벤팅 시스템에 대한 추상화인 GeneratorContext를 사용하여 이 사용 사례에 맞게 EventEmitter를 조정합니다.
 
-When the generator starts, it creates an instance of the GeneratorContext, called the [.term]*generator context*.
-This object is then bound to each extension and its event listeners.
-The generator context is responsible for keeping track of event listeners, storing the generator functions, managing context variables as they flow through the generator, notifying listeners of an event, and providing helpers to make writing extensions easier.
-It's, quite literally, the context of the generator's execution.
+생성기가 시작되면 [.term]**생성기 컨텍스트**라고 불리는 GeneratorContext의 인스턴스를 생성합니다.
+이 객체는 각 확장과 그 이벤트 리스너에 바인딩됩니다.
+생성기 컨텍스트는 이벤트 리스너를 추적하고, 생성기 함수를 저장하며, 생성기를 통해 흐르는 컨텍스트 변수를 관리하고, 이벤트를 리스너에게 알리며, 확장 작성을 쉽게 만드는 도우미를 제공하는 역할을 합니다.
+말 그대로 생성기 실행의 컨텍스트입니다.
 
-Most of the time, you'll interact with the `on` method provided by the generator context to bind your event listener to an event.
-You can also use the generator context to provide custom generator functions.
+대부분의 경우, 이벤트 리스너를 이벤트에 바인딩하기 위해 생성기 컨텍스트가 제공하는 ``on`` 메소드를 사용하게 됩니다.
+또한 생성기 컨텍스트를 사용하여 사용자 정의 생성기 함수를 제공할 수 있습니다.
 
-== What's an event listener?
+== 이벤트 리스너란 무엇인가요?
 
-An [.term]*event listener* is a callback function that's invoked (i.e., notified) when an event is emitted.
-This callback mechanism provides a way to insert code between any two discrete steps of the generator.
-Antora will wait for the listener to run to completion, even if it's async, before proceeding.
+[.term]**이벤트 리스너**는 이벤트가 발생했을 때 호출(즉, 알림)되는 콜백 함수입니다.
+이 콜백 메커니즘은 생성기의 두 개별적인 단계 사이에 코드를 삽입할 수 있는 방법을 제공합니다.
+Antora는 비동기식이라도 리스너가 완전히 실행될 때까지 기다린 후 진행합니다.
 
-A listener can modify the state of in-scope variables in the generator, add new variables, or replace existing variables.
-More times than not, a listener will add additional files to one or more of the catalogs for processing or publishing.
+리스너는 생성기의 범위 내 변수의 상태를 수정하거나, 새로운 변수를 추가하거나, 기존 변수를 대체할 수 있습니다.
+대부분의 경우, 리스너는 처리나 게시를 위해 하나 이상의 카탈로그에 추가 파일을 추가합니다.
 
-Listeners of the same event are invoked in sequence to prevent them from interfering with one another.
+같은 이벤트의 리스너들은 서로 간섭하지 않도록 순차적으로 호출됩니다.
 
-== What's a generator function?
+== 생성기 함수란 무엇인가요?
 
-Generator functions are the predefined, discrete steps the generator performs.
-Although most extensions will listen for generator events, an extension can also replace one or more of these generator functions.
-This capability is used when you want to alter the built-in behavior in Antora, such as how the navigation is built.
-As with event listeners, generator functions are configured on the generator context.
-To hook your own generator functions into the operation of Antora, you register an extension that assigns those functions to the generator context.
+생성기 함수는 생성기가 수행하는 미리 정의된 개별적인 단계입니다.
+대부분의 확장은 생성기 이벤트를 수신하지만, 확장은 이러한 생성기 함수 중 하나 이상을 대체할 수도 있습니다.
+이 기능은 탐색 구축 방식과 같이 Antora의 내장 동작을 변경하고 싶을 때 사용됩니다.
+이벤트 리스너와 마찬가지로 생성기 함수도 생성기 컨텍스트에서 구성됩니다.
+자신의 생성기 함수를 Antora의 작동에 연결하려면 이러한 함수를 생성기 컨텍스트에 할당하는 확장을 등록합니다.
 
-== What are context variables?
+== 컨텍스트 변수란 무엇인가요?
 
-An extension wouldn't be much use if it couldn't access any of the configuration, content, or other data being processed by the generator.
-That's where context variables come in.
+확장이 생성기가 처리하는 구성, 컨텐츠 또는 기타 데이터에 접근할 수 없다면 그다지 유용하지 않을 것입니다.
+여기서 컨텍스트 변수가 등장합니다.
 
-The [.term]*context variables* provide access to the in-scope objects flowing through the generator.
-These variables are stored on the generator context, hence the name context variables.
+[.term]**컨텍스트 변수**는 생성기를 통해 흐르는 범위 내 객체에 대한 접근을 제공합니다.
+이 변수들은 생성기 컨텍스트에 저장되므로 컨텍스트 변수라고 불립니다.
 
-A listener can pick any of those variables out of the generator context and work with them.
-In fact, a listener can read the same variables that the generator itself can read.
-The listener can also push new or replacement variables into the context, as long as those variables are not locked.
+리스너는 이러한 변수 중 어떤 것이든 생성기 컨텍스트에서 선택하여 작업할 수 있습니다.
+사실, 리스너는 생성기 자체가 읽을 수 있는 것과 동일한 변수를 읽을 수 있습니다.
+또한 리스너는 해당 변수가 잠기지 않은 한 새로운 변수나 대체 변수를 컨텍스트에 푸시할 수 있습니다.
 
-== What can an extension do?
+== 확장은 무엇을 할 수 있나요?
 
-To give you an idea of the kinds of extensions you can write and what's possible, here's a glimpse at the things an extension can do to affect the operation of the generator:
+작성할 수 있는 확장의 종류와 가능한 것에 대한 아이디어를 제공하기 위해, 확장이 생성기의 작동에 영향을 미칠 수 있는 것들을 간략히 소개합니다:
 
-* Modify the configuration (i.e., playbook)
-* Change the state of a context variable, such as adding a new file to a catalog
-* Push a new variable into the context
-* Replace or proxy context variables
-* Replace or proxy generator functions
-* Introduce new steps (in a listener or custom generator function)
-* Raise custom events
-* Log messages
-* Require user code
-* Postprocess content, such as replacing strings in HTML files
-* Publish new files
-* Unpublish files
-* Stop processing
+* 설정(즉, 플레이북) 수정
+* 카탈로그에 새 파일 추가와 같은 컨텍스트 변수의 상태 변경
+* 컨텍스트에 새로운 변수 푸시
+* 컨텍스트 변수 대체 또는 프록시
+* 생성기 함수 대체 또는 프록시
+* 새로운 단계 도입(리스너 또는 사용자 정의 생성기 함수에서)
+* 사용자 정의 이벤트 발생
+* 메시지 로깅
+* 사용자 코드 요구
+* HTML 파일의 문자열 대체와 같은 컨텐츠 후처리
+* 새 파일 게시
+* 파일 게시 취소
+* 처리 중지
 
-In general, an extension taps into the generator and tunes its behavior rather than doing a wholesale replacement of it.
-There are some limitations with this approach, but it's a trade-off for providing something that's broadly accessible.
+일반적으로 확장은 생성기를 전면적으로 대체하기보다는 생성기에 접근하여 그 동작을 조정합니다.
+이 접근 방식에는 몇 가지 제한이 있지만, 널리 접근 가능한 것을 제공하는 데 있어 절충안입니다.
 
-== What can't an extension do?
+== 확장이 할 수 없는 것은 무엇인가요?
 
-An extension can't change the order of steps (i.e., generator functions) that the generator performs.
-It also can't make the generator skip steps.
-However, it can replace an existing step with an empty or custom function.
+확장은 생성기가 수행하는 단계(즉, 생성기 함수)의 순서를 변경할 수 없습니다.
+또한 생성기가 단계를 건너뛰게 할 수도 없습니다.
+그러나 기존 단계를 빈 함수나 사용자 정의 함수로 대체할 수는 있습니다.
 
-The most drastic thing an extension can do is to stop the processing early.
-This action is useful if the work of an extension is complete and no additional processing is necessary.
-For example, an extension may only need to report on the content in the site, in which case it can stop the generator before the publishing step.
+확장이 할 수 있는 가장 극단적인 것은 처리를 조기에 중단하는 것입니다.
+이 작업은 확장의 작업이 완료되고 추가 처리가 필요 없을 때 유용합니다.
+예를 들어, 확장이 사이트의 컨텐츠에 대해 보고만 하면 되는 경우, 게시 단계 전에 생성기를 중지할 수 있습니다.

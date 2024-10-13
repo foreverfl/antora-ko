@@ -1,14 +1,14 @@
-= Content Keys
+= 콘텐츠 키
 
-The playbook keys configured under `content` and `sources` define the locations of the content source repositories and how they're processed.
+``content``와 ``sources`` 아래에 구성된 플레이북 키들은 콘텐츠 소스 저장소의 위치와 처리 방법을 정의합니다.
 
 [#content-key]
-== content key
+== content 키
 
-The `content` category key encapsulates the list of content sources (i.e., git repositories) in an Antora site.
-The content sources are defined using the `sources` key.
-The `branches`, `tags`, and `edit_url` keys can be used to define default values for all content sources.
-These keys can be redefined per content source, alongside other keys that are specific to a content source.
+``content`` 카테고리 키는 Antora 사이트의 콘텐츠 소스(즉, git 저장소) 목록을 포함합니다.
+콘텐츠 소스는 ``sources`` 키를 사용하여 정의됩니다.
+``branches``, ``tags``, ``edit_url`` 키를 사용하여 모든 콘텐츠 소스에 대한 기본값을 정의할 수 있습니다.
+이러한 키들은 콘텐츠 소스별로 재정의될 수 있으며, 특정 콘텐츠 소스에만 해당하는 다른 키들과 함께 사용될 수 있습니다.
 
 [,yaml]
 ----
@@ -21,28 +21,28 @@ content: # <.>
     start_path: path-to/content-source-root # <.>
   - url: https://git-service.com/org/repo-y.git # <.>
 ----
-<.> Required `content` key
-<.> Optional `branches` key
-<.> Optional `tags` key
-<.> Optional `edit_url` key
-<.> Required `sources` key
-<.> Required `url` key
-<.> Optional `start_path` key
-<.> Another `url` key
+<.> 필수 ``content`` 키
+<.> 선택적 ``branches`` 키
+<.> 선택적 ``tags`` 키
+<.> 선택적 ``edit_url`` 키
+<.> 필수 ``sources`` 키
+<.> 필수 ``url`` 키
+<.> 선택적 ``start_path`` 키
+<.> 또 다른 ``url`` 키
 
-The `content` and `sources` keys are required.
-The `sources` key must contain at least one entry with the `url` key defined.
-All other keys are optional.
-The xref:content-branches.adoc#default[branches] and xref:content-edit-url.adoc#default[edit_url] keys have built-in values Antora automatically applies at runtime if they're not explicitly set in the playbook.
+``content``와 ``sources`` 키는 필수입니다.
+``sources`` 키는 적어도 하나의 ``url`` 키가 정의된 항목을 포함해야 합니다.
+다른 모든 키는 선택사항입니다.
+xref:content-branches.adoc#default[branches]와 xref:content-edit-url.adoc#default[edit_url] 키는 플레이북에 명시적으로 설정되지 않은 경우 Antora가 런타임에 자동으로 적용하는 내장 값을 가지고 있습니다.
 
-Keys-value pairs that are specified directly under `content` are applied to all of the `url` key entries under `sources`, unless the key is also specified on a specific `url`.
+``content`` 바로 아래에 지정된 키-값 쌍은 특정 ``url``에 해당 키가 지정되지 않은 한 ``sources`` 아래의 모든 ``url`` 키 항목에 적용됩니다.
 
 [#sources-key]
-== sources key
+== sources 키
 
-The `sources` key is required and nested under the `content` key.
-The `sources` key contains a list of source entries.
-Each entry, designated by a hyphen, consists of a git repository location (URL or filesystem path), patterns to match branches and/or tags, an optional start path or paths, and other repository properties that Antora uses when aggregating the site content.
+``sources`` 키는 필수이며 ``content`` 키 아래에 중첩됩니다.
+``sources`` 키는 소스 항목 목록을 포함합니다.
+각 항목은 하이픈으로 지정되며, git 저장소 위치(URL 또는 파일 시스템 경로), 일치시킬 브랜치 및/또는 태그 패턴, 선택적 시작 경로 또는 경로들, 그리고 Antora가 사이트 콘텐츠를 집계할 때 사용하는 기타 저장소 속성으로 구성됩니다.
 
 [,yaml]
 ----
@@ -60,98 +60,98 @@ content: # <.>
     branches: v* # <.>
     version: true # <.>
 ----
-<.> Required `content` key
-<.> Required `sources` key
-<.> Required `url` key
-<.> Optional `branches` key
-<.> Optional `start_paths` key
-<.> Another `url` key
-<.> Optional `branches` key
-<.> Optional `tags` key
-<.> Optional `start_path` key
-<.> Optional `edit_url` key
-<.> Another `url` key
-<.> Optional `branches` key
-<.> Optional `version` key
+<.> 필수 ``content`` 키
+<.> 필수 ``sources`` 키
+<.> 필수 ``url`` 키
+<.> 선택적 ``branches`` 키
+<.> 선택적 ``start_paths`` 키
+<.> 또 다른 ``url`` 키
+<.> 선택적 ``branches`` 키
+<.> 선택적 ``tags`` 키
+<.> 선택적 ``start_path`` 키
+<.> 선택적 ``edit_url`` 키
+<.> 또 다른 ``url`` 키
+<.> 선택적 ``branches`` 키
+<.> 선택적 ``version`` 키
 
-The `sources` key must contain at least one entry with the `url` key defined.
-All other keys are optional.
-The xref:content-branches.adoc#default[branches] and xref:content-edit-url.adoc#default[edit_url] keys have built-in values Antora automatically applies at runtime if they're not explicitly defined in the playbook.
+``sources`` 키는 적어도 하나의 ``url`` 키가 정의된 항목을 포함해야 합니다.
+다른 모든 키는 선택사항입니다.
+xref:content-branches.adoc#default[branches]와 xref:content-edit-url.adoc#default[edit_url] 키는 플레이북에 명시적으로 정의되지 않은 경우 Antora가 런타임에 자동으로 적용하는 내장 값을 가지고 있습니다.
 
-NOTE: If no git references (branches or tags) are matched for a content source entry, Antora will log a message at the info level.
-You must have the log severity level set to at least info to see this message.
-We recommend configuring Antora's logger accordingly to aid with debugging.
+NOTE: 콘텐츠 소스 항목에 대해 일치하는 git 참조(브랜치 또는 태그)가 없는 경우, Antora는 정보 수준에서 메시지를 기록합니다.
+이 메시지를 보려면 로그 심각도 수준을 최소한 정보 수준으로 설정해야 합니다.
+디버깅을 돕기 위해 Antora의 로거를 적절히 구성하는 것을 권장합니다.
 
-The `version` key provides a fallback value for the `version` key in the xref:ROOT:component-version-descriptor.adoc[component version descriptor (_antora.yml_)].
-You should only use it if you're matching a single reference or you want the value to be derived from the refname.
+``version`` 키는 xref:ROOT:component-version-descriptor.adoc[컴포넌트 버전 디스크립터(_antora.yml_)]의 ``version`` 키에 대한 대체 값을 제공합니다.
+단일 참조를 일치시키거나 값을 참조 이름에서 파생시키려는 경우에만 사용해야 합니다.
 
 [#content-reference]
-== Available content keys
+== 사용 가능한 콘텐츠 키
 
-The following keys can be defined under the `content` key.
-With the exception of the `sources` key, which contains the source entries themselves, these keys are used to provide default values for each source entry.
+다음 키들은 ``content`` 키 아래에 정의될 수 있습니다.
+소스 항목 자체를 포함하는 ``sources`` 키를 제외하고, 이 키들은 각 소스 항목에 대한 기본값을 제공하는 데 사용됩니다.
 
 [cols="3,6,1"]
 |===
-|Content Keys |Description |Required
+|콘텐츠 키 |설명 |필수 여부
 
 |xref:content-branches.adoc[branches]
-|Accepts a list of exact branch names and name patterns to use from the repository specified in the content source.
-|No
+|콘텐츠 소스에 지정된 저장소에서 사용할 정확한 브랜치 이름과 이름 패턴 목록을 받습니다.
+|아니오
 
 |xref:content-edit-url.adoc[edit_url]
-|Accepts a URL pattern for building the URL that maps to the source view for the current page.
-Accommodates the following placeholder segments: `+{web_url}+`, `+{refname}+`, `+{refhash}+`, and `+{path}+`.
-|No
+|현재 페이지의 소스 뷰에 매핑되는 URL을 구축하기 위한 URL 패턴을 받습니다.
+다음 플레이스홀더 세그먼트를 수용합니다: ``+{web_url}+``, ``+{refname}+``, ``+{refhash}+``, ``+{path}+``.
+|아니오
 
 |xref:content-source-url.adoc[sources]
-|Accepts a list of content source entries that specify which repositories and repository references to use as content.
-|Yes
+|콘텐츠로 사용할 저장소와 저장소 참조를 지정하는 콘텐츠 소스 항목 목록을 받습니다.
+|예
 
 |xref:content-tags.adoc[tags]
-|Accepts a list of exact tag names and name patterns to use from the repository specified in the content source.
-|No
+|콘텐츠 소스에 지정된 저장소에서 사용할 정확한 태그 이름과 이름 패턴 목록을 받습니다.
+|아니오
 |===
 
 [#content-source-reference]
-== Available content source keys
+== 사용 가능한 콘텐츠 소스 키
 
 [cols="3,6,1"]
 |===
-|Content Keys |Description |Required
+|콘텐츠 키 |설명 |필수 여부
 
 |xref:content-branches.adoc[branches]
-|Accepts a list of exact branch names and name patterns to use from the repository specified in the content source.
-If not specified, defaults to the value of the `branches` key defined on the `content` key.
-|No
+|콘텐츠 소스에 지정된 저장소에서 사용할 정확한 브랜치 이름과 이름 패턴 목록을 받습니다.
+지정되지 않은 경우 ``content`` 키에 정의된 ``branches`` 키의 값을 기본값으로 사용합니다.
+|아니오
 
 |xref:content-edit-url.adoc[edit_url]
-|Accepts a URL pattern for building the URL that maps to the source view for the current page.
-Accommodates the following placeholder segments: `+{web_url}+`, `+{refname}+`, `+{refhash}+`, and `+{path}+`.
-|No
+|현재 페이지의 소스 뷰에 매핑되는 URL을 구축하기 위한 URL 패턴을 받습니다.
+다음 플레이스홀더 세그먼트를 수용합니다: ``+{web_url}+``, ``+{refname}+``, ``+{refhash}+``, ``+{path}+``.
+|아니오
 
 |xref:content-source-start-path.adoc[start_path]
-|Specifies the relative path in the repository to a content source root's location.
-|No
+|저장소에서 콘텐츠 소스 루트 위치까지의 상대 경로를 지정합니다.
+|아니오
 
 |xref:content-source-start-paths.adoc[start_paths]
-|Accepts a list of repository relative path patterns to content source root locations, either as exact paths or shell glob patterns.
-Single values are coerced into an array.
-|No
+|콘텐츠 소스 루트 위치에 대한 저장소 상대 경로 패턴 목록을 받습니다. 정확한 경로나 셸 글로브 패턴으로 지정할 수 있습니다.
+단일 값은 배열로 강제 변환됩니다.
+|아니오
 
 |xref:content-tags.adoc[tags]
-|Accepts a list of exact tag names and name patterns to use from the repository specified in the content source.
-|No
+|콘텐츠 소스에 지정된 저장소에서 사용할 정확한 태그 이름과 이름 패턴 목록을 받습니다.
+|아니오
 
 |xref:content-source-url.adoc[url]
-|Accepts the URL of a git repository, which can either be an HTTPS URL or a local filesystem path.
-|Yes
+|git 저장소의 URL을 받습니다. HTTPS URL이나 로컬 파일 시스템 경로일 수 있습니다.
+|예
 
 |xref:content-source-version.adoc[version]
-|Provides a fallback value for the `version` key in the component version descriptor for all references matched.
-|No
+|일치하는 모든 참조에 대해 컴포넌트 버전 디스크립터의 ``version`` 키에 대한 대체 값을 제공합니다.
+|아니오
 
 |xref:content-worktrees.adoc[worktrees]
-|Accepts a keyword or list of exact branch names or name patterns to control which corresponding worktrees Antora should use.
-|No
+|Antora가 사용해야 하는 해당 작업 트리를 제어하기 위한 키워드나 정확한 브랜치 이름 또는 이름 패턴 목록을 받습니다.
+|아니오
 |===

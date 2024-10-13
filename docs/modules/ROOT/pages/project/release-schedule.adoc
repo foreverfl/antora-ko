@@ -1,20 +1,20 @@
-= Antora Release Schedule
-:navtitle: Release Schedule
+= Antora 릴리스 일정
+:navtitle: 릴리스 일정
 :page-aliases: version-and-lifecycle-policies.adoc, project/roadmap.adoc
 :table-caption!:
 
-Each major release line of the Antora Core components is typically supported for one year after it enters general availability (GA).
+Antora 핵심 컴포넌트의 각 주요 릴리스 라인은 일반적으로 정식 출시(GA)에 들어간 후 1년 동안 지원됩니다.
 
 [cols=6*]
 |===
-|Release Line |Latest Release |Status |GA |Maintenance |EOL
+|릴리스 라인 |최신 릴리스 |상태 |GA |유지보수 |EOL
 
 |Antora 3
 |{release-version}
-|Active
+|활성
 |2021/12/25
-|TBD
-|TBD
+|미정
+|미정
 
 |Antora 2
 |2.3.4
@@ -24,40 +24,40 @@ Each major release line of the Antora Core components is typically supported for
 |2022/02/25
 |===
 
-General Availability (GA):: A release line, such as Antora 2.x, enters general availability on the date the initial, final major version (e.g., Antora 2.0.0) of the software is released and available for download.
+정식 출시(GA):: Antora 2.x와 같은 릴리스 라인은 초기의 최종 주 버전(예: Antora 2.0.0)이 출시되고 다운로드할 수 있게 되는 날짜에 정식 출시에 들어갑니다.
 
-Active:: Release line is being actively improved and supported.
+활성:: 릴리스 라인이 적극적으로 개선되고 지원되고 있습니다.
 
-Maintenance:: Once a release line enters its maintenance period, only its most recent minor version will receive critical security patch releases.
-A release line starts this phase 30 days after the next major release line goes GA.
+유지보수:: 릴리스 라인이 유지보수 기간에 들어가면 가장 최근의 부 버전만 중요한 보안 패치 릴리스를 받게 됩니다.
+릴리스 라인은 다음 주 릴리스 라인이 GA에 들어간 후 30일 뒤에 이 단계를 시작합니다.
 
-End of Life (EOL):: The date after which the release line no longer receives support or releases.
+수명 종료(EOL):: 릴리스 라인이 더 이상 지원이나 릴리스를 받지 않는 날짜입니다.
 
-== Version policy
+== 버전 정책
 
-Antora follows the semantic versioning rules.
-Each Antora component release is versioned *major.minor.patch*.
+Antora는 시맨틱 버전 규칙을 따릅니다.
+각 Antora 컴포넌트 릴리스는 **주.부.패치** 형식으로 버전이 매겨집니다.
 
-Major::
-Major releases occur when there are substantial changes in functionality or when new functionality breaks backwards compatibility.
-Releases within the same major release line will maintain API compatibility.
+주::
+주 릴리스는 기능에 상당한 변화가 있거나 새로운 기능이 이전 버전과의 호환성을 깨뜨릴 때 발생합니다.
+같은 주 릴리스 라인 내의 릴리스는 API 호환성을 유지합니다.
 
-Minor::
-Minor releases add new features, improvements to existing features, and fixes that maintain backwards compatibility.
+부::
+부 릴리스는 새로운 기능, 기존 기능의 개선, 그리고 이전 버전과의 호환성을 유지하는 수정사항을 추가합니다.
 
-Patch::
-Patch releases fix bugs and maintain backwards compatibility.
-Only the latest minor release of a major release line will receive patches.
-Patch releases happen as needed depending on the urgency of the fix.
+패치::
+패치 릴리스는 버그를 수정하고 이전 버전과의 호환성을 유지합니다.
+주 릴리스 라인의 최신 부 릴리스만 패치를 받게 됩니다.
+패치 릴리스는 수정의 긴급성에 따라 필요에 따라 이루어집니다.
 
-Prerelease::
-Major and minor releases may include prerelease versions (major.minor.patch-alpha.n | -beta.n | -rc.n).
-Prerelease versions will be tagged as _next_ so that the npm client doesn't prefer a prerelease over a stable version.
-Once a release candidate (rc) has been thoroughly tested, the stable release will be published.
+사전 릴리스::
+주 및 부 릴리스에는 사전 릴리스 버전(주.부.패치-alpha.n | -beta.n | -rc.n)이 포함될 수 있습니다.
+사전 릴리스 버전은 __next__로 태그가 지정되어 npm 클라이언트가 안정 버전보다 사전 릴리스를 선호하지 않도록 합니다.
+릴리스 후보(rc)가 철저히 테스트되면 안정 릴리스가 게시됩니다.
 
 [#roadmap]
-== Roadmap
+== 로드맵
 
-Refer to https://gitlab.com/antora/antora/-/milestones[Antora's milestones^] and https://gitlab.com/antora/antora/issues[issue tracker^] for a list of the currently scheduled development tasks.
-The milestones are intended for informational purposes only.
-The proposed features, their scope, and the release timeframes are estimates, not firm commitments.
+현재 예정된 개발 작업 목록은 https://gitlab.com/antora/antora/-/milestones[Antora의 마일스톤^]과 https://gitlab.com/antora/antora/issues[이슈 트래커^]를 참조하세요.
+마일스톤은 정보 제공 목적으로만 사용됩니다.
+제안된 기능, 그 범위, 그리고 릴리스 일정은 추정치일 뿐이며 확정된 약속이 아닙니다.

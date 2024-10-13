@@ -1,63 +1,43 @@
-= The Antora Playbook
+= Antora 플레이북
 
-On this page, you'll learn:
+이 페이지에서 다음 내용을 배우게 됩니다:
 
-* [x] The purpose of an Antora playbook.
-* [x] Where the playbook file is located.
-* [x] The playbook file formats Antora accepts.
-//* [x] How a playbook drives an Antora pipeline.
+* [x] Antora 플레이북의 목적
+* [x] 플레이북 파일의 위치
+* [x] Antora가 지원하는 플레이북 파일 형식
 
-== What's an Antora playbook?
+== Antora 플레이북이란?
 
-An Antora playbook makes it easy for technical writers to control what content is included in your site, what user interface (UI) is applied to it, and where the site is published using a playbook file.
-The settings in the playbook file, in combination with CLI options and environment variables, tell Antora how to operate.
+Antora 플레이북은 기술 작가가 사이트에 포함될 콘텐츠, 적용할 사용자 인터페이스(UI), 그리고 사이트 게시 위치를 쉽게 제어할 수 있게 해주는 도구입니다. 플레이북 파일의 설정은 CLI 옵션 및 환경 변수와 함께 Antora의 작동 방식을 결정합니다.
 
-Specifically, a playbook tells Antora:
+구체적으로, 플레이북은 Antora에게 다음을 알려줍니다:
 
-* [x] What information should be applied to the xref:configure-site.adoc[site globally], such as its title and URL.
-* [x] The page that sits at the root of the site (i.e., xref:site-start-page.adoc[home or landing page content]).
-* [x] Which xref:configure-content-sources.adoc[content repositories, branches, and tags] to feed into Antora.
-* [x] What xref:asciidoc-attributes.adoc[AsciiDoc attributes] and xref:asciidoc-extensions.adoc[Asciidoctor extensions] should be applied site wide.
-* [x] Which xref:configure-ui.adoc[UI bundle] to use to control the visual layout, style, and behavior of the pages.
-* [x] Where the site should be xref:configure-output.adoc[published and in what output format].
-* [x] How and when Antora should handle xref:configure-runtime.adoc[source repository updates, artifact updates, and its cache].
+* [x] xref:configure-site.adoc[사이트 전반에 적용될 정보], 예를 들어 제목과 URL
+* [x] 사이트 루트에 위치할 페이지 (즉, xref:site-start-page.adoc[홈 또는 랜딩 페이지 콘텐츠])
+* [x] Antora에 제공할 xref:configure-content-sources.adoc[콘텐츠 저장소, 브랜치, 태그]
+* [x] 사이트 전체에 적용될 xref:asciidoc-attributes.adoc[AsciiDoc 속성]과 xref:asciidoc-extensions.adoc[Asciidoctor 확장]
+* [x] 페이지의 시각적 레이아웃, 스타일, 동작을 제어할 xref:configure-ui.adoc[UI 번들]
+* [x] 사이트가 xref:configure-output.adoc[게시될 위치와 출력 형식]
+* [x] Antora가 xref:configure-runtime.adoc[소스 저장소 업데이트, 아티팩트 업데이트, 캐시]를 처리하는 방법과 시기
 
-Additionally, certain settings in the playbook file can be overridden using xref:cli:options.adoc[CLI options] or xref:environment-variables.adoc[environment variables], which allows an operations team to tailor the behavior for specific environments, such as production.
+또한, 플레이북 파일의 특정 설정은 xref:cli:options.adoc[CLI 옵션]이나 xref:environment-variables.adoc[환경 변수]를 통해 재정의할 수 있어, 운영 팀이 프로덕션과 같은 특정 환경에 맞게 동작을 조정할 수 있습니다.
 
-== Where is a playbook stored?
+== 플레이북은 어디에 저장되나요?
 
 include::partial$playbook-project-summary.adoc[]
 
-== Playbook file formats
+== 플레이북 파일 형식
 
-Playbooks can be written in YAML, JSON, and TOML.
-YAML is a common configuration language for defining automated tasks and most of the playbook examples in this documentation use YAML.
-But you're free to use any of these formats.
+플레이북은 YAML, JSON, TOML로 작성할 수 있습니다. YAML은 자동화 작업을 정의하는 데 흔히 사용되는 설정 언어이며, 이 문서의 대부분의 플레이북 예제는 YAML을 사용합니다. 하지만 이 중 어떤 형식을 사용해도 무방합니다.
 
-Regardless of its format, a playbook contains structured key-value pairs for specifying general site properties, content and UI input sources, and published output destinations and providers.
+형식에 관계없이 플레이북은 일반 사이트 속성, 콘텐츠 및 UI 입력 소스, 게시된 출력 대상 및 제공자를 지정하기 위한 구조화된 키-값 쌍을 포함합니다.
 
-== Relative paths in a playbook
+== 플레이북의 상대 경로
 
-By default, Antora resolves relative paths in the playbook from the current working directory.
-For example, the path [.path]_public_ is effectively [.path]_$PWD/public_.
-If, instead, you want Antora to resolve relative paths from the directory where the playbook file is located, prepend `./` to the path (e.g., [.path]_./public_).
+기본적으로 Antora는 플레이북의 상대 경로를 현재 작업 디렉토리에서 해석합니다. 예를 들어, [.path]__public__ 경로는 사실상 [.path]__$PWD/public__입니다. 대신 Antora가 플레이북 파일이 있는 디렉토리에서 상대 경로를 해석하도록 하려면 경로 앞에 ``./``를 붙이세요 (예: [.path]__./public__).
 
-By starting relative paths with `./`, you make your playbook more portable.
-It means you can run the `antora` command from any directory on the filesystem and the behavior will be the same.
+상대 경로를 ``./``로 시작하면 플레이북의 이식성이 높아집니다. 이는 파일 시스템의 어느 디렉토리에서 `antora` 명령을 실행하더라도 동작이 동일하다는 것을 의미합니다.
 
-If you don't start relative paths with `./`, the path Antora resolves is dependent on the current working directory.
-To get portable behavior, you have to switch to the directory where the playbook file is located before running the `antora` command.
+상대 경로를 ``./``로 시작하지 않으면 Antora가 해석하는 경로는 현재 작업 디렉토리에 따라 달라집니다. 이식 가능한 동작을 얻으려면 `antora` 명령을 실행하기 전에 플레이북 파일이 있는 디렉토리로 이동해야 합니다.
 
-Only use bare relative paths if you intend the path to be tied to the current working directory.
-
-//== How is a playbook created?
-
-//== How does Antora get a playbook?
-
-////
-== Why does Antora need a playbook?
-
-A playbook is the configuration object for Antora.
-It tells an Antora pipeline what content to use, how the content should be processed, how the site should be generated, and where to publish the output.
-The playbook is populated using a combination of a playbook file, CLI options, and environment variables.
-////
+현재 작업 디렉토리에 연결하려는 경우에만 맨 앞에 ``./``가 없는 상대 경로를 사용하세요.

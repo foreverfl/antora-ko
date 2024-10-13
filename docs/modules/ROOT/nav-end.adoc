@@ -1,7 +1,7 @@
 * xref:project/get-help.adoc[]
 * xref:security-bulletins.adoc[]
 
-.Project Governance
+.프로젝트 운영 방침
 * xref:project/release-schedule.adoc[]
 * xref:project/copyright-and-license.adoc[]
 * xref:project/land-acknowledgement.adoc[]

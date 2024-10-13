@@ -1,22 +1,22 @@
-= Security Bulletins
+= 보안 공지
 
-A prompt response to software defects and security vulnerabilities is a top priority for Antora. Even though threats are a fact of life, we take quality assurance seriously with nearly 100% test coverage. This page documents the items that slipped through and how to address them.
+소프트웨어 결함과 보안 취약점에 대한 신속한 대응은 Antora의 최우선 과제입니다. 위협이 항상 존재하지만, 우리는 철저한 품질 보증을 위해 거의 100%에 가까운 테스트 적용 범위를 유지하고 있습니다. 이 페이지는 간과된 항목들과 그 해결 방법을 문서화합니다.
 
-== inflight and glob deprecation notice
+== inflight 및 glob 사용 중단 공지
 
-=== Summary
+=== 요약
 
-Asciidoctor.js depends on asciidoctor-opal-runtime, which depends on a deprecated version of the glob package.
-The glob package, in turn, depends on the deprecated inflight package.
-We're aware of this problem and are planning to eliminate glob from the dependency chain as soon as we're able to.
+Asciidoctor.js는 asciidoctor-opal-runtime에 의존하며, 이는 다시 사용 중단된 glob 패키지를 사용합니다.
+glob 패키지는 또 다른 사용 중단된 패키지인 inflight에 의존하고 있습니다.
+우리는 이 문제를 인식하고 있으며, 가능한 한 빨리 의존성 체인에서 glob을 제거할 계획입니다.
 
-=== Affected versions
+=== 영향받는 버전
 
-All versions of Antora.
+모든 Antora 버전.
 
-=== Remediation plan
+=== 해결 계획
 
-You can explicitly upgrade the glob dependency in your dependency chain, thus eliminating the warning emitted by npm, by adding the following override to your [.path]_package.json_ file:
+의존성 체인에서 glob 의존성을 명시적으로 업그레이드하여 npm에서 발생하는 경고를 제거할 수 있습니다. 이를 위해 [.path]__package.json__ 파일에 다음 오버라이드를 추가하세요:
 
 [,json]
 ----
@@ -27,15 +27,15 @@ You can explicitly upgrade the glob dependency in your dependency chain, thus el
 }
 ----
 
-This remediation is used in the https://gitlab.com/antora/docs.antora.org/-/blob/main/netlify/package.json[build for this site].
-Unfortunately, npm overrides can only be used by the consumer of a library, not the library itself.
-Thus, this is not a remediation solution Antora itself can enact.
+이 해결책은 https://gitlab.com/antora/docs.antora.org/-/blob/main/netlify/package.json[이 사이트의 빌드]에 사용되고 있습니다.
+안타깝게도 npm 오버라이드는 라이브러리 자체가 아닌 라이브러리의 사용자만 사용할 수 있습니다.
+따라서 이는 Antora 자체가 실행할 수 있는 해결책이 아닙니다.
 
-=== Assessment
+=== 평가
 
-Fortunately, Antora never uses the glob library that Asciidoctor.js depends on, so this deprecation is irrelevant.
-However, we recognize that the notice is annoying and may trigger security protocols for users who see it.
+다행히도 Antora는 Asciidoctor.js가 의존하는 glob 라이브러리를 전혀 사용하지 않으므로 이 사용 중단은 무관합니다.
+그러나 우리는 이 공지가 성가시고 이를 보는 사용자들의 보안 프로토콜을 트리거할 수 있다는 점을 인식하고 있습니다.
 
-=== References
+=== 참조
 
-* https://docs.npmjs.com/cli/v8/configuring-npm/package-json#overrides[package.json overrides]
+* https://docs.npmjs.com/cli/v8/configuring-npm/package-json#overrides[package.json 오버라이드]

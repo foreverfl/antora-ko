@@ -1,18 +1,18 @@
-= Robots
+= 로봇
 :url-robots-standard: https://en.wikipedia.org/wiki/Robots_exclusion_standard
 
-Antora can generate a {url-robots-standard}[robots.txt file] to control which paths site crawlers can visit.
+Antora는 사이트 크롤러가 방문할 수 있는 경로를 제어하기 위해 {url-robots-standard}[robots.txt 파일]을 생성할 수 있습니다.
 
 [#robots-key]
-== robots key
+== robots 키
 
-The `robots` key is optional.
-It's configured under the xref:configure-site.adoc[site key] in a playbook.
-Its accepted values are:
+``robots`` 키는 선택사항입니다.
+이는 플레이북의 xref:configure-site.adoc[site 키] 아래에 구성됩니다.
+허용되는 값은 다음과 같습니다:
 
-`allow`:: Allow all user agents to access all paths in the published site.
-`disallow`:: Disallow all user agents from accessing all paths in the published site.
-custom multi-line string:: Non-empty, user-specified string that's used as the contents of the generated [.path]_robots.txt_ file.
+``allow``:: 모든 사용자 에이전트가 게시된 사이트의 모든 경로에 접근할 수 있도록 허용합니다.
+``disallow``:: 모든 사용자 에이전트가 게시된 사이트의 모든 경로에 접근하는 것을 금지합니다.
+사용자 지정 여러 줄 문자열:: 비어있지 않은, 사용자가 지정한 문자열로, 생성된 [.path]__robots.txt__ 파일의 내용으로 사용됩니다.
 
 .antora-playbook.yml
 [,yaml]
@@ -23,15 +23,15 @@ site:
   robots: disallow
 ----
 
-Antora will generate the [.path]_robots.txt_ file at the root of the site.
+Antora는 사이트의 루트에 [.path]__robots.txt__ 파일을 생성할 것입니다.
 
-The `robots` key depends on the sibling `url` key.
-If the `url` key isn't assigned a value, Antora won't generate a [.path]_robots.txt_ file even if `robots` is set to an allowable value.
+``robots`` 키는 형제 키인 ``url`` 키에 의존합니다.
+만약 ``url`` 키에 값이 할당되지 않았다면, ``robots``가 허용되는 값으로 설정되어 있더라도 Antora는 [.path]__robots.txt__ 파일을 생성하지 않습니다.
 
 [#allow-or-disallow-robots]
-== Assign allow or disallow to robots
+== robots에 allow 또는 disallow 할당하기
 
-Let's assume the `url` and `robots` keys are defined as follows:
+``url``과 ``robots`` 키가 다음과 같이 정의되었다고 가정해 봅시다:
 
 .antora-playbook.yml
 [,yaml]
@@ -42,15 +42,15 @@ site:
   robots: allow
 ----
 
-This will generate a [.path]_robots.txt_ file that allows user agents access to all of the site's paths.
+이는 사용자 에이전트가 사이트의 모든 경로에 접근할 수 있도록 허용하는 [.path]__robots.txt__ 파일을 생성할 것입니다.
 
-.Generated robots.txt
+.생성된 robots.txt
 ....
 User-agent: *
 Allow: /
 ....
 
-Similarly, if the `url` and `robots` keys are defined as follows:
+마찬가지로, ``url``과 ``robots`` 키가 다음과 같이 정의되었다면:
 
 .antora-playbook.yml
 [,yaml]
@@ -61,18 +61,18 @@ site:
   robots: disallow
 ----
 
-This will generate a [.path]_robots.txt_ file that disallows access to all paths.
+이는 모든 경로에 대한 접근을 금지하는 [.path]__robots.txt__ 파일을 생성할 것입니다.
 
-.Generated robots.txt
+.생성된 robots.txt
 ....
 User-agent: *
 Disallow: /
 ....
 
-== Generate robots.txt with custom content
+== 사용자 지정 내용으로 robots.txt 생성하기
 
-Any other non-empty value assigned to `robots` will be used as the contents of the [.path]_robots.txt_ file.
-For example, let's assume the `robots` key is declared as follows:
+``robots``에 할당된 다른 비어있지 않은 값은 [.path]__robots.txt__ 파일의 내용으로 사용됩니다.
+예를 들어, ``robots`` 키가 다음과 같이 선언되었다고 가정해 봅시다:
 
 .antora-playbook.yml
 [,yaml]
@@ -85,9 +85,9 @@ site:
     Disallow: /private/
 ----
 
-This will result in the following [.path]_robots.txt_ file being generated.
+이는 다음과 같은 [.path]__robots.txt__ 파일이 생성되게 할 것입니다.
 
-.Generated robots.txt
+.생성된 robots.txt
 ....
 User-agent: *
 Disallow: /private/

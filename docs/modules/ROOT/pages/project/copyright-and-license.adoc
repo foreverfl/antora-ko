@@ -1,14 +1,14 @@
-= Antora Copyright and License
-:navtitle: Copyright and License
+= Antora 저작권 및 라이선스
+:navtitle: 저작권 및 라이선스
 
-== Copyright
+== 저작권
 
-Copyright (C) 2017-present OpenDevise Inc. and the individual contributors to Antora.
+Copyright (C) 2017-현재 OpenDevise Inc. 및 Antora에 기여한 개인 기여자들.
 
-== License
+== 라이선스
 
-Use of Antora is granted under the terms of the https://www.mozilla.org/en-US/MPL/2.0[Mozilla Public License Version 2.0 (MPL-2.0)].
+Antora의 사용은 https://www.mozilla.org/en-US/MPL/2.0[Mozilla Public License 버전 2.0 (MPL-2.0)] 조건에 따라 허가됩니다.
 
-== Trademarks
+== 상표
 
-AsciiDoc(R) and AsciiDoc Language(TM) are trademarks of the Eclipse Foundation, Inc.
+AsciiDoc(R)과 AsciiDoc Language(TM)는 Eclipse Foundation, Inc.의 상표입니다.

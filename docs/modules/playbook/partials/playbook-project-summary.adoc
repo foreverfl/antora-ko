@@ -1,4 +1,1 @@
-A playbook is usually located in a playbook project.
-A playbook project repository is responsible for generating a documentation site.
-It's strictly a _configuration as code_ repository--it does not contain any content.
-Instead, it contains a playbook file, and, in certain situations, supplemental UI files and extension code.
+플레이북은 보통 플레이북 프로젝트에 위치해 있습니다. 플레이북 프로젝트 저장소는 문서 사이트를 생성하는 역할을 담당합니다. 이 저장소는 엄격히 __코드로서의 구성(Configuration as Code)__을 위한 저장소이며, 콘텐츠는 포함하지 않습니다. 대신, 플레이북 파일과 특정 상황에서는 보조 UI 파일 및 확장 코드가 포함됩니다.

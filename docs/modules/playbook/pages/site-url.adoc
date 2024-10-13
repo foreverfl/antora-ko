@@ -1,11 +1,11 @@
-= Site URL
+= 사이트 URL
 
 [#url-key]
-== url key
+== url 키
 
-The `url` key for the site, defined under the xref:configure-site.adoc[site key] in the playbook, is optional, but recommended.
-If this key isn't set, certain features of the site that require a site URL are automatically deactivated.
-See <<when-should-the-site-url-be-set>> for details.
+플레이북의 xref:configure-site.adoc[site 키] 아래에 정의된 사이트의 ``url`` 키는 선택사항이지만 권장됩니다.
+이 키가 설정되지 않으면 사이트 URL이 필요한 특정 기능들이 자동으로 비활성화됩니다.
+자세한 내용은 <<when-should-the-site-url-be-set>>를 참조하세요.
 
 .antora-playbook.yml
 [,yaml]
@@ -15,20 +15,20 @@ site:
   url: https://docs.example.com
 ----
 
-The `url` key defines the location where the site can be accessed once it's published.
-The value of the `url` key can either be an absolute URL (_\https://docs.example.com_, _\https://example.com/docs_) or a root-relative URL (_/products_).
-*Do not include a trailing forward slash* in the `url` value unless the value is a single forward slash (_/_).
+``url`` 키는 사이트가 게시된 후 접근할 수 있는 위치를 정의합니다.
+``url`` 키의 값은 절대 URL (_\https://docs.example.com_, _\https://example.com/docs_) 또는 루트 상대 URL (_/products_)일 수 있습니다.
+값이 단일 슬래시 (_/_)인 경우를 제외하고는 ``url`` 값에 *끝에 슬래시를 포함하지 마세요*.
 
-The site URL appears in the generated site wherever an absolute URL or a root-relative URL is required.
-See xref:ROOT:how-antora-builds-urls.adoc[] to learn more.
+사이트 URL은 절대 URL이나 루트 상대 URL이 필요한 생성된 사이트의 모든 곳에 나타납니다.
+자세한 내용은 xref:ROOT:how-antora-builds-urls.adoc[]를 참조하세요.
 
-Alternatively, the `url` key can be assigned from the CLI using a xref:cli:options.adoc#site-url[--url option] or using the  xref:environment-variables.adoc#site-url[URL environment variable].
+또는 xref:cli:options.adoc#site-url[--url 옵션]을 사용하여 CLI에서 ``url`` 키를 할당하거나 xref:environment-variables.adoc#site-url[URL 환경 변수]를 사용할 수 있습니다.
 
 [#absolute-site-url]
-== Configure an absolute site URL
+== 절대 사이트 URL 구성하기
 
-An absolute URL value starts with a URL scheme directly followed by a colon and two forward slashes (`https://`) and a domain (`docs.example.org`).
-*Do not put a trailing forward slash at the end of the URL.*
+절대 URL 값은 URL 스키마로 시작하고 바로 뒤에 콜론과 두 개의 슬래시 (``https://``)가 오며 그 다음에 도메인 (``docs.example.org``)이 옵니다.
+*URL 끝에 슬래시를 넣지 마세요.*
 
 .antora-playbook.yml
 [,yaml]
@@ -38,10 +38,10 @@ site:
   url: https://docs.example.com
 ----
 
-Absolute site URLs can include a subpath (e.g., _\https://example.com/docs_, _\https://example.com/path/to/subfolder_).
-The [.term]*subpath*, also known as a *path segment* or *pathname*, represents the location from the root of the domain where the site managed by Antora is published.
-If your site is published to a subfolder of your domain, then the absolute site URL must include this path.
-The subpath has the same syntax as a root-relative URL.
+절대 사이트 URL에는 하위 경로가 포함될 수 있습니다 (예: _\https://example.com/docs_, _\https://example.com/path/to/subfolder_).
+[.term]**하위 경로**는 **경로 세그먼트** 또는 **경로 이름**이라고도 하며, Antora가 관리하는 사이트가 게시되는 도메인의 루트로부터의 위치를 나타냅니다.
+사이트가 도메인의 하위 폴더에 게시되는 경우, 절대 사이트 URL에 이 경로를 포함해야 합니다.
+하위 경로는 루트 상대 URL과 동일한 구문을 가집니다.
 
 .antora-playbook.yml
 [,yaml]
@@ -51,15 +51,15 @@ site:
   url: https://example.com/docs
 ----
 
-When an absolute site URL has a subpath, Antora extracts the subpath and assigns it to the xref:ROOT:how-antora-builds-urls.adoc#pathname[site pathname] (_/docs_, _/path/to/subfolder_) for use wherever a xref:ROOT:how-antora-builds-urls.adoc#domain-relative[domain-relative URL] is required.
+절대 사이트 URL에 하위 경로가 있을 때, Antora는 하위 경로를 추출하여 xref:ROOT:how-antora-builds-urls.adoc#pathname[사이트 경로 이름] (_/docs_, _/path/to/subfolder_)에 할당하여 xref:ROOT:how-antora-builds-urls.adoc#domain-relative[도메인 상대 URL]이 필요한 곳에서 사용합니다.
 
-See <<subpath>> for more information about publishing your site to a domain subfolder.
+도메인 하위 폴더에 사이트를 게시하는 것에 대한 자세한 정보는 <<subpath>>를 참조하세요.
 
 [#root-relative-site-url]
-== Configure a root-relative site URL
+== 루트 상대 사이트 URL 구성하기
 
-The root-relative URL is a URL that's relative to the domain, but without having to specify the domain itself.
-A root-relative URL must start with a forward slash (_/products_).
+루트 상대 URL은 도메인에 상대적인 URL이지만 도메인 자체를 지정할 필요가 없습니다.
+루트 상대 URL은 슬래시로 시작해야 합니다 (_/products_).
 
 .antora-playbook.yml
 [,yaml]
@@ -69,12 +69,12 @@ site:
   url: /products
 ----
 
-You might use a root-relative URL instead of an absolute URL if identical sites must be published to or accessible via multiple domains.
-By using a root-relative URL, you can take advantage of many of the benefits of assigning a site URL.
-However, Antora deactivates any feature that depends on an absolute site URL when the value assigned to `url` isn't absolute.
+동일한 사이트를 여러 도메인에 게시하거나 여러 도메인을 통해 접근해야 하는 경우 절대 URL 대신 루트 상대 URL을 사용할 수 있습니다.
+루트 상대 URL을 사용하면 사이트 URL 할당의 많은 이점을 활용할 수 있습니다.
+그러나 ``url``에 할당된 값이 절대 URL이 아닌 경우 Antora는 절대 사이트 URL에 의존하는 모든 기능을 비활성화합니다.
 
-Antora assigns the root-relative URL directly to the xref:ROOT:how-antora-builds-urls.adoc#pathname[site pathname] for computing xref:ROOT:how-antora-builds-urls.adoc#domain-relative[domain-relative URLs].
-If you want to set `url` to a root-relative URL, but want the site pathname to be empty, set the value to a single forward slash.
+Antora는 루트 상대 URL을 xref:ROOT:how-antora-builds-urls.adoc#domain-relative[도메인 상대 URL]을 계산하기 위해 직접 xref:ROOT:how-antora-builds-urls.adoc#pathname[사이트 경로 이름]에 할당합니다.
+``url``을 루트 상대 URL로 설정하되 사이트 경로 이름을 비워두고 싶다면 값을 단일 슬래시로 설정하세요.
 
 .antora-playbook.yml
 [,yaml]
@@ -85,105 +85,105 @@ site:
 ----
 
 [#when-should-the-site-url-be-set]
-== When should the site URL be set?
+== 사이트 URL은 언제 설정해야 하나요?
 
-An Antora site is designed to be viewable offline and from a local filesystem.
-For this reason, the site URL is not required to build the site.
+Antora 사이트는 오프라인에서 그리고 로컬 파일 시스템에서 볼 수 있도록 설계되었습니다.
+이러한 이유로 사이트를 구축하는 데 사이트 URL이 필요하지 않습니다.
 
-However, there are certain features related to publishing that require a site URL, some even an absolute URL.
-When the site URL is not set, these features are automatically deactivated without notice.
-This section identifies these features and which kind of site URL they require.
+그러나 게시와 관련된 특정 기능들은 사이트 URL이 필요하며, 일부는 절대 URL이 필요합니다.
+사이트 URL이 설정되지 않으면 이러한 기능들이 자동으로 비활성화됩니다.
+이 섹션에서는 이러한 기능들과 그들이 필요로 하는 사이트 URL의 종류를 설명합니다.
 
 [#site-url-features]
-=== Features that depend on the site URL
+=== 사이트 URL에 의존하는 기능들
 
-When the site URL is set to any allowable value, the following features are enabled:
+사이트 URL이 허용 가능한 값으로 설정되면 다음 기능들이 활성화됩니다:
 
-* The `site-url` attribute is set on every AsciiDoc document.
-* The `site.url` property is set in the UI model (using the value of the `site.url` key in the playbook).
-* The xref:ROOT:how-antora-builds-urls.adoc#pathname[site pathname] property, `site.path`, is set in the UI model (derived from the `site.url` key in the playbook).
-* The 404 page is generated.
-* The [.path]_robots.txt_ file is generated if `site.robots` is also defined in the playbook.
-* xref:urls-redirect-facility.adoc[Redirects] include the site pathname (`site.path`), if non-empty.
-This does not affect the static redirect facility, which uses relative URLs.
-* The link in the top-left corner of the navbar points to the site URL instead of a relative path (behavior specific to the default UI).
+* 모든 AsciiDoc 문서에 ``site-url`` 속성이 설정됩니다.
+* UI 모델에 ``site.url`` 속성이 설정됩니다 (플레이북의 ``site.url`` 키 값 사용).
+* xref:ROOT:how-antora-builds-urls.adoc#pathname[사이트 경로 이름] 속성인 ``site.path``가 UI 모델에 설정됩니다 (플레이북의 ``site.url`` 키에서 파생).
+* 404 페이지가 생성됩니다.
+* 플레이북에 ``site.robots``도 정의된 경우 __robots.txt__ 파일이 생성됩니다.
+* 비어 있지 않은 경우 xref:urls-redirect-facility.adoc[리다이렉트]에 사이트 경로 이름(``site.path``)이 포함됩니다.
+이는 상대 URL을 사용하는 정적 리다이렉트 기능에는 영향을 미치지 않습니다.
+* 네비게이션 바 왼쪽 상단의 링크가 상대 경로 대신 사이트 URL을 가리킵니다 (기본 UI에 특정한 동작).
 
-When the site URL is set to an absolute URL, the following additional features are enabled:
+사이트 URL이 절대 URL로 설정되면 다음과 같은 추가 기능이 활성화됩니다:
 
-* The sitemap files are generated.
-* The `page.canonicalUrl` is set in the UI model, which gets used by the reference UI to create the canonical link tag in the head.
+* 사이트맵 파일이 생성됩니다.
+* UI 모델에 ``page.canonicalUrl``이 설정되며, 이는 참조 UI에서 head의 정규 링크 태그를 생성하는 데 사용됩니다.
 
-If the site URL is not set, all the aforementioned features are deactivated.
+사이트 URL이 설정되지 않으면 위에서 언급한 모든 기능이 비활성화됩니다.
 
 [#subpath]
-=== When should the site URL include a subpath?
+=== 사이트 URL에 하위 경로를 포함해야 하는 경우는 언제인가요?
 
-The subpath of a site URL represents the location from the root of the domain where the site managed by Antora is located.
-In other words, the site URL takes the visitor to the URL where the redirect for the site start page is located.
-If your site is published to a subfolder of your domain, then the site URL should include this path (e.g., _/path/to/subfolder_).
+사이트 URL의 하위 경로는 Antora가 관리하는 사이트가 위치한 도메인 루트로부터의 위치를 나타냅니다.
+다시 말해, 사이트 URL은 방문자를 사이트 시작 페이지의 리다이렉트가 위치한 URL로 안내합니다.
+사이트가 도메인의 하위 폴더에 게시되는 경우, 사이트 URL에 이 경로를 포함해야 합니다 (예: _/path/to/subfolder_).
 
-When required, Antora uses the site URL to construct absolute and domain-relative URLs to pages in your site, which will always include the subpath, if specified.
-This includes URLs in the sitemap (absolute URLs) as well as rewrite rules (domain-relative URLs).
+필요한 경우 Antora는 사이트 URL을 사용하여 사이트 페이지에 대한 절대 및 도메인 상대 URL을 구성하며, 이는 항상 지정된 경우 하위 경로를 포함합니다.
+여기에는 '절대 URL'인 사이트맵의 URL과 도메인 '상대 URL'를 통한 재작성 규칙(Rewrite Rule)이 포함됩니다.
 
-Let's consider an example of how the subpath is used when creating a server redirect rule.
-Assume the following conditions are true:
+서버 리다이렉트 규칙을 만들 때 하위 경로가 어떻게 사용되는지 예를 들어 살펴봅시다.
+다음 조건이 참이라고 가정해 봅시다:
 
-* The site is published to the [.path]_docs_ subfolder of the example.com domain.
-* The page [.path]_new-page.adoc_ in the ROOT module of the versionless _component-a_ component defines the xref:page:page-aliases.adoc[page alias] [.path]_old-page.adoc_ (meaning [.path]_old-page.adoc_ was renamed to [.path]_new-page.adoc_).
-* The xref:urls-redirect-facility.adoc[redirect facility] is set as `nginx`.
-* You set the site `url` key to `\https://example.com` (the incorrect value) in your playbook.
+* 사이트가 example.com 도메인의 __docs__ 하위 폴더에 게시됩니다.
+* 버전이 없는 _component-a_ 컴포넌트의 ROOT 모듈에 있는 __new-page.adoc__ 페이지가 xref:page:page-aliases.adoc[페이지 별칭] __old-page.adoc__을 정의합니다 (__old-page.adoc__이 __new-page.adoc__으로 이름이 변경되었음을 의미).
+* xref:urls-redirect-facility.adoc[리다이렉트 기능]이 ``nginx``로 설정되어 있습니다.
+* 플레이북에서 사이트 ``url`` 키를 ``\https://example.com``(잘못된 값)으로 설정했습니다.
 
-When you run Antora, it generates the following redirect rule:
+Antora를 실행하면 다음과 같은 리다이렉트 규칙이 생성됩니다:
 
-.A redirect entry that does not includes a subpath
+.하위 경로를 포함하지 않는 리다이렉트 항목
 [listing]
 ----
 /component-a/old-page.html /component-a/new-page.html 301!
 ----
 
-Notice that the domain-relative URLs in the redirect rule don't include the leading `/docs` segment.
-That means if you visit _\https://example.com/docs/component-a/old-page.html_, you are *not* redirected to the new page, because the rule won't match.
-Let's fix that.
+리다이렉트 규칙의 도메인 상대 URL에 선행 ``/docs`` 세그먼트가 포함되어 있지 않음을 주목하세요.
+이는 __\https://example.com/docs/component-a/old-page.html__을 방문하면 규칙이 일치하지 않기 때문에 새 페이지로 **리다이렉트되지 않는다**는 것을 의미합니다.
+이를 수정해 봅시다.
 
-Edit your playbook and set the `url` key to `\https://example.com/docs`.
-Now when you run Antora, it generates the correct redirect rule:
+플레이북을 편집하고 ``url`` 키를 ``\https://example.com/docs``로 설정합니다.
+이제 Antora를 실행하면 올바른 리다이렉트 규칙이 생성됩니다:
 
-.A redirect entry that includes a subpath
+.하위 경로를 포함하는 리다이렉트 항목
 [listing]
 ----
 /docs/component-a/old-page.html /docs/component-a/new-page.html 301!
 ----
 
-Notice the leading `/docs` segment is present in the domain-relative URLs.
-Now, when you visit _\https://example.com/docs/component-a/old-page.html_, you're redirected to the new page.
+도메인 상대 URL에 선행 ``/docs`` 세그먼트가 있음을 주목하세요.
+이제 __\https://example.com/docs/component-a/old-page.html__을 방문하면 새 페이지로 리다이렉트됩니다.
 
-It's important to include the path in the <<absolute-site-url,absolute site URL>> if your site is published to a subfolder of your domain.
-If you don't want to couple your site to a specific domain, assign a <<root-relative-site-url,root-relative site URL>> instead.
-Either way, if you're publishing your site to a subfolder of your domain, you should include the subpath in the value you assign to the `url` key of the site.
+사이트가 도메인의 하위 폴더에 게시되는 경우 <<absolute-site-url,절대 사이트 URL>>에 경로를 포함하는 것이 중요합니다.
+사이트를 특정 도메인에 연결하지 않으려면 대신 <<root-relative-site-url,루트 상대 사이트 URL>>을 할당하세요.
+어느 쪽이든, 사이트를 도메인의 하위 폴더에 게시하는 경우 사이트의 ``url`` 키에 할당하는 값에 하위 경로를 포함해야 합니다.
 
-== Canonical URL
+== 정규 URL
 
-Antora provides built-in support for canonical URLs.
-A [.term]*canonical URL* is the absolute URL of the preferred version of a page; the page you want a search engine to index.
+Antora는 정규 URL에 대한 내장 지원을 제공합니다.
+[.term]**정규 URL**은 페이지의 선호 버전에 대한 절대 URL입니다. 즉, 검색 엔진이 색인화하기를 원하는 페이지입니다.
 
-If you assign an absolute URL to the site URL, Antora computes and assigns the canonical URL to the `page.canonicalUrl` property in the UI model for any applicable page.
-An applicable page is any publishable page in a component that has at least one non-prerelease version.
-If the site URL is not set to an absolute URL, or the page is not in a component with at least one non-prerelease version, Antora does not populate the canonical URL.
+사이트 URL에 절대 URL을 할당하면 Antora는 적용 가능한 모든 페이지에 대해 정규 URL을 계산하고 UI 모델의 ``page.canonicalUrl`` 속성에 할당합니다.
+적용 가능한 페이지는 적어도 하나의 비 프리릴리스 버전이 있는 컴포넌트의 모든 게시 가능한 페이지입니다.
+사이트 URL이 절대 URL로 설정되지 않았거나 페이지가 적어도 하나의 비 프리릴리스 버전이 있는 컴포넌트에 속하지 않은 경우, Antora는 정규 URL을 채우지 않습니다.
 
-The canonical URL is the absolute URL of the newest, non-prerelease version of a page.
-The canonical URL is computed by prepending the site URL (including the subpath) to the (root-relative) URL of that page.
+정규 URL은 페이지의 최신 비 프리릴리스 버전의 절대 URL입니다.
+정규 URL은 사이트 URL(하위 경로 포함)을 해당 페이지의 (루트 상대) URL 앞에 붙여 계산됩니다.
 
-The canonical URL points to the current page only if the current page is the newest non-prerelease version.
-Otherwise, the canonical URL points to the newest, non-prerelease version of the current page.
+정규 URL은 현재 페이지가 최신 비 프리릴리스 버전인 경우에만 현재 페이지를 가리킵니다.
+그렇지 않으면 정규 URL은 현재 페이지의 최신 비 프리릴리스 버전을 가리킵니다.
 
-CAUTION: If the page has been deleted, the newest version of a page may not be in the latest version of the component.
+주의: 페이지가 삭제된 경우, 페이지의 최신 버전이 컴포넌트의 최신 버전에 있지 않을 수 있습니다.
 
-=== Canonical URL link tag
+=== 정규 URL 링크 태그
 
-In order for the canonical URL to be picked up by the search crawler, the UI template must include it in the page.
-The canonical URL should be declared as the value of the `href` attribute on a `<link rel="canonical">` tag inside the `<head>` tag of the page.
-Antora's default UI does this for you.
-Here's the template logic from Antora's default UI that generates this `<link>` tag:
+검색 크롤러가 정규 URL을 인식하려면 UI 템플릿이 이를 페이지에 포함해야 합니다.
+정규 URL은 페이지의 ``<head>`` 태그 내에 있는 ``<link rel="canonical">`` 태그의 ``href`` 속성 값으로 선언되어야 합니다.
+Antora의 Default UI는 이를 자동으로 처리합니다.
+다음은 Antora의 Default UI에서 이 ``<link>`` 태그를 생성하는 템플릿 로직입니다:
 
 [,hbs]
 ----
@@ -192,29 +192,29 @@ Here's the template logic from Antora's default UI that generates this `<link>` 
 {{/with}}
 ----
 
-Here's how the canonical URL appears in the generated page:
+다음은 생성된 페이지에서 정규 URL이 어떻게 나타나는지 보여줍니다:
 
 [,html]
 ----
 <link ref="canonical" href="https://docs.example.org/component-name/2.0/page-name.html">
 ----
 
-Assuming the page to which the canonical URL refers is present in all versions of the component, all versions of the page will contain the same `<link>` tag.
-If the page is in a prerelease version, it will refer back to the page in the latest (non-prerelease) version.
+정규 URL이 참조하는 페이지가 컴포넌트의 모든 버전에 존재한다고 가정하면, 페이지의 모든 버전에 동일한 ``<link>`` 태그가 포함됩니다.
+페이지가 프리릴리스 버전에 있는 경우, 최신(비 프리릴리스) 버전의 페이지를 참조합니다.
 
-TIP: It's up the creator of a custom UI to decide whether to include the canonical URL in the page template.
-Antora merely makes the information available via the UI page model.
-Antora's default UI includes the required tag in the page template.
+TIP: 사용자 정의 UI에 정규 URL을 페이지 템플릿에 포함할지 여부는 해당 UI 제작자의 결정입니다.
+Antora는 단순히 UI 페이지 모델을 통해 이 정보를 제공합니다.
+Antora의 기본 UI는 페이지 템플릿에 필요한 태그를 포함합니다.
 
-=== How the canonical URL works
+=== 정규 URL의 작동 방식
 
-The purpose of the canonical URL is to help search engines correlate versions of the same page and to suggest which version of the page is preferred (i.e., the version to index).
-When the search engine comes across a page which has a canonical URL that's different from the current URL, the search engine should not index that page, but rather index the page to which the canonical URL points.
-By defining the canonical URL, it should ensure that old versions of a page do not show up in search results.
+정규 URL의 목적은 검색 엔진이 동일한 페이지의 여러 버전을 연관 짓고 어떤 버전의 페이지가 선호되는지(즉, 색인화할 버전)를 제안하는 데 도움을 주는 것입니다.
+검색 엔진이 현재 URL과 다른 정규 URL을 가진 페이지를 발견하면, 해당 페이지를 색인화하지 않고 정규 URL이 가리키는 페이지를 색인화해야 합니다.
+정규 URL을 정의함으로써 오래된 버전의 페이지가 검색 결과에 나타나지 않도록 할 수 있습니다.
 
-One caveat is that if a page is present in old versions of a component, but not the latest version, the canonical URL will point to a page in an older version, and thus be indexed.
-If you do not want this to happen, make sure that another page in the latest version of the component claims that page using a page alias.
-That way, Antora will configure the canonical URL to point to the page that claims that page, thus avoiding the old page from being indexed.
+한 가지 주의할 점은 페이지가 컴포넌트의 이전 버전에는 있지만 최신 버전에는 없는 경우, 정규 URL이 이전 버전의 페이지를 가리키게 되어 색인화될 수 있다는 것입니다.
+이를 원하지 않는다면, 최신 버전의 컴포넌트에서 다른 페이지가 페이지 별칭을 사용하여 해당 페이지를 참조하도록 해야 합니다.
+이렇게 하면 Antora가 정규 URL을 해당 페이지를 참조하는 페이지로 설정하여 이전 페이지가 색인화되는 것을 방지할 수 있습니다.
 
-Use the https://support.google.com/webmasters/answer/9012289?hl=en[URL inspection tool] to see what canonical URL Google has detected for a page, and whether a page is indexed.
-See https://developers.google.com/search/docs/advanced/crawling/consolidate-duplicate-urls[Consolidating duplicate URLs] and https://support.google.com/webmasters/answer/10347851?hl=en[Canonical URL] to learn more about canonical URLs and how search engines like Google interpret them.
+https://support.google.com/webmasters/answer/9012289?hl=en[URL 검사 도구]를 사용하여 Google이 페이지에 대해 감지한 정규 URL과 페이지의 색인화 여부를 확인할 수 있습니다.
+정규 URL과 Google과 같은 검색 엔진이 이를 해석하는 방법에 대해 자세히 알아보려면 https://developers.google.com/search/docs/advanced/crawling/consolidate-duplicate-urls[중복 URL 통합]과 https://support.google.com/webmasters/answer/10347851?hl=en[정규 URL]을 참조하세요.

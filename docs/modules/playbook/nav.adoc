@@ -1,4 +1,4 @@
-.Configure Your Site
+.사이트 설정하기
 * xref:index.adoc[]
 * xref:set-up-playbook.adoc[]
 * xref:configure-site.adoc[]
@@ -26,7 +26,7 @@
 ** xref:git-plugins.adoc[]
 * xref:configure-asciidoc.adoc[]
 ** xref:asciidoc-attributes.adoc[]
-** xref:asciidoc-extensions.adoc[]
+// ** xref:asciidoc-extensions.adoc[]
 ** xref:asciidoc-sourcemap.adoc[]
 * xref:configure-ui.adoc[]
 ** xref:ui-bundle-url.adoc[]

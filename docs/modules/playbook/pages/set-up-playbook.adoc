@@ -1,17 +1,17 @@
-= Set Up a Playbook
+= 플레이북 설정하기
 :page-aliases: playbook-schema.adoc
 
-Let's create a basic playbook file in the YAML format.
-The steps in the following sections will walk you through setting up a playbook that configures a site title and URL, fetches source files from the Demo Component A and Demo Component B repositories, and applies Antora's reference UI to the converted pages.
+YAML 형식으로 기본 플레이북 파일을 만들어 봅시다.
+다음 섹션의 단계들은 사이트 제목과 URL을 구성하고, Demo Component A와 Demo Component B 저장소에서 소스 파일을 가져오며, 변환된 페이지에 Antora의 참조 UI를 적용하는 플레이북을 설정하는 과정을 안내합니다.
 
-== Configure your site's properties
+== 사이트 속성 구성하기
 
-First, let's configure your site's title and URL.
+먼저, 사이트의 제목과 URL을 구성해 봅시다.
 
-. Open a new file in the text editor or IDE of your choice.
-You'll typically name this file [.path]_antora-playbook.yml_.
-. On the first line, type `site:` and
-press kbd:[Enter] to go to the next line.
+. 선호하는 텍스트 편집기나 IDE에서 새 파일을 엽니다.
+일반적으로 이 파일의 이름을 __antora-playbook.yml__로 지정합니다.
+. 첫 줄에 ``site:``를 입력하고
+kbd:[Enter]를 눌러 다음 줄로 이동합니다.
 +
 --
 [,yaml]
@@ -19,12 +19,12 @@ press kbd:[Enter] to go to the next line.
 site:
 ----
 
-The xref:configure-site.adoc[site key] accepts a map of key-value pairs that define global site properties.
+xref:configure-site.adoc[site 키]는 전역 사이트 속성을 정의하는 키-값 쌍의 맵을 받습니다.
 --
 
-. The xref:site-title.adoc[title key] is a child of `site`.
-Type `title:{sp}` and then the text that will become the title of your site.
-Press kbd:[Enter].
+. ``title`` 키는 ``site``의 하위 항목입니다.
+``title:{sp}``를 입력한 다음 사이트의 제목이 될 텍스트를 입력합니다.
+kbd:[Enter]를 누릅니다.
 +
 [,yaml]
 ----
@@ -32,7 +32,7 @@ site:
   title: My Demo Site
 ----
 
-. Type `url:{sp}` and then the base URL of your site.
+. ``url:{sp}``를 입력한 다음 사이트의 기본 URL을 입력합니다.
 +
 --
 [,yaml]
@@ -42,10 +42,10 @@ site:
   url: https://docs.demo.com
 ----
 
-Assigning an xref:site-url.adoc[absolute URL to the url key] activates secondary features such as the sitemap.
+xref:site-url.adoc[url 키에 절대 URL을 할당]하면 사이트맵과 같은 부가 기능이 활성화됩니다.
 --
 
-. On the next line, enter `start_page:{sp}` and the page ID of the page Antora should use as the site's home page.
+. 다음 줄에 ``start_page:{sp}``를 입력하고 Antora가 사이트의 홈 페이지로 사용해야 할 페이지의 ID를 입력합니다.
 +
 --
 [,yaml]
@@ -56,19 +56,19 @@ site:
   start_page: component-b::index.adoc
 ----
 
-The xref:site-start-page.adoc[start_page value] in the example above is the page ID for the latest version of the file [.path]_index.adoc_ that belongs to _Component B_.
-In order for Antora to use this page, you need to tell Antora where to find the source files that belong to Component B.
+위 예시의 xref:site-start-page.adoc[start_page 값]은 __Component B__에 속한 __index.adoc__ 파일의 최신 버전에 대한 페이지 ID입니다.
+Antora가 이 페이지를 사용하려면 Component B에 속한 소스 파일의 위치를 Antora에 알려줘야 합니다.
 --
 
-In the next section, let's define the content sources URLs, branches, and start paths.
+다음 섹션에서는 콘텐츠 소스 URL, 브랜치, 시작 경로를 정의해 보겠습니다.
 
-== Configure your site's content sources
+== 사이트의 콘텐츠 소스 구성하기
 
-Antora needs to know what git repositories, branches, and tags it should locate and fetch source files from, as well as the location of any content source roots that aren't at the root of a repository.
-Let's define these keys in the playbook file you started in the previous section.
+Antora가 소스 파일을 찾고 가져올 git 저장소, 브랜치, 태그를 알아야 하며, 저장소 루트에 없는 콘텐츠 소스 루트의 위치도 알아야 합니다.
+이전 섹션에서 시작한 플레이북 파일에 이러한 키를 정의해 봅시다.
 
-. Type `content:` flush against the left side of the file.
-Press kbd:[Enter] to go to the next line.
+. 파일의 왼쪽에 맞춰 ``content:``를 입력합니다.
+kbd:[Enter]를 눌러 다음 줄로 이동합니다.
 +
 [,yaml]
 ----
@@ -77,8 +77,8 @@ Press kbd:[Enter] to go to the next line.
 content:
 ----
 
-. The `sources` key is a child of `content`.
-Type `sources:` and press kbd:[Enter].
+. ``sources`` 키는 ``content``의 하위 항목입니다.
+``sources:``를 입력하고 kbd:[Enter]를 누릅니다.
 +
 --
 [,yaml]
@@ -89,12 +89,12 @@ content:
   sources:
 ----
 
-The xref:configure-content-sources.adoc#sources-key[sources key] requires at least one `url` key be assigned a xref:content-source-url.adoc[remote repository URL or filesystem path].
-Let's assign the URL for a remote repository named _Demo Component A_ to `url` in the next step.
+xref:configure-content-sources.adoc#sources-key[sources 키]는 최소한 하나의 ``url`` 키에 xref:content-source-url.adoc[원격 저장소 URL 또는 파일 시스템 경로]가 할당되어야 합니다.
+다음 단계에서 __Demo Component A__라는 원격 저장소의 URL을 ``url``에 할당해 보겠습니다.
 --
 
-. Type a hyphen (`-`) followed by a blank space.
-Then type `url:{sp}` and the URL of a content source repository.
+. 하이픈(`-`) 뒤에 공백을 입력합니다.
+그런 다음 ``url:{sp}``를 입력하고 콘텐츠 소스 저장소의 URL을 입력합니다.
 +
 --
 [,yaml]
@@ -106,15 +106,15 @@ content:
   - url: https://gitlab.com/antora/demo/demo-component-a.git
 ----
 
-Now, Antora can locate the _Demo Component A_ repository.
-But it also needs to know what branches and tags it should fetch.
+이제 Antora가 _Demo Component A_ 저장소의 위치를 알 수 있습니다.
+하지만 어떤 브랜치와 태그를 가져와야 하는지도 알아야 합니다.
 
-The xref:content-branches.adoc#default[default branches filter] is applied at runtime when a `url` key doesn't have a `branches` or `tags` key set on it.
-Since the _Demo Component A_ repository only has one branch, and that branch's name (`main`) falls within the parameters of the default filter, you don't need to explicitly set `branches` on this `url` key.
+xref:content-branches.adoc#default[기본 브랜치 필터]는 ``url`` 키에 ``branches`` 또는 ``tags`` 키가 설정되지 않았을 때 런타임에 적용됩니다.
+_Demo Component A_ 저장소에는 브랜치가 하나뿐이고, 그 브랜치의 이름(``main``)이 기본 필터의 매개변수에 해당하므로 이 ``url`` 키에 ``branches``를 명시적으로 설정할 필요가 없습니다.
 --
 
-. Let's add the URL for the _Demo Component B_ repository.
-On a new line, type `- url:{sp}` and the repository's URL.
+. _Demo Component B_ 저장소의 URL을 추가해 봅시다.
+새 줄에 ``- url:{sp}``를 입력하고 저장소의 URL을 입력합니다.
 +
 --
 [,yaml]
@@ -127,18 +127,18 @@ content:
   - url: https://gitlab.com/antora/demo/demo-component-b.git
 ----
 
-The _Demo Component B_ repository uses branches for versioning.
-The content source files in the branches `v1.0` and `v2.0` are ready for publishing.
-However, you can't use the xref:content-branches.adoc#default[default branches filter] on this `url` because the files in the `main` branch shouldn't be published to the site.
-Instead, you'll have to tell Antora what branches it should fetch from the _Demo Component B_ repository.
+_Demo Component B_ 저장소는 버전 관리에 브랜치를 사용합니다.
+``v1.0``과 ``v2.0`` 브랜치의 콘텐츠 소스 파일이 게시 준비가 되어 있습니다.
+그러나 ``main`` 브랜치의 파일은 사이트에 게시되어서는 안 되기 때문에 이 ``url``에 xref:content-branches.adoc#default[기본 브랜치 필터]를 사용할 수 없습니다.
+대신, Antora에게 _Demo Component B_ 저장소에서 어떤 브랜치를 가져와야 하는지 알려줘야 합니다.
 --
 
-. On the next line, type `branches:{sp}` and an opening square bracket (`+[+`).
-Inside the `+[+`, type each branch name that Antora should fetch.
-Separate the values with commas.
-It doesn't matter what order you list the branch names.
-At the end of the list, type a closing square bracket (`+]+`).
-Press kbd:[Enter].
+. 다음 줄에 ``branches:{sp}``와 여는 대괄호(`+[+`)를 입력합니다.
+`+[+` 안에 Antora가 가져와야 할 각 브랜치 이름을 입력합니다.
+값들을 쉼표로 구분합니다.
+브랜치 이름을 나열하는 순서는 중요하지 않습니다.
+목록 끝에 닫는 대괄호(`+]+`)를 입력합니다.
+kbd:[Enter]를 누릅니다.
 +
 --
 [,yaml]
@@ -152,17 +152,17 @@ content:
     branches: [v2.0, v1.0]
 ----
 
-Make sure to indent `branches` enough so the _u_ in `url` and _b_ in `branches` are lined up.
+``url``의 __u__와 ``branches``의 __b__가 일직선상에 오도록 ``branches``를 충분히 들여쓰세요.
 
-TIP: The `branches` key also accepts shell glob patterns.
-For instance, you could define `branches: v*` on the `url` key for _Demo Component B_ to specify that Antora fetch the branches with the names `v1.0` and `v2.0`.
+TIP: ``branches`` 키는 쉘 글로브 패턴도 받아들입니다.
+예를 들어, __Demo Component B__의 ``url`` 키에 ``branches: v*``를 정의하여 Antora가 ``v1.0``과 ``v2.0``이라는 이름의 브랜치를 가져오도록 지정할 수 있습니다.
 
-You're not done configuring the keys for the _Demo Component B_ repository just yet.
-The xref:ROOT:content-source-repositories.adoc#content-source-root[content source root] in each branch isn't at the root of the repository, https://gitlab.com/antora/demo/demo-component-b/-/tree/main/docs[it's at _docs_].
-You'll need to set the `start_path` key on `url` so Antora can locate the content source root.
+_Demo Component B_ 저장소에 대한 키 구성이 아직 끝나지 않았습니다.
+각 브랜치의 xref:ROOT:content-source-repositories.adoc#content-source-root[콘텐츠 소스 루트]가 저장소의 루트에 있지 않고 https://gitlab.com/antora/demo/demo-component-b/-/tree/main/docs[__docs__에 있습니다].
+Antora가 콘텐츠 소스 루트를 찾을 수 있도록 ``url``에 ``start_path`` 키를 설정해야 합니다.
 --
 
-. Type `start_path:{sp}` and the repository root relative path.
+. ``start_path:{sp}``를 입력하고 저장소 루트에 대한 상대 경로를 입력합니다.
 +
 --
 [,yaml]
@@ -177,18 +177,18 @@ content:
     start_path: docs
 ----
 
-Don't add leading or trailing slashes to the path.
+경로 앞뒤에 슬래시를 추가하지 마세요.
 --
 
-Now, you're ready to configure the final set of required keys that will tell Antora what UI it should apply to the site.
+이제 Antora가 사이트에 적용해야 할 UI를 알려주는 마지막 필수 키 세트를 구성할 준비가 되었습니다.
 
-== Configure your site's UI bundle
+== 사이트의 UI 번들 구성하기
 
-Antora needs a xref:ui-bundle-url.adoc[UI bundle] in order to generate a site.
-Let's tell Antora to use it's reference UI bundle by defining the required keys in the playbook file you worked on in the previous sections.
+Antora는 사이트를 생성하기 위해 xref:ui-bundle-url.adoc[UI 번들]이 필요합니다.
+이전 섹션에서 작업한 플레이북 파일에 필요한 키를 정의하여 Antora에게 참조 UI 번들을 사용하도록 지시해 봅시다.
 
-. Flush against the left side of the file, type `ui:`.
-Press kbd:[Enter] to go to the next line.
+. 파일의 왼쪽에 맞춰 ``ui:``를 입력합니다.
+kbd:[Enter]를 눌러 다음 줄로 이동합니다.
 +
 [,yaml]
 ----
@@ -197,8 +197,8 @@ Press kbd:[Enter] to go to the next line.
 ui:
 ----
 
-. The `bundle` key is a child of `ui`.
-Type `bundle:` and press kbd:[Enter].
+. ``bundle`` 키는 ``ui``의 하위 항목입니다.
+``bundle:``을 입력하고 kbd:[Enter]를 누릅니다.
 +
 [,yaml]
 ----
@@ -208,23 +208,8 @@ ui:
   bundle:
 ----
 
-. The `url` key is a child of `bundle`.
-Type `url:{sp}` and then the URL of Antora's reference UI bundle.
-+
---
-[,yaml]
-----
-# ...
-    start_path: docs
-ui:
-  bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
-----
-
-Antora's reference UI archive changes over time, but its URL doesn't, so you need to activate the xref:ui-bundle-url.adoc#snapshot[snapshot key].
---
-
-. On the next line, enter `snapshot:{sp}` and the value `true`.
+. ``url`` 키는 ``bundle``의 하위 항목입니다.
+``url:{sp}``를 입력한 다음 Antora의 참조 UI 번들의 URL을 입력합니다.
 +
 --
 [,yaml]
@@ -234,26 +219,17 @@ Antora's reference UI archive changes over time, but its URL doesn't, so you nee
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
-    snapshot: true
 ----
 
-When `snapshot` is set to `true`, Antora will download the UI bundle whenever xref:runtime-fetch.adoc[fetch] is activated in the playbook or from the CLI.
+Antora의 참조 UI 아카이브는 시간이 지남에 따라 변경되지만 URL은 변경되지 않으므로 xref:ui-bundle-url.adoc#snapshot[snapshot 키]를 활성화해야 합니다.
 --
 
-You're almost done!
-Here's the entire playbook file you've assembled so far.
-
+. 다음 줄에 ``snapshot:{sp}``를 입력하고 값으로 ``true``를 입력합니다.
++
+--
 [,yaml]
 ----
-site:
-  title: My Demo Site
-  url: https://docs.demo.com
-  start_page: component-b::index.adoc
-content:
-  sources:
-  - url: https://gitlab.com/antora/demo/demo-component-a.git
-  - url: https://gitlab.com/antora/demo/demo-component-b.git
-    branches: [v2.0, v1.0]
+# ...
     start_path: docs
 ui:
   bundle:
@@ -261,11 +237,35 @@ ui:
     snapshot: true
 ----
 
-This playbook will generate a site named _My Demo Site_ using the content files from the specified repository branches and the UI files from the specified UI bundle.
+``snapshot``이 ``true``로 설정되면 Antora는 플레이북이나 CLI에서 xref:runtime-fetch.adoc[fetch]가 활성화될 때마다 UI 번들을 다운로드합니다.
+--
 
-All you've got to do before running Antora on this playbook is save it.
-Playbook files are often saved with the filename [.path]_antora-playbook.yml_ or a related filename, such as [.path]_local-antora-playbook.yml_, depending on the context in which it's used.
+거의 다 완성되었습니다!
+지금까지 조립한 전체 플레이북 파일은 다음과 같습니다.
 
-Once you've saved the playbook file, you're ready to xref:ROOT:run-antora.adoc[run Antora].
+[,yaml]
+----
+site:
+  title: My Demo Site
+  url: https://docs.demo.com
+  start_page: component-b::index.adoc
+content:
+  sources:
+  - url: https://gitlab.com/antora/demo/demo-component-a.git
+  - url: https://gitlab.com/antora/demo/demo-component-b.git
+    branches: [v2.0, v1.0]
+    start_path: docs
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+----
 
-TIP: You can also get this playbook from the https://gitlab.com/antora/demo/docs-site[Demo Docs Site repository].
+이 플레이북은 지정된 저장소 브랜치의 콘텐츠 파일과 지정된 UI 번들의 UI 파일을 사용하여 __My Demo Site__라는 사이트를 생성합니다.
+
+Antora를 이 플레이북으로 실행하기 전에 해야 할 일은 저장하는 것뿐입니다.
+플레이북 파일은 주로 __antora-playbook.yml__ 또는 사용 맥락에 따라 __local-antora-playbook.yml__과 같은 관련 파일 이름으로 저장됩니다.
+
+플레이북 파일을 저장했다면 이제 xref:ROOT:run-antora.adoc[Antora를 실행]할 준비가 되었습니다.
+
+TIP: 이 플레이북은 https://gitlab.com/antora/demo/docs-site[Demo Docs Site 저장소]에서도 얻을 수 있습니다.

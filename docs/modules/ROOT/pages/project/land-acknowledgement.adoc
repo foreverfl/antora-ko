@@ -1,15 +1,15 @@
-= Land Acknowledgement
+= 토지에 대한 인정
 
-== Our Statement
+== 우리의 성명
 
-We would like to acknowledge that the Antora project is primarily developed on land that occupies the traditional and unceded territories (Treaty of Fort Laramie: 1851 & 1868, Cession 426) of the Cheyenne, Očhéthi Šakówiŋ, and Ute Peoples, who have stewarded the land and its water for generations.
+우리는 Antora 프로젝트가 주로 Cheyenne, Očhéthi Šakówiŋ, 그리고 Ute 원주민들의 전통적이며, 아직 양도되지 않은 영토(Fort Laramie 조약: 1851 & 1868, Cession 426)를 차지하고 있는 땅에서 개발되고 있음을 인정하고자 합니다. 이들은 수 세대에 걸쳐 이 땅과 물을 관리해 왔습니다.
 
-In offering this Land Acknowledgment, we affirm Indigenous sovereignty, history, and experiences.
-May this acknowledgment express our commitment to listen to and honor the teachings of past and present Indigenous Peoples and to uphold their sacred relation to this land and water by helping to protect it.
+이 토지에 대한 인정을 통해, 우리는 원주민의 주권, 역사, 그리고 경험을 존중합니다.
+이 인정을 통해 우리는 과거와 현재의 원주민들로부터 배운 가르침을 존중하며, 이 땅과 물을 보호함으로써 그들과의 신성한 관계를 지키겠다는 우리의 약속을 표현하고자 합니다.
 
-== What is a Land Acknowledgment?
+== 토지에 대한 인정이란 무엇인가요?
 
-A Land Acknowledgment is a formal statement that gives thanks and gratitude to the Indigenous Peoples who worked and lived on the land in which we reside both presently and historically.
-These statements honor Indigenous culture, their ancestral homelands, and the sacredness of land while recognizing the complex, ongoing history of colonialism, and the privilege we have to live where we do.
+토지에 대한 인정은 현재와 역사적으로 우리가 거주하는 땅에서 일하고 살았던 원주민들에게 감사와 고마움을 표하는 공식적인 성명입니다.
+이러한 성명은 원주민 문화, 그들의 조상의 고향, 그리고 땅의 신성함을 인정하면서 동시에 식민주의의 복잡하고 지속적인 역사와 우리가 살고 있는 곳에 대한 특권을 인정합니다.
 
-You can learn more about the history of the Indigenous lands in the United States and Canada, and why acknowledging that history matters, at https://native-land.ca/resources/territory-acknowledgement/[Native Land Digital^].
+미국과 캐나다의 원주민 땅의 역사에 대해 더 자세히 알아보고, 그 역사를 인정하는 것이 왜 중요한지에 대해서는 https://native-land.ca/resources/territory-acknowledgement/[Native Land Digital^]에서 확인할 수 있습니다.

@@ -1,12 +1,12 @@
-= Site Start Page
+= 사이트 시작 페이지
 
-When you assign the valid resource ID of a page to the `start_page` key in your playbook, site visitors will be redirected from the site's index page at the xref:site-url.adoc[site URL] to the URL of the start page.
+플레이북의 ``start_page`` 키에 유효한 페이지의 리소스 ID를 할당하면, 사이트 방문자는 xref:site-url.adoc[사이트 URL]의 인덱스 페이지에서 시작 페이지의 URL로 리디렉션됩니다.
 
 [#start-page-key]
-== start_page key
+== start_page 키
 
-The `start_page` key is optional.
-It's configured under the xref:configure-site.adoc[site key] in a playbook.
+``start_page`` 키는 선택사항입니다.
+이는 플레이북의 xref:configure-site.adoc[site 키] 아래에 구성됩니다.
 
 .antora-playbook.yml
 [,yaml]
@@ -17,21 +17,21 @@ site:
   start_page: component:module:file-coordinate-of-page.adoc
 ----
 
-You can use any page that belongs to a component version as the index page for your site.
-The `start_page` key accepts the resource ID of a page as a value.
-*The resource ID must include the xref:page:resource-id-coordinates.adoc#id-component[component, module, and file coordinates]*.
-The xref:page:resource-id-coordinates.adoc#id-version[version coordinate] can be specified if you want to use a specific version of a page instead of the latest version.
-Alternatively, `start_page` can be assigned from the xref:cli:options.adoc#start-page[CLI].
+컴포넌트 버전에 속한 어떤 페이지든 사이트의 인덱스 페이지로 사용할 수 있습니다.
+``start_page`` 키는 페이지의 리소스 ID를 값으로 받습니다.
+*리소스 ID는 반드시 xref:page:resource-id-coordinates.adoc#id-component[컴포넌트, 모듈, 파일 좌표]를 포함해야 합니다*.
+최신 버전 대신 특정 버전의 페이지를 사용하려면 xref:page:resource-id-coordinates.adoc#id-version[버전 좌표]를 지정할 수 있습니다.
+또는 ``start_page``를 xref:cli:options.adoc#start-page[CLI]에서 할당할 수도 있습니다.
 
-If your site has an xref:ROOT:component-name-key.adoc#root-component[unversioned component named ROOT] (i.e., name: ROOT, version: +~+), that component will be published to the root of the site.
-The component name will not appear in the URL of those pages.
-That means that the index.adoc page in the ROOT module (i.e., modules/ROOT/pages/index.adoc) of the unversioned ROOT component implicitly acts as the site start page without having to specify it in the playbook.
-In other words, the site start page is effectively `ROOT::index.adoc`.
-If you specify a different site start page in this case, it will be ignored since the site already has a start page.
+사이트에 xref:ROOT:component-name-key.adoc#root-component[버전이 없는 ROOT라는 이름의 컴포넌트]가 있다면 (즉, name: ROOT, version: ``~``), 해당 컴포넌트는 사이트의 루트에 게시됩니다.
+이 경우 컴포넌트 이름은 해당 페이지들의 URL에 나타나지 않습니다.
+이는 버전이 없는 ROOT 컴포넌트의 ROOT 모듈에 있는 index.adoc 페이지(즉, modules/ROOT/pages/index.adoc)가 플레이북에 명시하지 않아도 암묵적으로 사이트 시작 페이지 역할을 한다는 의미입니다.
+다시 말해, 사이트 시작 페이지는 사실상 ``ROOT::index.adoc``입니다.
+이 경우에 다른 사이트 시작 페이지를 지정하더라도, 사이트에 이미 시작 페이지가 있기 때문에 무시됩니다.
 
-== Use a page's latest version
+== 페이지의 최신 버전 사용하기
 
-To have the `start_page` key always point to the xref:ROOT:how-component-versions-are-sorted.adoc#latest-version[latest version] of the specified page, don't enter the version coordinate in the resource ID of the page.
+``start_page`` 키가 항상 지정된 페이지의 xref:ROOT:how-component-versions-are-sorted.adoc#latest-version[최신 버전]을 가리키게 하려면, 페이지의 리소스 ID에 버전 좌표를 입력하지 마세요.
 
 .antora-playbook.yml
 [,yaml]
@@ -42,12 +42,12 @@ site:
   start_page: component-b::index.adoc
 ----
 
-For this example, let's say that version 2.0 is the latest version of Component B.
-In this case, _\https://demo.antora.org/index.html_ will redirect to _\https://demo.antora.org/component-b/2.0/index.html_.
+이 예시에서, Component B의 최신 버전이 2.0이라고 가정해보겠습니다.
+이 경우, __https://demo.antora.org/index.html__은 __https://demo.antora.org/component-b/2.0/index.html__로 리디렉션됩니다.
 
-== Use a specific version of a page
+== 페이지의 특정 버전 사용하기
 
-If you want the site's start page to be a specific version of the designated page, include the xref:page:resource-id-coordinates.adoc#id-version[version coordinate in the resource ID].
+사이트의 시작 페이지로 지정된 페이지의 특정 버전을 사용하고 싶다면, xref:page:resource-id-coordinates.adoc#id-version[리소스 ID에 버전 좌표]를 포함시키세요.
 
 .antora-playbook.yml
 [,yaml]
@@ -58,6 +58,6 @@ site:
   start_page: 1.0@component-b::index.adoc
 ----
 
-In this example, _\https://demo.antora.org/index.html_ will redirect to _\https://demo.antora.org/component-b/1.0/index.html_.
+이 예시에서는 __https://demo.antora.org/index.html__이 __https://demo.antora.org/component-b/1.0/index.html__로 리디렉션됩니다.
 
-NOTE: To configure a start page for a component version, see xref:ROOT:component-start-page.adoc[].
+NOTE: 컴포넌트 버전의 시작 페이지를 구성하려면 xref:ROOT:component-start-page.adoc[]를 참조하세요.
